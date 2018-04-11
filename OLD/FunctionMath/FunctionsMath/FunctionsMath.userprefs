@@ -1,0 +1,20 @@
+﻿<Properties StartupItem="FunctionsMath/FunctionsMath.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="FunctionsMath/Program.cs">
+    <Files>
+      <File FileName="FunctionsMath/Program.cs" Line="28" Column="1" />
+      <File FileName="FunctionsMath/FunctionBuilder.cs" Line="204" Column="1" />
+      <File FileName="FunctionsMath/IFunction.cs" Line="1" Column="1" />
+      <File FileName="FunctionsMath/Functions/ConstFunction.cs" Line="54" Column="5" />
+      <File FileName="FunctionsMath/Functions/OperationFunc.cs" Line="72" Column="1" />
+      <File FileName="FunctionsMath/Functions/NonargumentableFunction.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/home/hacker/.Projects/FunctionMath/FunctionsMath/FunctionsMath/FunctionBuilder.cs" line="127" column="1" />
+      <Breakpoint file="/home/hacker/.Projects/LernRepository/FunctionMath/FunctionsMath/FunctionsMath/FunctionBuilder.cs" line="377" column="57" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

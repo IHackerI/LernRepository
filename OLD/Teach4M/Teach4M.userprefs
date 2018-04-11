@@ -1,0 +1,16 @@
+﻿<Properties StartupItem="Teach4M/Teach4M.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Teach4M/Program.cs">
+    <Files>
+      <File FileName="Teach4M/Program.cs" Line="14" Column="42" />
+      <File FileName="Teach4M/IFindMethod.cs" Line="1" Column="1" />
+      <File FileName="Teach4M/BinFind.cs" Line="1" Column="1" />
+      <File FileName="Teach4M/NewtonFind.cs" Line="1" Column="1" />
+      <File FileName="Teach4M/ProgressivFind.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
