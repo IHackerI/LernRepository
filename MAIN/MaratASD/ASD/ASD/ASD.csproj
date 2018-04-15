@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C224EDB3-D667-499F-94E0-998671A74B69}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>ASD</RootNamespace>
+    <AssemblyName>ASD</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BinaryTree\Base\BinNode.cs" />
+    <Compile Include="BinaryTree\Base\Node.cs" />
+    <Compile Include="BinaryTree\BinaryTreeTester.cs" />
+    <Compile Include="Graph\Base\Edge.cs" />
+    <Compile Include="Graph\Base\Graph.cs" />
+    <Compile Include="Graph\Base\Vertex.cs" />
+    <Compile Include="Graph\GraphTester.cs" />
+    <Compile Include="HashTable\Base\HashTableList.cs" />
+    <Compile Include="HashTable\Base\MyData.cs" />
+    <Compile Include="HashTable\Base\MyHashList.cs" />
+    <Compile Include="HashTable\Base\MyHashTable.cs" />
+    <Compile Include="HashTable\HashTableTest.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SetStackQueueDeck\Base\Deck.cs" />
+    <Compile Include="SetStackQueueDeck\Base\Node.cs" />
+    <Compile Include="SetStackQueueDeck\Base\Queue.cs" />
+    <Compile Include="SetStackQueueDeck\Base\Set.cs" />
+    <Compile Include="Sort\Base\Sort.cs" />
+    <Compile Include="SetStackQueueDeck\Base\Stack.cs" />
+    <Compile Include="SetStackQueueDeck\SetStackQueueDeckTester.cs" />
+    <Compile Include="Sort\SortTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

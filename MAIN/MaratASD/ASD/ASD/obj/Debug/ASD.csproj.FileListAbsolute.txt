@@ -1,0 +1,7 @@
+D:\Projects\VS Procjects\Projects\2term\ASD\ASD\bin\Debug\ASD.exe
+D:\Projects\VS Procjects\Projects\2term\ASD\ASD\bin\Debug\ASD.pdb
+D:\Projects\VS Procjects\Projects\2term\ASD\ASD\obj\Debug\ASD.csprojResolveAssemblyReference.cache
+D:\Projects\VS Procjects\Projects\2term\ASD\ASD\obj\Debug\ASD.csproj.CoreCompileInputs.cache
+D:\Projects\VS Procjects\Projects\2term\ASD\ASD\obj\Debug\ASD.exe
+D:\Projects\VS Procjects\Projects\2term\ASD\ASD\obj\Debug\ASD.pdb
+D:\Projects\VS Procjects\Projects\2term\ASD\ASD\bin\Debug\ASD.exe.config
