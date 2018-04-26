@@ -10,11 +10,11 @@ namespace ASD
     {
         static void Main(string[] args)
         {
-            SetTester.TEST();
+            //SetTester.TEST();
             SortTest.TEST();
-            HashTableTest.TEST();
-            BinaryTreeTester.TEST();
-            GraphTester.TEST();
+            //HashTableTest.TEST();
+            //BinaryTreeTester.TEST();
+            //GraphTester.TEST();
         }
     }
 }

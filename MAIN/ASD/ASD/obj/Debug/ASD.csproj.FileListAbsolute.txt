@@ -4,3 +4,10 @@ C:\Users\Hacker\Downloads\4Semestr\lernRep_dev\MAIN\ShaekhovASD\ASD\ASD\bin\Debu
 C:\Users\Hacker\Downloads\4Semestr\lernRep_dev\MAIN\ShaekhovASD\ASD\ASD\bin\Debug\ASD.pdb
 C:\Users\Hacker\Downloads\4Semestr\lernRep_dev\MAIN\ShaekhovASD\ASD\ASD\obj\Debug\ASD.exe
 C:\Users\Hacker\Downloads\4Semestr\lernRep_dev\MAIN\ShaekhovASD\ASD\ASD\obj\Debug\ASD.pdb
+D:\Projects\Repository\ASDandChM\MAIN\ASD\ASD\bin\Debug\ASD.exe.config
+D:\Projects\Repository\ASDandChM\MAIN\ASD\ASD\bin\Debug\ASD.exe
+D:\Projects\Repository\ASDandChM\MAIN\ASD\ASD\bin\Debug\ASD.pdb
+D:\Projects\Repository\ASDandChM\MAIN\ASD\ASD\obj\Debug\ASD.csprojResolveAssemblyReference.cache
+D:\Projects\Repository\ASDandChM\MAIN\ASD\ASD\obj\Debug\ASD.csproj.CoreCompileInputs.cache
+D:\Projects\Repository\ASDandChM\MAIN\ASD\ASD\obj\Debug\ASD.exe
+D:\Projects\Repository\ASDandChM\MAIN\ASD\ASD\obj\Debug\ASD.pdb
