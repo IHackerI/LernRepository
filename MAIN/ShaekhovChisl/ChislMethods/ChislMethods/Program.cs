@@ -12,11 +12,11 @@ namespace ChislMethods
     {
         static void Main(string[] args)
         {
-            FincValueFindersTest.TEST();
-            LinAlTester.TEST();
-            SplineTest.TEST();
+            //FincValueFindersTest.TEST();
+            //LinAlTester.TEST();
+            //SplineTest.TEST();
             DerSystemsTEST.TEST();
-            IntegralTEST.TEST();
+            //IntegralTEST.TEST();
         }
     }
 }

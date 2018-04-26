@@ -40,9 +40,9 @@ namespace ASD.HashTable.Base
 
             if (elem == null) return;
 
-            this.listH[index].Remove(elem);
+            listH[index].Remove(elem);
 
-            --Count;
+            Count--;
         }
         //просмотр
         public void View()

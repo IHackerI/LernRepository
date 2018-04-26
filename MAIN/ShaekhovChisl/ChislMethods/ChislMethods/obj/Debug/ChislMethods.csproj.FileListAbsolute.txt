@@ -3,3 +3,8 @@ C:\Users\Hacker\Downloads\4Semestr\Petay\ShaekhovChisl\ChislMethods\ChislMethods
 C:\Users\Hacker\Downloads\4Semestr\Petay\ShaekhovChisl\ChislMethods\ChislMethods\bin\Debug\ChislMethods.pdb
 C:\Users\Hacker\Downloads\4Semestr\Petay\ShaekhovChisl\ChislMethods\ChislMethods\obj\Debug\ChislMethods.exe
 C:\Users\Hacker\Downloads\4Semestr\Petay\ShaekhovChisl\ChislMethods\ChislMethods\obj\Debug\ChislMethods.pdb
+C:\Users\Hacker\Downloads\4Semestr\lernRep_dev\MAIN\ShaekhovChisl\ChislMethods\ChislMethods\bin\Debug\ChislMethods.exe
+C:\Users\Hacker\Downloads\4Semestr\lernRep_dev\MAIN\ShaekhovChisl\ChislMethods\ChislMethods\bin\Debug\ChislMethods.pdb
+C:\Users\Hacker\Downloads\4Semestr\lernRep_dev\MAIN\ShaekhovChisl\ChislMethods\ChislMethods\obj\Debug\ChislMethods.csprojResolveAssemblyReference.cache
+C:\Users\Hacker\Downloads\4Semestr\lernRep_dev\MAIN\ShaekhovChisl\ChislMethods\ChislMethods\obj\Debug\ChislMethods.exe
+C:\Users\Hacker\Downloads\4Semestr\lernRep_dev\MAIN\ShaekhovChisl\ChislMethods\ChislMethods\obj\Debug\ChislMethods.pdb

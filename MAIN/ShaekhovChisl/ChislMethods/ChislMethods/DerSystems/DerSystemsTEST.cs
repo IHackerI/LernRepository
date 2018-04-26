@@ -11,6 +11,8 @@ namespace ChislMethods.DerSystems
 
         public static void TEST()
         {
+            fprav += EasyMethod;
+
             double[] x = new double[] { 1.0 };
             double[,] rez;
             RangeKutta rk = new RangeKutta(0, 1, x, 0.1);
@@ -31,6 +33,15 @@ namespace ChislMethods.DerSystems
             Write(rez, 0.0, 1.0, 0.1);
 
             Console.ReadKey();
+        }
+
+        static double[] EasyMethod(double t, double[] x)
+        {
+            for (int i = 0; i < x.Length; i++)
+            {
+                x[i] += t;
+            }
+            return x;
         }
 
         public static void Write(double[,] Matr, double a, double b, double h)
