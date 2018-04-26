@@ -9,11 +9,11 @@ namespace ASD.HashTable.Base
     {
         public int Size { get; private set; }
         public int Count { get; private set; }
-        List<MyData< T>>[] listH;
+        List<MyData<T>>[] listH;
         public HashTableList(int size)
         {
             this.Size = size;
-            listH = new List<MyData< T>>[size];
+            listH = new List<MyData<T>>[size];
             for (int i = 0; i < size; i++)
                 listH[i] = new List<MyData< T>>();
         }
@@ -51,7 +51,6 @@ namespace ASD.HashTable.Base
             {
                 listH[index].ForEach(c => Console.WriteLine(c != null ? $"{c.Key} {c.Value}" : string.Empty));
             }
-
         }
     }
 }

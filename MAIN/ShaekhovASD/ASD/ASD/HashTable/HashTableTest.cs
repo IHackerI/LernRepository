@@ -10,7 +10,8 @@ namespace ASD.HashTable
     {
         public static void TEST()
         {
-            MyHashTable<string> table = new MyHashTable<string>(3);
+
+            /*MyHashTable<string> table = new MyHashTable<string>(3);
             table.Add(312, "abcbca");
             table.Add(123, "qwer");
             table.Add(2, "qw");
@@ -33,7 +34,7 @@ namespace ASD.HashTable
             t.Remove(11);
             t.Remove(0);
             Console.WriteLine("");
-            t.View();
+            t.View();*/
 
             Console.ReadKey();
         }

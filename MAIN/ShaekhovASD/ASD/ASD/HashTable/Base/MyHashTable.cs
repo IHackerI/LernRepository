@@ -5,115 +5,102 @@ using System.Text;
 
 namespace ASD.HashTable.Base
 {
-    class MyHashTable< TValue>
+    class MyHashTable<TValue>
     {
-        private int Size { get; set; }
-        private int capacity = 0;
+        private int _count = 0;
 
-        MyData<TValue>[] myHash;
+        MyData<TValue>[] _table;
 
         public int Count
         {
             get
             {
-                return Size;
+                return _count;
             }
         }
 
-        public MyHashTable(int size)
+        #region Constructor
+        public MyHashTable()
         {
-            this.Size = size;
-            myHash = new MyData<TValue>[size];
-            for (int i = 0; i < Size; i++)
-                myHash[i] = null;
+            _table = new MyData<TValue>[0];
         }
 
-        private int GetIndexByKey(int key)
+        public MyHashTable(int startSize)
         {
-            return key.GetHashCode() % this.Size;
+            _table = new MyData<TValue>[startSize];
+        }
+        #endregion
+
+        private int FullGetIndexByKey(int key)
+        {
+            var tmpIndex = key.GetHashCode() % _table.Length;
+
+            while (true)
+            {
+                if (_table[tmpIndex] == null || _table[tmpIndex].Key.Equals(key))
+                {
+                    return tmpIndex;
+                }
+                tmpIndex++;
+                if (tmpIndex >= _table.Length)
+                    tmpIndex = 0;
+            }
         }
 
         public MyData<TValue> FindByKey(int key)
         {
-            var item = this.myHash[this.GetIndexByKey(key)];
-
-            if (item != null)
-                return item;
-
-            for (var i = 0; i < this.Size; i++)
-                if (myHash[i] != null &&
-                    myHash[i].Key.Equals(key))
-                    return myHash[i];
-
-            return null;
+            return _table[FullGetIndexByKey(key)];
         }
 
         public void Add(int key, TValue value)
         {
-            if (this.capacity >= this.Size * 0.75)
-                this.Resize();
+            if (_count >= _table.Length * 0.75)
+                Resize();
 
             MyData< TValue> nHash = new MyData<TValue>(key, value);
-            int index = this.GetIndexByKey(key);
+            int index = FullGetIndexByKey(key);
 
-            if (myHash[index] == null)
+            if (_table[index] == null)
             {
-                myHash[index] = nHash;
+                _table[index] = nHash;
             }
             else
             {
-                while(myHash[index] !=null)
-                {
-                    index++;
-                    if (index == Size)
-                        index = 0;
-                }
-                myHash[index] = nHash;
+                throw new Exception("Dublicate is not accept!");
             }
 
-            capacity++;
+            _count++;
         }
 
         public void Remove(int key)
         {
-            int index = this.GetIndexByKey(key);
+            int index = FullGetIndexByKey(key);
 
-            if (myHash[index] != null && myHash[index].Key.Equals(key))
+            if (_table[index] != null)
             {
-                myHash[index] = null;
-                --this.capacity;
+                _table[index] = null;
+                _count--;
                 return;
             }
             else
             {
-                for (var i = 0; i < this.Size; ++i)
-                    if (myHash[i] != null &&
-                        myHash[i].Key.Equals(key))
-                    {
-                        myHash[i] = null;
-                        capacity--;
-                        return;
-                    }
+                throw new KeyNotFoundException();
             }
         }
 
         public void View()
         {
-            for (int i = 0; i < Size; i++)
+            for (int i = 0; i < _table.Length; i++)
             {
-                if (myHash[i] == null) continue;
+                if (_table[i] == null) continue;
 
-                Console.WriteLine("Key = " + myHash[i].Key.ToString() + " Value = " + myHash[i].Value.ToString());
+                Console.WriteLine("Key = " + _table[i].Key.ToString() + " Value = " + _table[i].Value.ToString());
             }
         }
 
         private void Resize()
         {
-            this.capacity = 0;
-            var tmp = new List<MyData<TValue>>(this.myHash);
-            this.myHash = new  MyData<TValue>[this.Size *= 2];
-
-            tmp.ForEach(c => this.Add(c.Key, c.Value));
+            Array.Resize(ref _table, _table.Length<<1);
         }
     }
 }
