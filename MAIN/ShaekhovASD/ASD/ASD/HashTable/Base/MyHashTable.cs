@@ -10,7 +10,7 @@ namespace ASD.HashTable.Base
         private int Size { get; set; }
         private int capacity = 0;
 
-        MyData< TValue>[] myHash;
+        MyData<TValue>[] myHash;
 
         public int Count
         {
@@ -23,7 +23,7 @@ namespace ASD.HashTable.Base
         public MyHashTable(int size)
         {
             this.Size = size;
-            myHash = new MyData< TValue>[size];
+            myHash = new MyData<TValue>[size];
             for (int i = 0; i < Size; i++)
                 myHash[i] = null;
         }
@@ -33,14 +33,15 @@ namespace ASD.HashTable.Base
             return key.GetHashCode() % this.Size;
         }
 
-        public MyData< TValue> FindByKey(int key)
+        public MyData<TValue> FindByKey(int key)
         {
             var item = this.myHash[this.GetIndexByKey(key)];
 
-            if (item != null) return item;
+            if (item != null)
+                return item;
 
-            for (var i = 0; i < this.Size; ++i)
-                if (myHash[i] == null &&
+            for (var i = 0; i < this.Size; i++)
+                if (myHash[i] != null &&
                     myHash[i].Key.Equals(key))
                     return myHash[i];
 
@@ -54,29 +55,30 @@ namespace ASD.HashTable.Base
 
             MyData< TValue> nHash = new MyData<TValue>(key, value);
             int index = this.GetIndexByKey(key);
+
             if (myHash[index] == null)
             {
                 myHash[index] = nHash;
-                ++this.capacity;
             }
             else
             {
                 while(myHash[index] !=null)
                 {
-                    index++; if (index == Size) index = 0;
+                    index++;
+                    if (index == Size)
+                        index = 0;
                 }
                 myHash[index] = nHash;
-                ++this.capacity;
-               
             }
-           
+
+            capacity++;
         }
 
         public void Remove(int key)
         {
             int index = this.GetIndexByKey(key);
 
-            if (myHash[index] != null)
+            if (myHash[index] != null && myHash[index].Key.Equals(key))
             {
                 myHash[index] = null;
                 --this.capacity;
@@ -85,11 +87,11 @@ namespace ASD.HashTable.Base
             else
             {
                 for (var i = 0; i < this.Size; ++i)
-                    if (myHash[i] == null &&
+                    if (myHash[i] != null &&
                         myHash[i].Key.Equals(key))
                     {
                         myHash[i] = null;
-                        --this.capacity;
+                        capacity--;
                         return;
                     }
             }
@@ -103,14 +105,13 @@ namespace ASD.HashTable.Base
 
                 Console.WriteLine("Key = " + myHash[i].Key.ToString() + " Value = " + myHash[i].Value.ToString());
             }
-
         }
 
         private void Resize()
         {
             this.capacity = 0;
             var tmp = new List<MyData<TValue>>(this.myHash);
-            this.myHash = new MyData< TValue>[this.Size *= 2];
+            this.myHash = new  MyData<TValue>[this.Size *= 2];
 
             tmp.ForEach(c => this.Add(c.Key, c.Value));
         }

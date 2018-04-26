@@ -2,10 +2,6 @@
 using ASD.Set;
 using ASD.Sort;
 using ASD.BinaryTree;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using ASD.Graph;
 
 namespace ASD

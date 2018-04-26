@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using ChislMethods.FindFuncs;
+﻿using ChislMethods.FindFuncs;
 using ChislMethods.LinAl;
 using ChislMethods.Spline;
+using ChislMethods.DerSystems;
+using ChislMethods.Integral;
 
 namespace ChislMethods
 {
@@ -17,6 +15,8 @@ namespace ChislMethods
             FincValueFindersTest.TEST();
             LinAlTester.TEST();
             SplineTest.TEST();
+            DerSystemsTEST.TEST();
+            IntegralTEST.TEST();
         }
     }
 }
