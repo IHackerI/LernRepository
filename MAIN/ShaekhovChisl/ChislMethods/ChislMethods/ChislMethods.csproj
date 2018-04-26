@@ -39,10 +39,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DerSystems\DerSystemsTEST.cs" />
+    <Compile Include="DerSystems\RangeKutta.cs" />
     <Compile Include="FindFuncs\BinFind.cs" />
     <Compile Include="FindFuncs\FincValueFindersTest.cs" />
     <Compile Include="FindFuncs\IterationFind.cs" />
     <Compile Include="FindFuncs\NewtonFind.cs" />
+    <Compile Include="Integral\IntegralTEST.cs" />
     <Compile Include="LinAl\Base\LeastSquareMethod.cs" />
     <Compile Include="LinAl\Base\Matrix.cs" />
     <Compile Include="LinAl\Base\Vector.cs" />
