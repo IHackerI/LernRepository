@@ -1,0 +1,6 @@
+C:\Users\Hacker\Downloads\4Semestr\lernRep_dev\MAIN\ShaekhovASD\ASD\ASD\obj\Debug\ASD.csprojResolveAssemblyReference.cache
+C:\Users\Hacker\Downloads\4Semestr\lernRep_dev\MAIN\ShaekhovASD\ASD\ASD\bin\Debug\ASD.exe.config
+C:\Users\Hacker\Downloads\4Semestr\lernRep_dev\MAIN\ShaekhovASD\ASD\ASD\bin\Debug\ASD.exe
+C:\Users\Hacker\Downloads\4Semestr\lernRep_dev\MAIN\ShaekhovASD\ASD\ASD\bin\Debug\ASD.pdb
+C:\Users\Hacker\Downloads\4Semestr\lernRep_dev\MAIN\ShaekhovASD\ASD\ASD\obj\Debug\ASD.exe
+C:\Users\Hacker\Downloads\4Semestr\lernRep_dev\MAIN\ShaekhovASD\ASD\ASD\obj\Debug\ASD.pdb
