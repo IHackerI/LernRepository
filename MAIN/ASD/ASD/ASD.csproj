@@ -56,13 +56,13 @@
     <Compile Include="HashTable\HashTableTest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Set\Base\Deck.cs" />
-    <Compile Include="Set\Base\Node.cs" />
-    <Compile Include="Set\Base\Queue.cs" />
-    <Compile Include="Set\Base\Set.cs" />
+    <Compile Include="SetDeckNodeQueueStack\Base\Deck.cs" />
+    <Compile Include="SetDeckNodeQueueStack\Base\Node.cs" />
+    <Compile Include="SetDeckNodeQueueStack\Base\Queue.cs" />
+    <Compile Include="SetDeckNodeQueueStack\Base\Set.cs" />
     <Compile Include="Sort\Base\Sort.cs" />
-    <Compile Include="Set\Base\Stack.cs" />
-    <Compile Include="Set\SetTester.cs" />
+    <Compile Include="SetDeckNodeQueueStack\Base\Stack.cs" />
+    <Compile Include="SetDeckNodeQueueStack\SetDeckNodeQueueStackTester.cs" />
     <Compile Include="Sort\SortTest.cs" />
   </ItemGroup>
   <ItemGroup>

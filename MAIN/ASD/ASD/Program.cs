@@ -10,7 +10,7 @@ namespace ASD
     {
         static void Main(string[] args)
         {
-            //SetTester.TEST();
+            SetDeckNodeQueueStackTester.TEST();
             SortTest.TEST();
             //HashTableTest.TEST();
             //BinaryTreeTester.TEST();
