@@ -1,22 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace ASD.Set.Base
+namespace ASD.CustomLists.Base
 {
-    public class Stack<T>
+    public class Queue<T>
     {
         public int Length { get; private set; }
         private Node<T> _headNode;
         private Node<T> _tailNode;
 
-        public Stack()
+        public Queue()
         {
             _tailNode = _headNode = null;
             Length = 0;
         }
-
+        
         public void Push(T element)
         {
             if (_headNode == null)
@@ -40,24 +36,24 @@ namespace ASD.Set.Base
                 Length++;
             }
         }
-
+        
         public T Pop()
         {
-            var ans = _tailNode;
-            _tailNode = _tailNode.Prev;
-            _tailNode.Next = null;
+            var ans = _headNode;
+            _headNode = _headNode.Next;
+            _headNode.Prev = null;
             Length--;
             return ans.Element;
         }
-
-        public Node<T> GetTailNode()
+        
+        public Node<T> GetHeadNode()
         {
-            return _tailNode;
+            return _headNode;
         }
 
         public void View()
         {
-            var curNode = GetTailNode();
+            var curNode = GetHeadNode();
 
             if (curNode == null)
                 return;
@@ -65,9 +61,9 @@ namespace ASD.Set.Base
             while (curNode != null)
             {
                 Console.Write(curNode.Element + " ");
-                curNode = curNode.Prev;
+                curNode = curNode.Next;
             }
-
+            
             Console.WriteLine();
         }
     }

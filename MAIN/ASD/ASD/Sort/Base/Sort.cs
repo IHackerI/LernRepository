@@ -110,6 +110,8 @@ namespace ASD.Sort.Base
         }
         public static int[] QuickSort(int[] _items, int l, int r) // Быстрая сортировка
         {
+            #warning ПЕРЕДЕЛАТЬ НА НЕ РЕКУРСИВ
+
             int temp;
             int x = _items[l + (r - l) / 2];
             //запись эквивалентна (min+r)/2, 

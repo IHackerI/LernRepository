@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ASD.HashTable.Base
 {
-    class MyHashTable<TValue>
+    class MyHashTable<TValue> : IHashTable<TValue>
     {
         private int _count = 0;
 

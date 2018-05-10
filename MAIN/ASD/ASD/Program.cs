@@ -1,5 +1,5 @@
 ﻿using ASD.HashTable;
-using ASD.Set;
+using ASD.CustomLists;
 using ASD.Sort;
 using ASD.BinaryTree;
 using ASD.Graph;
@@ -28,8 +28,8 @@ namespace ASD
             while (true)
             {
                 var testerNames = Enum.GetNames(typeof(TesterName));
-                bool testResult = ChoiceController.ViewChoice(testerNames.Skip(1).ToArray(), new EmptyD[] {
-                    SetDeckNodeQueueStackTester.TEST,
+                bool testResult = IOSystem.InterfacedViewChoice(testerNames.Skip(1).ToArray(), new EmptyD[] {
+                    CustomListsTester.TEST,
                     SortTest.TEST,
                     HashTableTest.TEST,
                     BinaryTreeTester.TEST,

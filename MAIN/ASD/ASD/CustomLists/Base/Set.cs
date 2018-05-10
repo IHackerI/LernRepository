@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ASD.Set.Base
+namespace ASD.CustomLists.Base
 {
     public class Set<T>: IList<T> where T : IComparable
     {

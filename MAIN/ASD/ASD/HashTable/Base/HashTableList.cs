@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ASD.HashTable.Base
 {
-    class HashTableList<T>
+    class HashTableList<T> : IHashTable<T>
     {
         public int Size { get; private set; }
         public int Count { get; private set; }
