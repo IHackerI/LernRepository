@@ -5,17 +5,18 @@ using System.Text;
 
 namespace ASD.HashTable.Base
 {
-    class MyHashList<T>
+    class HashTableNode<TValue>
     {
-        public int Key;
-        public T Value;
-        public MyHashList<T> Next { get; set; }
 
-        public MyHashList(int key, T value)
+        public int Key;
+        public TValue Value;
+
+        public HashTableNode(int key, TValue value)
         {
-            Next = null;
+
             Key = key;
             Value = value;
+
         }
     }
 }

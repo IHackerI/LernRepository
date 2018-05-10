@@ -50,10 +50,11 @@
     <Compile Include="Graph\Base\Vertex.cs" />
     <Compile Include="Graph\GraphTester.cs" />
     <Compile Include="HashTable\Base\HashTableList.cs" />
-    <Compile Include="HashTable\Base\MyData.cs" />
-    <Compile Include="HashTable\Base\MyHashList.cs" />
+    <Compile Include="HashTable\Base\HashTableNode.cs" />
+    <Compile Include="HashTable\Base\HashListNode.cs" />
     <Compile Include="HashTable\Base\MyHashTable.cs" />
     <Compile Include="HashTable\HashTableTest.cs" />
+    <Compile Include="Helpers\ChoiceColtroller.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetDeckNodeQueueStack\Base\Deck.cs" />

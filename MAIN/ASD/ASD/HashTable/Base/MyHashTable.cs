@@ -9,25 +9,22 @@ namespace ASD.HashTable.Base
     {
         private int _count = 0;
 
-        MyData<TValue>[] _table;
+        HashTableNode<TValue>[] _table;
 
         public int Count
         {
-            get
-            {
-                return _count;
-            }
+            get { return _count; }
         }
 
         #region Constructor
         public MyHashTable()
         {
-            _table = new MyData<TValue>[0];
+            _table = new HashTableNode<TValue>[0];
         }
 
         public MyHashTable(int startSize)
         {
-            _table = new MyData<TValue>[startSize];
+            _table = new HashTableNode<TValue>[startSize];
         }
         #endregion
 
@@ -47,9 +44,15 @@ namespace ASD.HashTable.Base
             }
         }
 
-        public MyData<TValue> FindByKey(int key)
+        public TValue FindByKey(int key)
         {
-            return _table[FullGetIndexByKey(key)];
+            var index = FullGetIndexByKey(key);
+            if (_table[index] == null)
+            {
+                Console.WriteLine("Ключ " + key + " не найден!");
+                return default(TValue);
+            }
+            return _table[index].Value;
         }
 
         public void Add(int key, TValue value)
@@ -57,18 +60,11 @@ namespace ASD.HashTable.Base
             if (_count >= _table.Length * 0.75)
                 Resize();
 
-            MyData< TValue> nHash = new MyData<TValue>(key, value);
+            HashTableNode< TValue> nHash = new HashTableNode<TValue>(key, value);
             int index = FullGetIndexByKey(key);
 
-            if (_table[index] == null)
-            {
-                _table[index] = nHash;
-            }
-            else
-            {
-                throw new Exception("Dublicate is not accept!");
-            }
-
+            _table[index] = nHash;
+            
             _count++;
         }
 
@@ -84,7 +80,8 @@ namespace ASD.HashTable.Base
             }
             else
             {
-                throw new KeyNotFoundException();
+                Console.WriteLine("Ключ " + key + " не найден!");
+                //throw new KeyNotFoundException();
             }
         }
 

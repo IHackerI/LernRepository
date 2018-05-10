@@ -9,47 +9,65 @@ namespace ASD.HashTable.Base
     {
         public int Size { get; private set; }
         public int Count { get; private set; }
-        List<MyData<T>>[] listH;
+
+        private List<HashTableNode<T>>[] _table;
         public HashTableList(int size)
         {
-            this.Size = size;
-            listH = new List<MyData<T>>[size];
-            for (int i = 0; i < size; i++)
-                listH[i] = new List<MyData< T>>();
+            Size = size;
+
+            _table = new List<HashTableNode<T>>[size];
+            _table = (from x in _table select new List<HashTableNode<T>>()).ToArray();
         }
 
 
-        public int Hash(int key)
+        public int CalcHash(int key)
         {
             return key % Size;
         }
+
         //добавление
         public void Add(int key, T value)
         {
-            MyData<T> nHash = new MyData<T>(key, value);
-            int index = this.Hash(key);
-            listH[index].Add(nHash);
+            Remove(key);
+
+            HashTableNode<T> newNode = new HashTableNode<T>(key, value);
+            int index = CalcHash(key);
+            _table[index].Add(newNode);
             Count++;
         }
+
+        public T FindByKey(int key)
+        {
+            int index = CalcHash(key);
+
+            var nodeIndex = _table[index].FindIndex(n => n != null && n.Key == key);
+
+            if (nodeIndex < 0)
+                return default(T);
+
+            return _table[index][nodeIndex].Value;
+        }
+
         //удаление
         public void Remove(int key)
         {
-            int index = this.Hash(key);
+            int index = CalcHash(key);
 
-            var elem = this.listH[index].FirstOrDefault(c => c!=null  && c.Key == key);
+            var nodeIndex = _table[index].FindIndex(n => n != null && n.Key == key);
 
-            if (elem == null) return;
+            if (nodeIndex < 0) return;
 
-            listH[index].Remove(elem);
+            _table[index].RemoveAt(nodeIndex);
 
             Count--;
         }
+
         //просмотр
         public void View()
         {
             for (int index = 0; index < Size; index++)
             {
-                listH[index].ForEach(c => Console.WriteLine(c != null ? $"{c.Key} {c.Value}" : string.Empty));
+                _table[index].ForEach(c => Console.WriteLine(c != null ? $"{c.Key} {c.Value}" : string.Empty));
             }
         }
     }
