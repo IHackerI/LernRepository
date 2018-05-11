@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using ASD.HashTable.Base;
-using ASD.Helpers;
-using static ASD.Program;
+using ASD.HashTable;
+using ASD.WorkTesters.Helpers;
 
-namespace ASD.HashTable
+namespace ASD.WorkTesters
 {
     public static class HashTableTest
     {
@@ -14,7 +10,7 @@ namespace ASD.HashTable
         {
             bool choiceStatus = false;
             while (!choiceStatus) {
-                choiceStatus = IOSystem.InterfacedViewChoice(new string[] { "MyHashTable", "HashTableList" }, new EmptyD[] { MyHashTableTEST, HashTableListTEST });
+                choiceStatus = IOSystem.InterfacedViewChoice(new string[] { "MyHashTable", "HashTableList" }, new WorkMainTester.EmptyD[] { MyHashTableTEST, HashTableListTEST });
                 if (!choiceStatus)
                 {
                     Console.WriteLine("Введите корректное значение!");
@@ -52,26 +48,26 @@ namespace ASD.HashTable
 
                 switch (input)
                 {
-                    case 1:
+                    case 0:
                         int key = IOSystem.GetInt("Введите ключ: ");
                         Console.Write("Введите значение: ");
                         string value = Console.ReadLine();
                         table.Add(key, value);
                         break;
 
-                    case 2:
+                    case 1:
                         table.Remove(IOSystem.GetInt("Введите ключ: "));
                         break;
 
-                    case 3:
+                    case 2:
                         Console.WriteLine("Найденное значение: " + table.FindByKey(IOSystem.GetInt("Введите ключ: ")));
                         break;
 
-                    case 4:
+                    case 3:
                         table.View();
                         break;
 
-                    case 5:
+                    case 4:
                         endTest = true;
                         break;
                 }

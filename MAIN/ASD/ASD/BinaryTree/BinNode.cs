@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ASD.BinaryTree.Base
+namespace ASD.BinaryTree
 {
     class BinNode
     {
@@ -60,7 +60,7 @@ namespace ASD.BinaryTree.Base
 
         public Node Value(int key) //Поиск по ключу 
         {
-            val = search(key);
+            val = Search(key);
             return val;
         }
 
@@ -74,7 +74,7 @@ namespace ASD.BinaryTree.Base
                 int key = t.Key;
                 val = head;
                 int x = 1;
-                while (1 == 1)
+                while (true)
                 {
                     if (val.Key == key)
                         return x;
@@ -83,14 +83,14 @@ namespace ASD.BinaryTree.Base
                     else { val = val.Left; x++; }
                 }
             }
-            return -9999999;
+            return int.MinValue;
         }
 
 
         public Node MaxNode(Node t) //Поиск максимального элемента узла
         {
             int key = t.Key;
-            val = search(key);
+            val = Search(key);
             while (val.Right != null)
                 val = val.Right;
             return val;
@@ -102,7 +102,7 @@ namespace ASD.BinaryTree.Base
             int key = t.Key;
             try
             {
-                val = search(key);
+                val = Search(key);
                 if (val.Left != null)
                 {
                     while (val.Left != null)
@@ -120,13 +120,13 @@ namespace ASD.BinaryTree.Base
             }
             catch
             {
-                val = search(key); return val;
+                val = Search(key); return val;
             }
         }
 
         public void DellNode(int key) //Удаление узла дерева
         {
-            val = search(key);
+            val = Search(key);
             Dell(val);
         }
         public void Dell_node_Ur() //Удаление с проверкой
@@ -193,7 +193,7 @@ namespace ASD.BinaryTree.Base
         public Node NextNode(Node t) //Поиск следующего элемента по индексу
         {
             int key = t.Key;
-            val = search(key);
+            val = Search(key);
             if (val.Right == null)
             {
                 if (val == val.Parent.Left)
@@ -241,10 +241,10 @@ namespace ASD.BinaryTree.Base
 
 
 
-        private Node search(int key) //Поиск
+        private Node Search(int key) //Поиск
         {
             val = head;
-            while (1 == 1)
+            while (true)
             {
                 if (val.Key == key)
                     return val;

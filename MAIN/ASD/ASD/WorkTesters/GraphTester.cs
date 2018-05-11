@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using ASD.Graph.Base;
+using ASD.Graph;
 
-namespace ASD.Graph
+namespace ASD.WorkTesters
 {
     public static class GraphTester
     {

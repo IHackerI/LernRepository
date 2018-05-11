@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ASD.CustomLists.Base
+namespace ASD.CustomLists
 {
     public class Stack<T>
     {

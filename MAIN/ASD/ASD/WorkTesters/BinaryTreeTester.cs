@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using ASD.BinaryTree.Base;
+using ASD.BinaryTree;
 
-namespace ASD.BinaryTree
+namespace ASD.WorkTesters
 {
     public static class BinaryTreeTester
     {

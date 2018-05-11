@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ASD.CustomLists.Base
+namespace ASD.CustomLists
 {
     public class Set<T>: IList<T> where T : IComparable
     {
@@ -202,6 +202,14 @@ namespace ASD.CustomLists.Base
             Count = 0;
         }
 
+        public void View()
+        {
+            foreach (var element in ToArray())
+            {
+                Console.Write(element + " ");
+            }
+            Console.WriteLine();
+        }
 
         public void CopyTo(T[] array, int arrayIndex)
         {

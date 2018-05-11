@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ASD.Graph.Base
+namespace ASD.Graph
 {
     class Edge<T>
     {

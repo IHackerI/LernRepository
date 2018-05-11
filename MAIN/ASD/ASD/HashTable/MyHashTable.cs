@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ASD.HashTable.Base
+namespace ASD.HashTable
 {
     class MyHashTable<TValue> : IHashTable<TValue>
     {

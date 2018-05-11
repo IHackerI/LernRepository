@@ -1,5 +1,5 @@
 ﻿using System;
-namespace ASD.CustomLists.Base
+namespace ASD.CustomLists
 {
     public class Queue<T>
     {

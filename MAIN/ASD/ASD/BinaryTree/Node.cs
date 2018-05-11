@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ASD.BinaryTree.Base
+namespace ASD.BinaryTree
 {
     class Node
     {
