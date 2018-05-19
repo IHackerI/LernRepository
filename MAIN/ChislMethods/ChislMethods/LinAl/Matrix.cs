@@ -7,7 +7,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 //using System.Threading.Tasks;
 
-namespace ChislMethods.LinAl.Base
+namespace ChislMethods.LinAl
 {
     public class Matrix
     {
@@ -64,15 +64,72 @@ namespace ChislMethods.LinAl.Base
                 for (int j = 0; j < Col; j++)
                     matrix[i, j] = mm[i, j];
         }
-
-        internal bool Gauss()
+        
+        internal Matrix Gauss(Matrix mtx)
         {
-            throw new NotImplementedException();
-        }
+            var size = mtx.Row;//mtx.si
 
-        internal Matrix Gauss(Matrix m)
-        {
-            throw new NotImplementedException();
+            //Vector v = new Vector(vector);
+
+            //Vector nan = new Vector(0);
+
+            //Vector b = new Vector(vector);
+            //double[] x = new double[size];
+            double max;
+            int jmax;
+            for (int k = 0; k < size; k++)
+            {
+                // поиск макс по модулю элемента в к столбце начиная с к элемента 
+                max = Math.Abs(mtx[k, k]);
+                jmax = k;
+                for (int j = k + 1; j < size; j++)
+                {
+                    if (Math.Abs(mtx[j, k]) > max)
+                    {
+                        max = Math.Abs(mtx[j, k]);
+                        jmax = j;
+                    }
+                }
+                if (jmax != k)
+                {
+                    //обмен строк 
+                    for (int i = 0; i < size; i++)
+                    {
+                        double temp = mtx[k, i];
+                        mtx[k, i] = mtx[jmax, i];
+                        mtx[jmax, i] = temp;
+                        //double temp1 = b[k];
+                        //b[k] = b[jmax];
+                        //b[jmax] = temp1;
+                    }
+                }
+                //Приведение к треугольному виду 
+                double m;
+                for (int z = 1; z < size; z++)
+                {
+                    for (int j = z; j < size; j++)
+                    {
+                        m = mtx[j, z - 1] / mtx[z - 1, z - 1];
+                        for (int i = 0; i < size; i++)
+                            mtx[j, i] = mtx[j, i] - m * mtx[z - 1, i];
+                        //b[j] = b[j] - m * b[z - 1];
+                    }
+                }
+                //проверка на особбенность матрицы 
+                if (max == 0) return null;
+            }
+            //обратный ход 
+            /*for (int q = size - 1; q >= 0; q--)
+            {
+                for (int j = q + 1; j < size; j++)
+                    b[q] -= mtx[q, j] * b[j];
+                b[q] = b[q] / mtx[q, q];
+            }*/
+            return mtx;
+
+            //Console.WriteLine("Метод гаусса не выполнен!");
+            //return null;
+            //throw new NotImplementedException();
         }
 
         public void View()

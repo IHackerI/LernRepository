@@ -17,7 +17,12 @@ namespace ChislMethods.FindFuncs
             fa = Convert.ToDouble(Func(Begin));
             fb = Convert.ToDouble(Func(End));
 
-            if (fa * fb > 0) throw new Exception("Нет корня!");
+            if (fa * fb > 0)
+            {
+                Console.WriteLine("Нет корня!");
+                //throw new Exception("Нет корня!");
+                return 0;
+            }
             if (Math.Abs(fa) < eps) return End;
 
             do

@@ -8,8 +8,9 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>ChislMethods</RootNamespace>
     <AssemblyName>ChislMethods</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -20,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -29,6 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -39,21 +42,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DerSystems\DerSystemsTEST.cs" />
+    <Compile Include="DerSystems\TMP\MathExt.cs" />
+    <Compile Include="DerSystems\TMP\Structs\LSMFunction.cs" />
+    <Compile Include="DerSystems\TMP\Structs\Matrix.cs" />
+    <Compile Include="DerSystems\TMP\Structs\MatrixExt.cs" />
+    <Compile Include="DerSystems\TMP\Structs\Spline.cs" />
+    <Compile Include="DerSystems\TMP\Structs\Vector.cs" />
+    <Compile Include="WorkTesters\DerSystemsTEST.cs" />
     <Compile Include="DerSystems\RangeKutta.cs" />
     <Compile Include="FindFuncs\BinFind.cs" />
-    <Compile Include="FindFuncs\FincValueFindersTest.cs" />
+    <Compile Include="WorkTesters\FincValueFindersTest.cs" />
     <Compile Include="FindFuncs\IterationFind.cs" />
     <Compile Include="FindFuncs\NewtonFind.cs" />
-    <Compile Include="Integral\IntegralTEST.cs" />
-    <Compile Include="LinAl\Base\LeastSquareMethod.cs" />
-    <Compile Include="LinAl\Base\Matrix.cs" />
-    <Compile Include="LinAl\Base\Vector.cs" />
-    <Compile Include="LinAl\LinAlTester.cs" />
+    <Compile Include="Integral\Integral.cs" />
+    <Compile Include="WorkTesters\IntegralTEST.cs" />
+    <Compile Include="LinAl\LeastSquareMethod.cs" />
+    <Compile Include="LinAl\Matrix.cs" />
+    <Compile Include="LinAl\Vector.cs" />
+    <Compile Include="WorkTesters\LinAlTester.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Spline\Spline.cs" />
-    <Compile Include="Spline\SplineTest.cs" />
+    <Compile Include="WorkTesters\SplineTest.cs" />
+    <Compile Include="WorkTesters\Helpers\IOSystem.cs" />
+    <Compile Include="WorkTesters\WorkMainTester.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

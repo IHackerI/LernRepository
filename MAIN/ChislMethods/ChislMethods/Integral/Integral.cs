@@ -1,35 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
 namespace ChislMethods.Integral
 {
-    public static class IntegralTEST
+    public class Integral
     {
-        delegate double F(double x);
+        public delegate double F(double x);
 
-        public static void TEST()
-        {
-            F func = x => x * x;
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            //Console.WriteLine(Rectangle(11, 20, 0.001, func));
-            //sw.Stop();
-            //Console.WriteLine(sw.ElapsedTicks);
-            //sw.Restart();
-            Console.WriteLine(Trapezium(11, 20, 0.00001, func));
-            sw.Stop();
-            Console.WriteLine(sw.ElapsedTicks);
-            sw.Start();
-            Console.WriteLine(Simpson(11, 20, 0.00001, func));
-            sw.Stop();
-            Console.WriteLine(sw.ElapsedTicks);
-            Console.ReadKey();
-        }
-
-        static double Simpson(double xBot, double xTop, double eps, F f)
+        public static double Simpson(double xBot, double xTop, double eps, F f)
         {
             int n = 1;
             double f0 = f(xBot) + f(xTop);
@@ -50,7 +30,7 @@ namespace ChislMethods.Integral
             return res;
         }
 
-        static double Rectangle(double xBot, double xTop, double eps, F f)
+        public static double Rectangle(double xBot, double xTop, double eps, F f)
         {
             int n = 1;
             double s = 0;
@@ -69,7 +49,7 @@ namespace ChislMethods.Integral
             return s;
         }
 
-        static double Trapezium(double xBot, double xTop, double eps, F f)
+        public static double Trapezium(double xBot, double xTop, double eps, F f)
         {
             double x = xBot;
             int n = 1;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 //using System.Threading.Tasks;
 
-namespace ChislMethods.LinAl.Base
+namespace ChislMethods.LinAl
 {
     public class Vector
     {

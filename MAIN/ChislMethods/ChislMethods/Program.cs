@@ -15,8 +15,10 @@ namespace ChislMethods
             //FincValueFindersTest.TEST();
             //LinAlTester.TEST();
             //SplineTest.TEST();
-            DerSystemsTEST.TEST();
+            //DerSystemsTEST.TEST();
             //IntegralTEST.TEST();
+
+            WorkTesters.WorkMainTester.TEST();
         }
     }
 }

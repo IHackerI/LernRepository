@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 //using System.Threading.Tasks;
 
-namespace ChislMethods.LinAl.Base
+namespace ChislMethods.LinAl
 {
     public delegate double Psi(double x, int number);
     public class LeastSquareMethod
@@ -48,15 +48,18 @@ namespace ChislMethods.LinAl.Base
             }
             Matrix m = new Matrix(matrix);
             //m = m.toTriangleForm(m);
-            Console.WriteLine(m.Gauss());
+            //Console.WriteLine(m.Gauss());
             answ = m.Gauss(m);
             return matrix;
         }
 
         public double resh2(double x, Psi ps)
         {
+            if (answ == null)
+                return 0;
+
             double answer = answ.matrix[0, 0];
-            for (int i = 1; i < answ.matrix.Length; i++)
+            for (int i = 1; i < answ.matrix.GetLength(0); i++)
             {
                 answer += answ.matrix[i, 0] * ps(x, i);
             }
