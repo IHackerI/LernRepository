@@ -7,25 +7,28 @@ namespace ChislMethods.FindFuncs
 {
     public static class IterationFind
     {
-        public static double Iteration(double Xn,/*Текущий аргумент*/ double eps,/*Точность*/  DelF Func /*Уравнение*/) //Метод последовательных приближений
+        public static double Iteration(double left, double right, double eps, DelF Func)
         {
-            double x = 0;
-            int i = 0;
-            bool error = false;
+            int max_iter= 1000;
+            double x1 = left + (right - left) / 2;
+            double x0;
+
+            int iterations = 0;
 
             do
             {
-                x = Func(Xn);
-                i++;
-                if (Math.Abs(x - Xn) >= eps && i == 1000)
-                {
-                    error = true;
-                    break;
-                }
-                Xn = x;
-            } while (Math.Abs(Xn - Func(Xn)) > eps);
-            if (error) return Double.NaN;
-            else return x;
+                x0 = x1;
+
+                var M = -(Func(x1 + eps) - Func(x1 - eps)) / (2 * eps);
+                x1 = x0 + Func(x0) / M;
+
+                iterations++;
+            } while ((Math.Abs(x1 - x0) >= eps) || (iterations > max_iter));
+
+            if (Math.Abs(x1 - x0) <= eps)
+                return x1;
+            else
+                return double.NaN;
         }
     }
 }

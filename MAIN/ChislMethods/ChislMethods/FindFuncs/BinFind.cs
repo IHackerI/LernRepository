@@ -7,44 +7,30 @@ namespace ChislMethods.FindFuncs
 {
     public static class BinFind
     {
-        public static double PolDel(double eps, double Begin, double End, DelF Func)
+        public static double PolDel(double eps, double left, double right, DelF func)
         {
-            double Half;
-            double fa;
-            double fb;
-            double fc;
-
-            fa = Convert.ToDouble(Func(Begin));
-            fb = Convert.ToDouble(Func(End));
-
-            if (fa * fb > 0)
+            var length = right - left;
+            var error = length;
+            double Fmin = func(left);
+            double Fmax = func(right);
+            if (Fmin * Fmax > 0) return Double.NaN;
+            while (error > eps)
             {
-                Console.WriteLine("Нет корня!");
-                //throw new Exception("Нет корня!");
-                return 0;
-            }
-            if (Math.Abs(fa) < eps) return End;
-
-            do
-            {
-                Half = Begin + 0.5 * (End - Begin);
-                fc = Convert.ToDouble(Func(Half));
-                if (Math.Abs(fc) < eps) return Half; // если значение функции в этой точке меньше отклонения, тоглда возвращаем эту точку
-                if (fa * fc < 0)
+                double x = (left + right) / 2;
+                double Fx = func(x);
+                if (Fmin * Fx < 0)
                 {
-                    End = Half;
-                    fb = Convert.ToDouble(Func(End));
+                    right = x;
                 }
-                // если функция исеет корень м\у начальной точкой и центром , то сдвигаем точку в центр
                 else
                 {
-                    Begin = Half;
-                    fa = fc;
+                    left = x;
+                    Fmin = Fx;
                 }
-                // иначе корень м\у центром и конечной точкой, и начало сдвигается в середину
 
-            } while (Math.Abs(Begin - End) > eps);
-            return Half; // возвращаем среднюю точку по концу цикла 
+                error = (right - left);
+            }
+            return (left + right) / 2;
         }
     }
 }

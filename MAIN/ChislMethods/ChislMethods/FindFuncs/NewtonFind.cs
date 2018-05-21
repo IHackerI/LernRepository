@@ -7,8 +7,10 @@ namespace ChislMethods.FindFuncs
 {
     public static class NewtonFind
     {
-        public static double Newton(double eps, double curr, DelF Func)
+        public static double Newton(double eps, double left, double right, DelF Func)
         {
+            var curr = left + (right - left) / 2;
+
             bool flag = false;
             double nextCurr = 0;
             double incr = 0;
