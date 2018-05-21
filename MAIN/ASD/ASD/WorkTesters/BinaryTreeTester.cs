@@ -1,5 +1,6 @@
 ﻿using System;
 using ASD.BinaryTree;
+using ASD.WorkTesters.Helpers;
 
 namespace ASD.WorkTesters
 {
@@ -8,9 +9,7 @@ namespace ASD.WorkTesters
         public static void TEST()
         {
             BinNode BN = new BinNode();
-            Node node;
 
-            int x = 1;
             BN.Add(10, "1");
             BN.Add(4, "1");
             BN.Add(2, "1");
@@ -19,86 +18,92 @@ namespace ASD.WorkTesters
             BN.Add(13, "1");
             BN.Add(18, "1");
             BN.Add(17, "1");
-            Console.Write("Команды: \n 1. Добавление \n 2. Поиск по ключу \n 3. Определение уровня по ключу \n" +
-                " 4. Поиск максимального элемента узла \n 5. Поиск Минимального элемента узла \n 6. Поиск следующего элемента по индексу \n" +
-                " 7. Удаление узла \n 8. Вывод дерева \n 9. Удаление нижнего элемента \n");
 
-            while (x != 0)
+            Console.WriteLine("Исходный массив");
+            Console.WriteLine(BN.View());
+            Console.WriteLine();
+
+            while (true)
             {
-                Console.Write("\nВведите номер команды  ");
-                x = Convert.ToInt32(Console.ReadLine());
-                if (x == 1) //Добавление
+                var input = IOSystem.SafeSimpleChoice("Выберите действие с деревом:", new string[]
+                    {
+                        "Добавление",
+                        "Поиск по ключу",
+                        "Определение уровня по ключу",
+                        "Поиск максимального элемента узла",
+                        "Поиск Минимального элемента узла",
+                        "Поиск следующего элемента по индексу",
+                        "Удаление узла",
+                        "Вывод дерева",
+                        "Удаление нижнего элемента",
+                        "Рекурсивный вывод",
+                        "Нерекурсивный вывод",
+                        "Закончить тест"
+                    });
+
+                bool endTest = false;
+
+                switch (input)
                 {
-                    Console.WriteLine("Введите ключ и значение");
-                    BN.Add(Convert.ToInt32(Console.ReadLine()), "1");
-                }
-                else if (x == 2) //Поиск по ключу
-                {
-                    Console.WriteLine("Введите ключ");
-                    Console.WriteLine(BN.Value(Convert.ToInt32(Console.ReadLine())));
-                }
-                else if (x == 3) //Определение уровня по ключу
-                {
-                    Console.WriteLine("Введите ключ");
-                    node = BN.Value(Convert.ToInt32(Console.ReadLine()));
-                    Console.WriteLine(BN.Level(node));
-                }
-                else if (x == 4) //Поиск максимального элемента узла
-                {
-                    Console.WriteLine("Введите ключ");
-                    node = BN.Value(Convert.ToInt32(Console.ReadLine()));
-                    node = BN.MaxNode(node);
-                    Console.WriteLine(node.Key);
-                }
-                else if (x == 5) //Поиск Минимального элемента узла
-                {
-                    Console.WriteLine("Введите ключ");
-                    node = BN.Value(Convert.ToInt32(Console.ReadLine()));
-                    node = BN.MinNode(node);
-                    Console.WriteLine(node.Key);
+                    case 0:
+                        BN.Add(IOSystem.GetInt("Введите ключ: "), "1");
+                        break;
+
+                    case 1:
+                        Console.WriteLine(BN.Value(IOSystem.GetInt("Введите ключ: ")));
+                        break;
+
+                    case 2:
+                        Console.WriteLine(BN.Level(BN.Value(IOSystem.GetInt("Введите ключ: "))));
+                        break;
+
+                    case 3:
+                        Console.WriteLine(BN.MaxNode(BN.Value(IOSystem.GetInt("Введите ключ: "))).Key);
+                        break;
+
+                    case 4:
+                        Console.WriteLine(BN.MinNode(BN.Value(IOSystem.GetInt("Введите ключ: "))).Key);
+                        break;
+
+                    case 5:
+                        Console.WriteLine(BN.NextNode(BN.Value(IOSystem.GetInt("Введите ключ: "))).Key);
+                        break;
+
+                    case 6:
+                        BN.DellNode(IOSystem.GetInt("Введите ключ: "));
+                        break;
+
+                    case 7:
+                        Console.WriteLine(BN.View());
+                        break;
+
+                    case 8:
+                        BN.Dell_node_Ur();
+                        break;
+
+                    case 9:
+                        BN.recInOrder(BN.Root());
+                        break;
+
+                    case 10:
+                        Node t = BN.MinNode(BN.Root());
+                        while (t != null)
+                        {
+                            Console.WriteLine(" Key: {0} Value: {1}", t.Key, t.Value);
+                            t = BN.NextNode(t);
+                        }
+                        break;
+
+                    case 11:
+                        endTest = true;
+                        break;
                 }
 
-                else if (x == 6) //Поиск следующего элемента по индексу
-                {
-                    Console.WriteLine("Введите ключ");
-                    node = BN.Value(Convert.ToInt32(Console.ReadLine()));
-                    node = BN.NextNode(node);
-                    Console.WriteLine(node.Key);
-                }
+                Console.WriteLine();
 
-                else if (x == 7) //Удаление узла
-                {
-                    Console.WriteLine("Введите ключ");
-                    BN.DellNode(Convert.ToInt32(Console.ReadLine()));
-                }
-                else if (x == 8) //Вывод дерева
-                {
-                    Console.WriteLine("Введите ключ");
-                    node = BN.Value(Convert.ToInt32(Console.ReadLine()));
-                    Console.WriteLine(BN.View(node));
-                }
-                else if (x == 9) //Удаление нижнего элемента
-                {
-                    BN.Dell_node_Ur();
-                    Console.WriteLine("Введите ключ");
-                    node = BN.Value(Convert.ToInt32(Console.ReadLine()));
-                    Console.WriteLine(BN.View(node));
-                }
-
+                if (endTest)
+                    break;
             }
-
-
-
-            Console.WriteLine("Recursive");
-            BN.recInOrder(BN.Root());
-            Console.WriteLine("No Recursive");
-            Node t = BN.MinNode(BN.Root());
-            while (t != null)
-            {
-                Console.WriteLine(" {0} -> {1}", t.Key, t.Value);
-                t = BN.NextNode(t);
-            }
-            Console.ReadKey();
         }
     }
 }

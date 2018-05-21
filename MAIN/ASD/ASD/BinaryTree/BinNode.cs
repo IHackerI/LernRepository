@@ -219,8 +219,10 @@ namespace ASD.BinaryTree
         }
 
 
-        public string View(Node t) //Вывод дерева
+        public string View() //Вывод дерева
         {
+            var t = Root();
+
             Node node = MaxNode(t);
             Node val = MinNode(t);
             string s = Convert.ToString(val.Key);
