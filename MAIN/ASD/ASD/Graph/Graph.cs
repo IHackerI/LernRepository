@@ -8,25 +8,28 @@ namespace ASD.Graph
     class Graph<T>
     {
         
-        public Graph(List<Vertex<T>> Vertex, List<Tuple<Vertex<T>, Vertex<T>>> Edge)
+        public Graph(List<Vertex<T>> Vertex, List<int> Edge)
         {
             foreach (var v in Vertex) AddVertex(v);
-            foreach (var edge in Edge) AddEdge(edge);
+            for (int i = 0; i < Edge.Count; i += 2) AddEdge(Edge[i], Edge[i+1]);
         }
 
-        public Dictionary<Vertex<T>, HashSet<Vertex<T>>> ConnectVertexes { get; } = new Dictionary<Vertex<T>, HashSet<Vertex<T>>>();
+        public List<Vertex<T>> Vertexes = new List<Vertex<T>>();
+        public Dictionary<int, HashSet<int>> ConnectVertexes { get; } = new Dictionary<int, HashSet<int>>();
 
         public void AddVertex(Vertex<T> Vertex)
         {
-            ConnectVertexes[Vertex] = new HashSet<Vertex<T>>();
+            Vertexes.Add(Vertex);
+
+            ConnectVertexes[Vertexes.Count-1] = new HashSet<int>();
         }
 
-        public void AddEdge(Tuple<Vertex<T>, Vertex<T>> Edge)
+        public void AddEdge(int a, int b)
         {
-            if (ConnectVertexes.ContainsKey(Edge.Item1) && ConnectVertexes.ContainsKey(Edge.Item2))
+            if (ConnectVertexes.ContainsKey(a) && ConnectVertexes.ContainsKey(b))
             {
-                ConnectVertexes[Edge.Item1].Add(Edge.Item2);
-                ConnectVertexes[Edge.Item2].Add(Edge.Item1);
+                ConnectVertexes[a].Add(b);
+                ConnectVertexes[b].Add(a);
             }
         }
 
@@ -34,10 +37,9 @@ namespace ASD.Graph
 
         public HashSet<Vertex<T>> BypassWidth(Graph<T> graph, Vertex<T> primaryVertex)// обход в ширину
         {
-
             var visitedVertexes = new HashSet<Vertex<T>>();
 
-            if (!graph.ConnectVertexes.ContainsKey(primaryVertex))
+            if (!graph.ConnectVertexes.ContainsKey(Vertexes.FindIndex(x => x == primaryVertex)))
                 return visitedVertexes;
 
             var queue = new Queue<Vertex<T>>();//отслеживает  найденные вершины  ,  которые не посетили. Первоначально "queue"   содержит начальную вершину
@@ -50,9 +52,9 @@ namespace ASD.Graph
                     continue;
                 visitedVertexes.Add(currentVertex);
 
-                foreach (var neighbor in graph.ConnectVertexes[currentVertex])
-                    if (!visitedVertexes.Contains(neighbor))
-                        queue.Enqueue(neighbor);
+                foreach (var neighbor in graph.ConnectVertexes[Vertexes.FindIndex(x => x == currentVertex)])
+                    if (!visitedVertexes.Contains(Vertexes[neighbor]))
+                        queue.Enqueue(Vertexes[neighbor]);
             }
 
             return visitedVertexes;
@@ -63,7 +65,7 @@ namespace ASD.Graph
         {
             var visitedVertexes = new HashSet<Vertex<T>>();// Отслеживает уже посещенные вершины
 
-            if (!graph.ConnectVertexes.ContainsKey(primaryVertex))
+            if (!graph.ConnectVertexes.ContainsKey(Vertexes.FindIndex(x => x == primaryVertex)))
                 return visitedVertexes;
 
             var stackVertexes = new Stack<Vertex<T>>();//Отслеживает найденные, но еще не посещаемые вершины. Первоначально стек содержит начальную вершину
@@ -75,16 +77,14 @@ namespace ASD.Graph
 
                 if (visitedVertexes.Contains(currentVertex))
                     continue;
-
-
-
+                
                 visitedVertexes.Add(currentVertex);
 
-                foreach (var neighbor in graph.ConnectVertexes[currentVertex])
-                    if (!visitedVertexes.Contains(neighbor))
+                foreach (var neighbor in graph.ConnectVertexes[Vertexes.FindIndex(x => x == currentVertex)])
+                    if (!visitedVertexes.Contains(Vertexes[neighbor]))
                     {
-                        neighbor.PrevVertex = currentVertex;
-                        stackVertexes.Push(neighbor);
+                        //Vertexes[neighbor].PrevVertex = currentVertex;
+                        stackVertexes.Push(Vertexes[neighbor]);
                     }
             }
 
