@@ -166,7 +166,7 @@ namespace ASD.CustomLists
             }
         }
 
-        public IList<T> ToArray()
+        public T[] ToArray()
         {
             var ans = new T[Count];
 

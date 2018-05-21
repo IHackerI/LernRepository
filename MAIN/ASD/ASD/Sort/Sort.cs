@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using ASD.CustomLists;
+using System;
 
 namespace ASD.Sort
 {
     public static class Sort<T> where T : IComparable
     {
-        public static List<T> BubbleSort(List<T> set)
+        public static void BubbleSort(T[] set)
         {
             T temp;
-            for (int i = 0; i < set.Count; i++)
+            for (int i = 0; i < set.Length; i++)
             {
-                for (int j = i + 1; j < set.Count; j++)
+                for (int j = i + 1; j < set.Length; j++)
                 {
                     if (set[i].CompareTo(set[j]) > 0)
                     {
@@ -22,12 +20,12 @@ namespace ASD.Sort
                     }
                 }
             }
-            return set;
         }
-        public static List<T> InsertionSort(List<T> set)
+
+        public static void InsertionSort(ref T[] set)
         {
-            List<T> result = new List<T>();
-            for (int i = 0; i < set.Count; i++)
+            Set<T> result = new Set<T>();
+            for (int i = 0; i < set.Length; i++)
             {
                 int j = i;
                 while (j > 0 && result[j - 1].CompareTo(set[i]) > 0)
@@ -36,28 +34,27 @@ namespace ASD.Sort
                 }
                 result.Insert(j, set[i]);
             }
-            return result;
+            set = result.ToArray();
         }
-        public static List<T> ShellSort(List<T> set)
+        public static void ShellSort(T[] set)
         {
-            List<T> shell = set;
-            int step = shell.Count / 2;
+            int step = set.Length / 2;
 
             while (step > 0)
             {
                 int i, j;
-                for (i = step; i < shell.Count; i++)
+                for (i = step; i < set.Length; i++)
                 {
-                    T value = shell[i];
-                    for (j = i - step; (j >= 0) && (shell[j].CompareTo(value) > 0); j -= step)
-                        shell[j + step] = shell[j];
-                    shell[j + step] = value;
+                    T value = set[i];
+                    for (j = i - step; (j >= 0) && (set[j].CompareTo(value) > 0); j -= step)
+                        set[j + step] = set[j];
+                    set[j + step] = value;
                 }
                 step /= 2;
             }
-            return shell;
         }
-        public static void Merge(int[] Mas, int left, int right, int medium)
+
+        public static void Merge(T[] Mas, int left, int right, int medium)
         {
             int j = left;
             int k = medium + 1;
@@ -66,13 +63,13 @@ namespace ASD.Sort
             if (count <= 1)
                 return;
 
-            int[] TmpMas = new int[count];
+            T[] TmpMas = new T[count];
 
             for (int i = 0; i < count; ++i)
             {
                 if (j <= medium && k <= right)
                 {
-                    if (Mas[j] < Mas[k])
+                    if (Mas[j].CompareTo(Mas[k]) < 0)
                         TmpMas[i] = Mas[j++];
                     else
                         TmpMas[i] = Mas[k++];
@@ -93,12 +90,12 @@ namespace ASD.Sort
             }
         }
 
-        public static int[] MergeSort(int[] a, int l, int r)
+        public static void MergeSort(T[] a, int l, int r)
         {
             int m;
 
             if (l >= r)// Условие выхода из рекурсии
-                return a;
+                return;
 
             m = (l + r) / 2;
 
@@ -106,24 +103,22 @@ namespace ASD.Sort
             MergeSort(a, l, m);
             MergeSort(a, m + 1, r);
             Merge(a, l, r, m);
-            return a;
+            return;
         }
-        public static int[] QuickSort(int[] _items, int l, int r) // Быстрая сортировка
+        public static void QuickSort(T[] _items, int l, int r) // Быстрая сортировка
         {
-//#warning ПЕРЕДЕЛАТЬ НА НЕ РЕКУРСИВ
-
-            int temp;
-            int x = _items[l + (r - l) / 2];
-            //запись эквивалентна (min+r)/2, 
+            T temp;
+            T x = _items[l + (r - l) / 2];
+            //запись эквивалентна (l+r)/2, 
             //но не вызввает переполнения на больших данных
             int i = l;
             int j = r;
             //код в while обычно выносят в процедуру particle
             while (i <= j)
             {
-                while (_items[i] < x)
+                while (_items[i].CompareTo(x) < 0)
                     i++;
-                while (_items[j] > x)
+                while (_items[j].CompareTo(x) > 0)
                     j--;
                 if (i <= j)
                 {
@@ -139,10 +134,9 @@ namespace ASD.Sort
 
             if (l < j)
                 QuickSort(_items, l, j);
-            return _items;
         }
 
-        public static int[] NoRecursQuickSort(int[] _items, int l, int r) // Быстрая сортировка
+        public static void NoRecursQuickSort(T[] _items, int l, int r) // Быстрая сортировка
         {
             var curLR = new LRObj()
             {
@@ -153,18 +147,18 @@ namespace ASD.Sort
             while (true)
             {
                 #region QS
-                int temp;
-                int x = _items[curLR.L + (curLR.R - curLR.L) / 2];
-                //запись эквивалентна (min+r)/2, 
+                T temp;
+                T x = _items[curLR.L + (curLR.R - curLR.L) / 2];
+                //запись эквивалентна (l+r)/2, 
                 //но не вызввает переполнения на больших данных
                 int i = curLR.L;
                 int j = curLR.R;
                 //код в while обычно выносят в процедуру particle
                 while (i <= j)
                 {
-                    while (_items[i] < x)
+                    while (_items[i].CompareTo(x) < 0)
                         i++;
-                    while (_items[j] > x)
+                    while (_items[j].CompareTo(x) > 0)
                         j--;
                     if (i <= j)
                     {
@@ -264,8 +258,6 @@ namespace ASD.Sort
 
                 break;
             }
-
-            return _items;
         }
 
         private class LRObj
