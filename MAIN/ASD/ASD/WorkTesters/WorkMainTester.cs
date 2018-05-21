@@ -9,7 +9,7 @@ namespace ASD.WorkTesters
         enum TesterName
         {
             None = 0,
-            CustomLists = 10,
+            DeckNodeQueueSetStack = 10,
             Sort = 20,
             HashTable = 30,
             BinaryTree = 40,
@@ -24,7 +24,7 @@ namespace ASD.WorkTesters
             {
                 var testerNames = Enum.GetNames(typeof(TesterName));
                 bool testResult = IOSystem.InterfacedViewChoice(testerNames.Skip(1).ToArray(), new EmptyD[] {
-                    CustomListsTester.TEST,
+                    DeckNodeQueueSetStack.TEST,
                     SortTest.TEST,
                     HashTableTest.TEST,
                     BinaryTreeTester.TEST,

@@ -64,7 +64,9 @@ namespace ASD.WorkTesters
                         break;
 
                     case 3:
+                        Console.WriteLine("Начало вывода");
                         table.View();
+                        Console.WriteLine("Конец вывода");
                         break;
 
                     case 4:

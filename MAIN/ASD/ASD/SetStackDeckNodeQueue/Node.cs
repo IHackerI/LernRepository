@@ -7,14 +7,15 @@ namespace ASD.CustomLists
 {
     public class Node <T>
     {
+        public T Element { get; set; }
+        public Node<T> NextNode { get; set; }
+        public Node<T> PrevNode { get; set; }
         public Node()
         {
-            Next = null;
-            Prev = null;
+            NextNode = null;
+            PrevNode = null;
             Element = default(T);
         }
-        public T Element { get; set; }
-        public Node<T> Next { get; set; }
-        public Node<T> Prev { get; set; }
+        
     }
 }

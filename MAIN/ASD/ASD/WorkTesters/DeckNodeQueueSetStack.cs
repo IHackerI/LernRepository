@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
-using ASD.CustomLists;
+using ASD.DeckNodeQueueSetStack;
 using ASD.WorkTesters.Helpers;
 
 namespace ASD.WorkTesters
 {
-    public static class CustomListsTester
+    public static class DeckNodeQueueSetStack
     {
         enum ListName
         {
@@ -90,24 +90,30 @@ namespace ASD.WorkTesters
                         break;
 
                     case 4:
+                        Console.WriteLine("Начало вывода");
                         deck.ViewHead();
+                        Console.WriteLine("Конец вывода");
                         break;
 
                     case 5:
+                        Console.WriteLine("Начало вывода");
                         deck.ViewTail();
+                        Console.WriteLine("Конец вывода");
                         break;
 
                     case 6:
-                        Console.Write("Введите удаляемое значение: ");
+                        Console.Write("Введите значение, которое нужно удалить: ");
                         deck.Remove(Console.ReadLine());
                         break;
 
                     case 7:
                         deck.RemoveHead();
+                        Console.WriteLine("Удалено");
                         break;
 
                     case 8:
                         deck.RemoveTail();
+                        Console.WriteLine("Удалено");
                         break;
 
                     case 9:
@@ -154,7 +160,9 @@ namespace ASD.WorkTesters
                         break;
 
                     case 2:
+                        Console.WriteLine("Начало вывода");
                         queue.View();
+                        Console.WriteLine("Конец вывода");
                         break;
                         
                     case 3:
@@ -235,6 +243,7 @@ namespace ASD.WorkTesters
                         break;
 
                     case 6:
+                        Console.Write("Множество:");
                         set.View();
                         break;
 
@@ -280,7 +289,9 @@ namespace ASD.WorkTesters
                         break;
 
                     case 2:
+                        Console.WriteLine("Стек:");
                         stack.View();
+                        Console.WriteLine("Конец вывода");
                         break;
 
                     case 3:

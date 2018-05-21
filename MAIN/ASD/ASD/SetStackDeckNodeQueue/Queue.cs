@@ -18,21 +18,21 @@ namespace ASD.CustomLists
             if (_headNode == null)
             {
                 Node<T> _current = new Node<T>();
-                _current.Next = null;
+                _current.NextNode = null;
                 _tailNode = _current;
                 _current.Element = element;
-                _current.Prev = null;
+                _current.PrevNode = null;
                 _headNode = _current;
                 Length++;
             }
             else
             {
                 Node<T> newNode = new Node<T>();
-                _tailNode.Next = newNode;
-                newNode.Prev = _tailNode;
+                _tailNode.NextNode = newNode;
+                newNode.PrevNode = _tailNode;
                 _tailNode = newNode;
                 _tailNode.Element = element;
-                _tailNode.Next = null;
+                _tailNode.NextNode = null;
                 Length++;
             }
         }
@@ -40,8 +40,8 @@ namespace ASD.CustomLists
         public T Pop()
         {
             var ans = _headNode;
-            _headNode = _headNode.Next;
-            _headNode.Prev = null;
+            _headNode = _headNode.NextNode;
+            _headNode.PrevNode = null;
             Length--;
             return ans.Element;
         }
@@ -61,7 +61,7 @@ namespace ASD.CustomLists
             while (curNode != null)
             {
                 Console.Write(curNode.Element + " ");
-                curNode = curNode.Next;
+                curNode = curNode.NextNode;
             }
             
             Console.WriteLine();
