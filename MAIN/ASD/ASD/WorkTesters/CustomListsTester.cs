@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
-using ASD.DeckNodeQueueSetStack;
+using ASD.CustomLists;
 using ASD.WorkTesters.Helpers;
 
 namespace ASD.WorkTesters
 {
-    public static class DeckNodeQueueSetStack
+    public static class CustomListsTester
     {
         enum ListName
         {

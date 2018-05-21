@@ -394,8 +394,5 @@ namespace ChislMethods.LinAl
             return mat;
 
         }
-
-     
-        
     }
 }
