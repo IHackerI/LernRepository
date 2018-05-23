@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ChislMethods.LinAl
 {
@@ -217,7 +213,6 @@ namespace ChislMethods.LinAl
                     Console.Write("{0} ", this[i, j]);
                 Console.WriteLine(" ");
             }
-
         }
     }
 }

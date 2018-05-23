@@ -42,12 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DerSystems\TMP\MathExt.cs" />
-    <Compile Include="DerSystems\TMP\Structs\LSMFunction.cs" />
-    <Compile Include="DerSystems\TMP\Structs\Matrix.cs" />
-    <Compile Include="DerSystems\TMP\Structs\MatrixExt.cs" />
-    <Compile Include="DerSystems\TMP\Structs\Spline.cs" />
-    <Compile Include="DerSystems\TMP\Structs\Vector.cs" />
     <Compile Include="LinAl\Matrix.cs" />
     <Compile Include="WorkTesters\DerSystemsTEST.cs" />
     <Compile Include="DerSystems\RangeKutta.cs" />

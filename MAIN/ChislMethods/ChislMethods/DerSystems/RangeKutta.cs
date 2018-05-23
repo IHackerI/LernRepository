@@ -41,11 +41,11 @@ namespace ChislMethods.DerSystems
 
                 for (int k = 0; k < x.Length; k++)
                     x[k] = x[k] + h * f1[k];
-                Console.Write("t={0} ", t);
+                Console.Write(("t=" + t).PadRight(10));
                 for (int j = 0; j < x.Length; j++)
                 {
                     xr[i, j] = x[j];
-                    Console.Write("x[{0}]={1} xa={2}", j, x[j], Math.Exp(t));
+                    WriteArgs(j, x[j], Math.Exp(t));
                 }
                 Console.WriteLine();
 
@@ -80,11 +80,11 @@ namespace ChislMethods.DerSystems
                 for (int k = 0; k < x.Length; k++)
                     x[k] = x[k] + (h / 2) * (f1[k] + f2[k]);
 
-                Console.Write("t={0} ", t);
+                Console.Write(("t=" + t).PadRight(10));
                 for (int j = 0; j < x.Length; j++)
                 {
                     xr[i, j] = x[j];
-                    Console.Write("x[{0}]={1} xa={2}", j, x[j], Math.Exp(t));
+                    WriteArgs(j, x[j], Math.Exp(t));
                 }
                 Console.WriteLine();
             }
@@ -127,15 +127,20 @@ namespace ChislMethods.DerSystems
                 for (int k = 0; k < x.Length; k++)
                     x[k] = x[k] + (h / 6) * (f1[k] + f2[k] * 2 + f3[k] * 2 + f4[k]);
 
-                Console.Write("t={0} ", t);
+                Console.Write(("t=" + t).PadRight(10));
                 for (int j = 0; j < x.Length; j++)
                 {
                     xr[i, j] = x[j];
-                    Console.Write("x[{0}]={1} xa={2}", j, x[j], Math.Exp(t));
+                    WriteArgs(j, x[j], Math.Exp(t));
                 }
                 Console.WriteLine();
             }
             return xr;
+        }
+
+        private void WriteArgs(params object[] args)
+        {
+            Console.Write(("x["+ args[0] + "]="+ args[1]).PadRight(20) + " xa=" + args[2]);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace ChislMethods.LinAl
         public double[] Coeff { get { return coeff; } }
 
         // Среднеквадратичное отклонение
-        public double? Delta { get { return CalculateDelta(); } }
+        public double Delta { get { return CalculateDelta(); } }
 
         // Конструктор класса. Примает 2 массива значений х и у
         // Длина массивов должна быть одинакова, иначе нужно обработать исключение
