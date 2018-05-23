@@ -218,11 +218,11 @@ namespace ChislMethods.LinAl
         public Vector GramSchmidt(Matrix m) // метод ортогонолизации
         {
             Vector nan = new Vector(0);
-            if (m.getC() != m.getR()) return nan;
-            if (m.deter(m) == 0) return nan;
+            if (m.Col != m.Row) return nan;
+            if (Matrix.Determ(m) == 0) return nan;
 
-            Matrix u = new Matrix(size, size);
-            Matrix v = new Matrix(size, size);
+            Matrix u = new Matrix(new double[size, size]);
+            Matrix v = new Matrix(new double[size, size]);
             Vector temp = new Vector(size);
             Vector h = new Vector(size);
             Vector x = new Vector(size);
@@ -236,10 +236,10 @@ namespace ChislMethods.LinAl
             for (int i = 0; i < size; i++)
                 u[0, i] = m[0, i]; // u[0]
 
-            v.SetRow(u.getRow(0).normalization(), 0); //v[0]
+            v.SetRow(u.GetRow(0).normalization(), 0); //v[0]
 
             Vector t = new Vector(size);
-            t[0] = vector[0] / u.getRow(0).len(); // h[0]
+            t[0] = vector[0] / u.GetRow(0).len(); // h[0]
 
             int count = 1; // счетчик пременных, для кот уже найдены первые значения
             double te;
@@ -253,7 +253,7 @@ namespace ChislMethods.LinAl
 
                 for (int j = 0; j < count; j++)
                 {
-                    te = m.getRow(count).multiplication(v.getRow(j));
+                    te = m.GetRow(count).multiplication(v.GetRow(j));
 
                     for (int i = 0; i < size; i++)
                         temp[i] += te * v[j, i]; // получили c[i, j] * v[k]
@@ -264,9 +264,9 @@ namespace ChislMethods.LinAl
                 for (int i = 0; i < size; i++) // находим u
                     u[count, i] = m[count, i] - temp[i];
 
-                t[count] = (vector[count] - temp_h) / u.getRow(count).len(); // нашли h
+                t[count] = (vector[count] - temp_h) / u.GetRow(count).len(); // нашли h
 
-                v.SetRow(u.getRow(count).normalization().normalization(), count);
+                v.SetRow(u.GetRow(count).normalization().normalization(), count);
 
                 count++;
 
@@ -274,7 +274,7 @@ namespace ChislMethods.LinAl
 
 
             h = t;
-            x = (v.transp(v)).MultiplyVector(t);
+            x = Matrix.Transposition(v) * t;
 
             return x;
         } 

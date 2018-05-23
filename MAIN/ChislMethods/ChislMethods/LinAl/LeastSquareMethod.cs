@@ -1,69 +1,90 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
+using System;
 using System.Linq;
-using System.Text;
-//using System.Threading.Tasks;
 
 namespace ChislMethods.LinAl
 {
     public delegate double Psi(double x, int number);
     public class LeastSquareMethod
     {
-        Matrix answ;
-        public double xmin, xmax;
-        public double[,] Minkv(double[,] xyTable, int basis, Psi ps)
+        public double[] X { get; set; }
+        public double[] Y { get; set; }
+
+        // Искомые коэффициенты полинома в данном случае, а в общем коэфф. при функциях
+        private double[] coeff;
+        public double[] Coeff { get { return coeff; } }
+
+        // Среднеквадратичное отклонение
+        public double? Delta { get { return CalculateDelta(); } }
+
+        // Конструктор класса. Примает 2 массива значений х и у
+        // Длина массивов должна быть одинакова, иначе нужно обработать исключение
+        public LeastSquareMethod(double[] x, double[] y)
         {
-            double[,] matrix = new double[basis, basis + 1];
+            if (x.Length != y.Length) throw new ArgumentException("X and Y arrays should be equal!");
+            X = new double[x.Length];
+            Y = new double[y.Length];
 
-            xmin = xyTable[0, 0];
-            xmax = xyTable[0, xyTable.Length / 2 - 1];
-            for (int i = 0; i < basis; i++)
+            for (int i = 0; i < x.Length; i++)
             {
-                for (int j = 0; j < basis; j++)
-                {
-                    matrix[i, j] = 0;
-                }
+                X[i] = x[i];
+                Y[i] = y[i];
             }
-            for (int i = 0; i < basis; i++)
-            {
-                double sumB = 0;
-                for (int j = 0; j < basis; j++)
-                {
-                    double sumA = 0;
-                    for (int k = 0; k < xyTable.Length / 2; k++)
-                    {
-                        // sumA += Math.Pow(xyTable[0, k], i) * Math.Pow(xyTable[0, k], j);
-                        // sumB += xyTable[1, k] * Math.Pow(xyTable[0, k], i);
-                        sumA += ps(xyTable[0, k], i) * ps(xyTable[0, k], j);
-
-                    }
-                    matrix[i, j] = sumA;
-
-                }
-                for (int k = 0; k < xyTable.Length / 2; k++)
-                {
-                    sumB += xyTable[1, k] * ps(xyTable[0, k], i);
-                }
-                matrix[i, basis] = sumB;
-            }
-            Matrix m = new Matrix(matrix);
-            //m = m.toTriangleForm(m);
-            //Console.WriteLine(m.Gauss());
-            answ = m.Gauss(m);
-            return matrix;
         }
 
-        public double resh2(double x, Psi ps)
+        // Собственно, Метод Наименьших Квадратов
+        // В качестве базисных функций используются степенные функции y = a0 * x^0 + a1 * x^1 + ... + am * x^m
+        public void Polynomial(int m)
         {
-            if (answ == null)
-                return 0;
+            if (m <= 0) throw new ArgumentException("Порядок полинома должен быть больше 0");
+            if (m >= X.Length) throw new ArgumentException("Порядок полинома должен быть на много меньше количества точек!");
 
-            double answer = answ.matrix[0, 0];
-            for (int i = 1; i < answ.matrix.GetLength(0); i++)
+            // массив для хранения значений базисных функций
+            double[,] basic = new double[X.Length, m + 1];
+
+            // заполнение массива для базисных функций
+            for (int i = 0; i < basic.GetLength(0); i++)
+                for (int j = 0; j < basic.GetLength(1); j++)
+                    basic[i, j] = Math.Pow(X[i], j);
+
+            // Создание матрицы из массива значений базисных функций(МЗБФ)
+            Matrix basicFuncMatr = new Matrix(basic);
+
+            // Транспонирование МЗБФ
+            Matrix transBasicFuncMatr = Matrix.Transposition(basicFuncMatr);
+
+            // Произведение транспонированного  МЗБФ на МЗБФ
+            Matrix lambda = transBasicFuncMatr * basicFuncMatr;
+
+            // Произведение транспонированого МЗБФ на следящую матрицу 
+            Matrix beta = transBasicFuncMatr * new Matrix(Y);
+
+            // Решение СЛАУ путем умножения обратной матрицы лямбда на бету
+            Matrix a = lambda.InverseMatrix() * beta;
+
+            // Присвоение значения полю класса 
+            coeff = new double[a.Row];
+            for (int i = 0; i < coeff.Length; i++)
             {
-                answer += answ.matrix[i, 0] * ps(x, i);
+                coeff[i] = a.Args[i, 0];
             }
-            return answer;
+        }
+
+        // Функция нахождения среднеквадратичного отклонения
+        private double CalculateDelta()
+        {
+            if (coeff == null) return double.NaN;
+            double[] dif = new double[Y.Length];
+            double[] f = new double[X.Length];
+            for (int i = 0; i < X.Length; i++)
+            {
+                for (int j = 0; j < coeff.Length; j++)
+                {
+                    f[i] += coeff[j] * Math.Pow(X[i], j);
+                }
+                dif[i] = Math.Pow((f[i] - Y[i]), 2);
+            }
+            return Math.Sqrt(dif.Sum() / X.Length);
         }
     }
 }

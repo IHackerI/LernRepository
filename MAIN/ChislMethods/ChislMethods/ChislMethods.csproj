@@ -48,6 +48,7 @@
     <Compile Include="DerSystems\TMP\Structs\MatrixExt.cs" />
     <Compile Include="DerSystems\TMP\Structs\Spline.cs" />
     <Compile Include="DerSystems\TMP\Structs\Vector.cs" />
+    <Compile Include="LinAl\Matrix.cs" />
     <Compile Include="WorkTesters\DerSystemsTEST.cs" />
     <Compile Include="DerSystems\RangeKutta.cs" />
     <Compile Include="FindFuncs\BinFind.cs" />
@@ -57,7 +58,7 @@
     <Compile Include="Integral\Integral.cs" />
     <Compile Include="WorkTesters\IntegralTEST.cs" />
     <Compile Include="LinAl\LeastSquareMethod.cs" />
-    <Compile Include="LinAl\Matrix.cs" />
+    <Compile Include="LinAl\MatrixO.cs" />
     <Compile Include="LinAl\Vector.cs" />
     <Compile Include="WorkTesters\LinAlTester.cs" />
     <Compile Include="Program.cs" />

@@ -1,26 +1,47 @@
-﻿ using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
-//using System.Threading.Tasks;
+using System.Threading.Tasks;
 
 namespace ChislMethods.LinAl
 {
     public class Matrix
     {
-        public double[,] matrix;
-        public int Row = 0, Col = 0; //начальное кол-во строк и столбцов      
-       
-        public Matrix(int row, int col)
+        public double[,] Args { get; set; }
+        public int Row { get; set; }
+        public int Col { get; set; }
+
+        public Matrix(double[] x)
         {
-            // конструктор матрицы
-            matrix = new double[row, col];
-            Row = row;
-            Col = col;
+            Row = x.Length;
+            Col = 1;
+            Args = new double[Row, Col];
+            for (int i = 0; i < Args.GetLength(0); i++)
+                for (int j = 0; j < Args.GetLength(1); j++)
+                    Args[i, j] = x[i];
         }
+
+        public Matrix(double[,] x)
+        {
+            Row = x.GetLength(0);
+            Col = x.GetLength(1);
+            Args = new double[Row, Col];
+            for (int i = 0; i < Args.GetLength(0); i++)
+                for (int j = 0; j < Args.GetLength(1); j++)
+                    Args[i, j] = x[i, j];
+        }
+
+        public Matrix(Matrix other)
+        {
+            this.Row = other.Row;
+            this.Col = other.Col;
+            Args = new double[Row, Col];
+            for (int i = 0; i < Row; i++)
+                for (int j = 0; j < Col; j++)
+                    this.Args[i, j] = other.Args[i, j];
+        }
+
 
         public double this[int i, int j]
         {
@@ -32,7 +53,7 @@ namespace ChislMethods.LinAl
                     return 0;
                 }
                 else
-                    return matrix[i, j];
+                    return Args[i, j];
             }
             set
             {
@@ -41,236 +62,140 @@ namespace ChislMethods.LinAl
                     Console.WriteLine(" Индексы вышли за пределы матрицы ");
                 }
                 else
-                    matrix[i, j] = value;
+                    Args[i, j] = value;
             }
         }
 
-        public Matrix(double[,] mm) // конструктор
+        public override string ToString()
         {
-            this.Row = mm.GetLength(0);
-            this.Col = mm.GetLength(1);
-            matrix = new double[Row, Col];
-            for (int i = 0; i < Row; i++)
-                for (int j = 0; j < Col; j++)
-                    matrix[i, j] = mm[i, j];
-        }
-
-        public Matrix(Matrix mm) // конструктор
-        {
-            this.Row = mm.Row;
-            this.Col = mm.Col;
-            matrix = new double[Row, Col];
-            for (int i = 0; i < Row; i++)
-                for (int j = 0; j < Col; j++)
-                    matrix[i, j] = mm[i, j];
-        }
-        
-        internal Matrix Gauss(Matrix mtx)
-        {
-            var size = mtx.Row;//mtx.si
-
-            //Vector v = new Vector(vector);
-
-            //Vector nan = new Vector(0);
-
-            //Vector b = new Vector(vector);
-            //double[] x = new double[size];
-            double max;
-            int jmax;
-            for (int k = 0; k < size; k++)
+            string s = string.Empty;
+            for (int i = 0; i < Args.GetLength(0); i++)
             {
-                // поиск макс по модулю элемента в к столбце начиная с к элемента 
-                max = Math.Abs(mtx[k, k]);
-                jmax = k;
-                for (int j = k + 1; j < size; j++)
+                for (int j = 0; j < Args.GetLength(1); j++)
                 {
-                    if (Math.Abs(mtx[j, k]) > max)
-                    {
-                        max = Math.Abs(mtx[j, k]);
-                        jmax = j;
-                    }
+                    s += string.Format("{0} ", Args[i, j]);
                 }
-                if (jmax != k)
-                {
-                    //обмен строк 
-                    for (int i = 0; i < size; i++)
-                    {
-                        double temp = mtx[k, i];
-                        mtx[k, i] = mtx[jmax, i];
-                        mtx[jmax, i] = temp;
-                        //double temp1 = b[k];
-                        //b[k] = b[jmax];
-                        //b[jmax] = temp1;
-                    }
-                }
-                //Приведение к треугольному виду 
-                double m;
-                for (int z = 1; z < size; z++)
-                {
-                    for (int j = z; j < size; j++)
-                    {
-                        m = mtx[j, z - 1] / mtx[z - 1, z - 1];
-                        for (int i = 0; i < size; i++)
-                            mtx[j, i] = mtx[j, i] - m * mtx[z - 1, i];
-                        //b[j] = b[j] - m * b[z - 1];
-                    }
-                }
-                //проверка на особбенность матрицы 
-                if (max == 0) return null;
+                s += "\n";
             }
-            //обратный ход 
-            /*for (int q = size - 1; q >= 0; q--)
-            {
-                for (int j = q + 1; j < size; j++)
-                    b[q] -= mtx[q, j] * b[j];
-                b[q] = b[q] / mtx[q, q];
-            }*/
-            return mtx;
-
-            //Console.WriteLine("Метод гаусса не выполнен!");
-            //return null;
-            //throw new NotImplementedException();
+            return s;
         }
 
-        public void View()
+        public static Matrix Transposition(Matrix source)
         {
-           for (int i = 0; i < this.Row; i++)
-           {
-               for (int j = 0; j < this.Col; j++)
-                   Console.Write("{0} ", this[i, j]);
-               Console.WriteLine(" ");
-           }
-            
+            double[,] t = new double[source.Col, source.Row];
+            for (int i = 0; i < source.Row; i++)
+                for (int j = 0; j < source.Col; j++)
+                    t[j, i] = source[i, j];
+            return new Matrix(t);
         }
 
-        public Matrix addition(Matrix b)
+        public static Matrix operator *(Matrix m, double k)
         {
-            if (Row == b.Row && Col == b.Col)
+            Matrix ans = new Matrix(m);
+            for (int i = 0; i < ans.Row; i++)
+                for (int j = 0; j < ans.Col; j++)
+                    ans.Args[i, j] = m.Args[i, j] * k;
+            return ans;
+        }
+
+        public static Matrix operator *(Matrix m1, Matrix m2)
+        {
+            if (m1.Col != m2.Row) throw new ArgumentException("Multiplication of these two matrices can't be done!");
+            double[,] ans = new double[m1.Row, m2.Col];
+            for (int i = 0; i < m1.Row; i++)
             {
-                Matrix c = new Matrix(Row, Col);
-
-                for (int i = 0; i < c.Row; i++)
-                    for (int j = 0; j < c.Col; j++)
-                        c[i, j] = matrix[i, j] + b[i, j];
-
-                return c;
+                for (int j = 0; j < m2.Col; j++)
+                {
+                    for (int k = 0; k < m2.Row; k++)
+                    {
+                        ans[i, j] += m1.Args[i, k] * m2.Args[k, j];
+                    }
+                }
             }
-            
-            
-            Matrix nan = new Matrix(0, 0);
-            Console.Write("Матрицы нельзя сложить.");
-            return nan;
-            
+            return new Matrix(ans);
         }
 
-        public Matrix substraction(Matrix b)
+        public static Vector operator *(Matrix m1, Vector v)
         {
-            if (Row == b.Row && Col == b.Col)
+            if (m1.Col != v.GetSize())
             {
-                Matrix c = new Matrix(Row, Col);
-
-                for (int i = 0; i < c.Row; i++)
-                    for (int j = 0; j < c.Col; j++)
-                        c[i, j] = matrix[i, j] - b[i, j];
-
-                return c;
-            }  
-            Matrix nan = new Matrix(0, 0);
-            Console.Write("Матрицы нельзя вычесть.");
-            return nan;
-            
-        }
-
-        public Matrix multiplication(double x)
-        {
-            Matrix c = new Matrix(Row, Col);
-
-            for (int i = 0; i < c.Row; i++)
-                for (int j = 0; j < c.Col; j++)
-                    c[i, j] = matrix[i, j] * x;
-
-            return c;
-        }
-
-        public Matrix multiplication(Matrix b)
-        {
-            if (Col == b.Row)
-            {
-                Matrix c = new Matrix(Row, b.Col);
-
-
-                for (int i = 0; i < Row; i++)
-                    for (int j = 0; j < b.Col; j++)
-                        for (int k = 0; k < b.Row; k++)
-                            c[i, j] += matrix[i, k] * b[k, j];
-                return c;
-            }   
-            Matrix nan = new Matrix(0, 0);
-            Console.Write("Матрицы нельзя умножить.");
-            return nan;
-            
-        }
-
-        public Vector MultiplyVector(Vector c) // умножение матрицы на вектор
-        {
-            if (Col != c.GetSize())
-            {   Vector nan = new Vector(0);
+                Vector nan = new Vector(0);
                 return nan;
             }
-            Vector rez = new Vector(Row);
+            Vector rez = new Vector(m1.Row);
 
-            for (int i = 0; i < Row; i++)
-                for (int j = 0; j < Col; j++)
-                    rez[i] += matrix[i, j] * c[j];
-               
+            for (int i = 0; i < m1.Row; i++)
+                for (int j = 0; j < m1.Col; j++)
+                    rez[i] += m1[i, j] * v[j];
+
             return rez;
         }
 
-        public Matrix transp(Matrix r)
+        private Matrix GetMinor(int row, int column)
         {
-            Matrix c = new Matrix(r.Col, r.Row);
-
-            for (int i = 0; i < c.Row; i++)
-                for (int j = 0; j < c.Col; j++)
-                    c[i, j] = r[j, i];
-            return c;
-        }
-
-        public Matrix identityMatrix(int m) // единичная
-        {
-            Matrix c = new Matrix(m, m);
-
-            for (int i = 0; i < c.Row; i++)
-                for (int j = 0; j < c.Col; j++)
-                {
-                    if (i == j)
-                        c[i, j] = 1;
-                    else
-                        c[i, j] = 0;
-                }
-            return c;
-        }
-
-        public Vector getColumn(int x) // получение столбца в виде вектора
-        {            
-            if (x >= 0 && x < Col)
+            if (Row != Col) throw new ArgumentException("Matrix should be square!");
+            double[,] minor = new double[Row - 1, Col - 1];
+            for (int i = 0; i < this.Row; i++)
             {
-                Vector column = new Vector(Row);
-                for (int j = 0; j < Row; j++)
-                    column.SetElement(matrix[j, x], j);
-                return column;
+                for (int j = 0; j < this.Col; j++)
+                {
+                    if ((i != row) || (j != column))
+                    {
+                        if (i > row && j < column) minor[i - 1, j] = this.Args[i, j];
+                        if (i < row && j > column) minor[i, j - 1] = this.Args[i, j];
+                        if (i > row && j > column) minor[i - 1, j - 1] = this.Args[i, j];
+                        if (i < row && j < column) minor[i, j] = this.Args[i, j];
+                    }
+                }
             }
-            Vector nan = new Vector(0);
-            return nan;
+            return new Matrix(minor);
         }
 
-        public Vector getRow(int x) // получение строки в виде вектора
+        public static double Determ(Matrix m)
+        {
+            if (m.Row != m.Col) throw new ArgumentException("Matrix should be square!");
+            double det = 0;
+            int length = m.Row;
+
+            if (length == 1) det = m.Args[0, 0];
+            if (length == 2) det = m.Args[0, 0] * m.Args[1, 1] - m.Args[0, 1] * m.Args[1, 0];
+
+            if (length > 2)
+                for (int i = 0; i < m.Col; i++)
+                    det += Math.Pow(-1, 0 + i) * m.Args[0, i] * Determ(m.GetMinor(0, i));
+
+            return det;
+        }
+
+        public Matrix MinorMatrix()
+        {
+            double[,] ans = new double[Row, Col];
+
+            for (int i = 0; i < Row; i++)
+                for (int j = 0; j < Col; j++)
+                    ans[i, j] = Math.Pow(-1, i + j) * Determ(this.GetMinor(i, j));
+
+            return new Matrix(ans);
+        }
+
+        public Matrix InverseMatrix()
+        {
+            if (Math.Abs(Determ(this)) <= 0.000000001) throw new ArgumentException("Inverse matrix does not exist!");
+
+            double k = 1 / Determ(this);
+
+            Matrix minorMatrix = this.MinorMatrix();
+
+            return minorMatrix * k;
+        }
+        
+        public Vector GetRow(int x) // получение строки в виде вектора
         {
             if (x >= 0 && x < Row)
             {
                 Vector row = new Vector(Col);
                 for (int j = 0; j < Col; j++)
-                    row.SetElement(matrix[x, j], j);
+                    row.SetElement(Args[x, j], j);
                 return row;
             }
             Vector nan = new Vector(0);
@@ -278,120 +203,20 @@ namespace ChislMethods.LinAl
         }
 
         public void SetRow(Vector vr, int r)
-        {     
-            if (( Col != vr.GetSize() ) || r < 0 || r >= Row) return;
+        {
+            if ((Col != vr.GetSize()) || r < 0 || r >= Row) return;
             for (int j = 0; j < Col; j++)
-                matrix[r, j] = vr.GetElement(j);
+                Args[r, j] = vr.GetElement(j);
         }
 
-        public void SetCol(Vector vc, int c)
-        {            
-            if (( Row != vc.GetSize() ) || c < 0 || c >= Col) return;
-            for (int j = 0; j < Row; j++)
-                matrix[c, j] = vc.GetElement(j);
-        }
-
-        public double deter(Matrix r) // определитель матрицы
+        public void View()
         {
-            double det = 0;
-            if (r.Row != r.Col)
+            for (int i = 0; i < this.Row; i++)
             {
-                Console.WriteLine("Матрица не квадратная");
-                return double.NaN;
+                for (int j = 0; j < this.Col; j++)
+                    Console.Write("{0} ", this[i, j]);
+                Console.WriteLine(" ");
             }
-
-            if (r.Row == 1)
-                det = r[0, 0];
-
-            else if (r.Row == 2)
-                det = r[0, 0] * r[1, 1] - r[0, 1] * r[1, 0];
-
-            else if (r.Row > 2)
-            {
-                for (int i = 0; i < r.Col; i++)
-                {
-                    Matrix c = new Matrix(r.Row - 1, r.Col - 1);
-                    det += Math.Pow(-1, i + 2) * r[0, i] * deter(minor(r, 0, i));
-                }
-            }
-            return det;
-        }
-
-        public Matrix minor(Matrix r, int m, int n) // минор матрицы
-        {
-            Matrix c = new Matrix(r.Row - 1, r.Col - 1);
-
-            for (int i = 0, q = 0; q < c.Row; i++, q++)
-                for (int j = 0, p = 0; p < c.Col; j++, p++)
-                {
-                    if (i == m) i++;
-                    if (j == n) j++;
-                    c[q, p] = r[i, j];
-                }
-            return c;
-        }
-
-        public Matrix cofactor(Matrix r) // алгебраическое дополнение
-        {
-            Matrix c = new Matrix(r.Row, r.Col);
-            for (int i = 1; i <= r.Row; i++)
-            {
-                for (int j = 1; j <= r.Col; j++)
-                {
-                    c[i - 1, j - 1] = Math.Pow(-1, i + j) * deter(minor(r, i - 1, j - 1));
-                }
-            }
-            return c;
-        }
-
-        public Matrix inverse(Matrix r) //обратная матрица
-        {
-            if (deter(r) == 0)
-            {
-                Matrix nan = new Matrix(0, 0); 
-                Console.Write("У матрицы нет обратной.");
-                return nan;
-            }
-            Matrix c;
-            c = transp(cofactor(r).multiplication(( 1 / deter(r) )));
-
-            return c;
-        } 
-
-        public int getR() { return Row; }
-
-        public int getC() { return Col; }
-
-        public void SwapRow(int a, int b)// перестановка строк
-        {            
-            if (a < 0 || b < 0 || a > Row || b > Row || ( a == b )) return;
-            
-            Vector v1 = getRow(a);
-            Vector v2 = getRow(b);
-            
-            SetRow(v1, b);
-            SetRow(v2, a);
-        }
-
-        public void SwapColumn(int a, int b) // перестановка столбцов
-        {
-            if (a < 0 || b < 0 || a > Col || b > Col || ( a == b ))
-                return;
-
-            Vector v1 = getColumn(a);
-            Vector v2 = getColumn(b);
-            SetCol(v1, b);
-            SetCol(v2, a);
-        }
-
-        public Matrix Copy() // копирование матрицы
-        {
-
-            Matrix mat = new Matrix(Row, Col);
-            for (int i = 0; i < Col; i++)
-                for (int j = 0; j < Row; j++)
-                    mat[i, j] = matrix[i, j];
-            return mat;
 
         }
     }
