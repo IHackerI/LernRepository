@@ -89,6 +89,8 @@ namespace ASD.BinaryTree
 
         public Node MaxNode(Node t) //Поиск максимального элемента узла
         {
+            if (t == null)
+                return null;
             int key = t.Key;
             val = Search(key);
             while (val.Right != null)
@@ -99,6 +101,9 @@ namespace ASD.BinaryTree
 
         public Node MinNode(Node t) //Поиск Минимального элемента узла
         {
+            if (t == null)
+                return null;
+
             int key = t.Key;
             try
             {
@@ -149,6 +154,9 @@ namespace ASD.BinaryTree
 
         public void Dell(Node val) //Удаление!!!
         {
+            if (val == null || val.Parent == null)
+                return;
+
             if (val.Right == null && val.Left == null)
             {
                 if (val == val.Parent.Left)
@@ -192,10 +200,17 @@ namespace ASD.BinaryTree
         }
         public Node NextNode(Node t) //Поиск следующего элемента по индексу
         {
+            if (t == null)
+                return null;
+
             int key = t.Key;
             val = Search(key);
             if (val.Right == null)
             {
+                if (val.Parent == null)
+                    return null
+                        ;
+
                 if (val == val.Parent.Left)
                     return val.Parent;
                 else
@@ -240,14 +255,15 @@ namespace ASD.BinaryTree
             Console.WriteLine("Key={0}  Value={1}",t.Key,t.Value);
             if (t.Right != null) recInOrder(t.Right);
         }
-
-
-
+        
         private Node Search(int key) //Поиск
         {
             val = head;
             while (true)
             {
+                if (val == null)
+                    return null;
+
                 if (val.Key == key)
                     return val;
                 else if (val.Key < key)

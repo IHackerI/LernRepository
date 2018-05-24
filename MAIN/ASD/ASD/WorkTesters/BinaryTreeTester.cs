@@ -50,7 +50,8 @@ namespace ASD.WorkTesters
                         break;
 
                     case 1:
-                        Console.WriteLine(BN.Value(IOSystem.GetInt("Введите ключ: ")));
+                        var r = BN.Value(IOSystem.GetInt("Введите ключ: "));
+                        Console.WriteLine(r == null ? null : r.Value);
                         break;
 
                     case 2:
@@ -58,15 +59,18 @@ namespace ASD.WorkTesters
                         break;
 
                     case 3:
-                        Console.WriteLine(BN.MaxNode(BN.Value(IOSystem.GetInt("Введите ключ: "))).Key);
+                        r = BN.MaxNode(BN.Value(IOSystem.GetInt("Введите ключ: ")));
+                        Console.WriteLine();
                         break;
 
                     case 4:
-                        Console.WriteLine(BN.MinNode(BN.Value(IOSystem.GetInt("Введите ключ: "))).Key);
+                        r = BN.MinNode(BN.Value(IOSystem.GetInt("Введите ключ: ")));
+                        Console.WriteLine(r == null ? null : r.Value);
                         break;
 
                     case 5:
-                        Console.WriteLine(BN.NextNode(BN.Value(IOSystem.GetInt("Введите ключ: "))).Key);
+                        r = BN.NextNode(BN.Value(IOSystem.GetInt("Введите ключ: ")));
+                        Console.WriteLine(r == null ? null : r.Value);
                         break;
 
                     case 6:

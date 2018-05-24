@@ -161,16 +161,30 @@ namespace ASD.CustomLists
 
         public void RemoveHead()
         {
-            _headNode = _headNode.Next;
-            _headNode.Prev = null;
-            Length--;
+            if (_headNode != null)
+            {
+                Length--;
+                _headNode = _headNode.Next;
+            }
+
+            if (_headNode != null)
+                _headNode.Prev = null;
+            else
+                _tailNode = null;
         }
 
         public void RemoveTail()
         {
-            _tailNode = _tailNode.Prev;
-            _tailNode.Next = null;
-            Length--;
+            if (_tailNode != null)
+            {
+                Length--;
+                _tailNode = _tailNode.Prev;
+            }
+
+            if (_tailNode != null)
+                _tailNode.Next = null;
+            else
+                _headNode = null;
         }
 
         public void RemoveByIndex(int i)
@@ -249,6 +263,5 @@ namespace ASD.CustomLists
                 Console.Write(this[i] + " ");
             Console.WriteLine();
         }
-
     }
 }

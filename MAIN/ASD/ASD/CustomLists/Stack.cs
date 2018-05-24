@@ -44,8 +44,17 @@ namespace ASD.CustomLists
         public T Pop()
         {
             var ans = _tailNode;
+
+            if (_tailNode == null)
+                return default(T);
+
             _tailNode = _tailNode.Prev;
-            _tailNode.Next = null;
+
+            if (_tailNode != null)
+                _tailNode.Next = null;
+            else
+                _headNode = null;
+
             Length--;
             return ans.Element;
         }

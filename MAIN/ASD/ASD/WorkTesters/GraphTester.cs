@@ -21,7 +21,7 @@ namespace ASD.WorkTesters
             var vertexes = new List<Vertex<int>> { v0, v1, v2, v3, v4, v5, v6, v7, v8, v9 };//создаются вершины
 
             var edges = new List<int>{ 
-                //создаём ребра(объекты кортежи) (списки смежности)
+                //создаём ребра (списки смежности)
 
                 0,1,  0,2, 
                 1,3,  2,4,  2,5,

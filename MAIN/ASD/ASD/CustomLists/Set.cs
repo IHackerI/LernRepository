@@ -146,7 +146,7 @@ namespace ASD.CustomLists
                 return;
             }
 
-            int newLen = _items.Length;
+            int newLen = _items.Length > 0 ? _items.Length :1;
 
             while (newLen <= index)
             {
