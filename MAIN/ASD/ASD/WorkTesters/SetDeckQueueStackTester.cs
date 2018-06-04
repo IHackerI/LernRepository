@@ -13,18 +13,19 @@ namespace ASD.WorkTesters
     /// Queue - очередь
     /// Stack - стек
     /// </summary>
-    public static class SetDeckQueueStack
+    public static class SetDeckQueueStackTester
     {
         /// <summary>
         /// Названия тестируемых модулей
         /// </summary>
         enum ListName
         {
-            None = 0,
-            Deck = 10,
-            Queue = 20,
-            Set = 30,
-            Stack = 40
+            None        = 0,
+            Deck        = 10,
+            Queue       = 20,
+            Set         = 30,
+            Stack       = 40,
+            CycleDeck  = 50
         }
 
         /// <summary>
@@ -42,10 +43,11 @@ namespace ASD.WorkTesters
                 //предоставить выбор тестируемой системы
                 //и сразу запустить её
                 bool testResult = IOSystem.InterfacedViewChoice(testerNames.Skip(1).ToArray(), new WorkMainTester.EmptyD[] {
-                    DeckTest,   //|
-                    QueueTest,  //|
-                    SetTest,    //|указание методов отправляемых на тест
-                    StackTest   //|
+                    DeckTest,    //|
+                    QueueTest,   //|
+                    SetTest,     //|указание методов отправляемых на тест
+                    StackTest,   //|
+                    CycleDeckTest//
                 });
 
                 //Проверка на выполненность теста
@@ -342,6 +344,101 @@ namespace ASD.WorkTesters
                         break;
 
                     case 3:
+                        endTest = true;
+                        break;
+                }
+
+                Console.WriteLine();
+
+                if (endTest)
+                    break;
+            }
+        }
+        private static void CycleDeckTest()
+        {
+            Deck<string> deck = new Deck<string>();
+
+            while (true)
+            {
+                //Запрашивает Инструменты ввода/вывода
+                //предоставить выбор тестируемого модуля
+                var input = IOSystem.SafeSimpleChoice("Выберите действие с таблицей:", new string[]
+                        {
+                        "Добавить узел в начало списка", //0
+                        "Добавить узел в конец списка",
+                        "Добавить узел после элемента",//2
+                        "Добавить узел перед элементом",
+                        "Вывести с начала",//4
+                        "Вывести с конца",
+                        "Удалить элемент",//6
+                        "Удалить в начале списка",
+                        "Удалить в конце списка",//8
+                        "Удалить по индексу",
+                        "Закончить тест"//10
+                        });
+
+                bool endTest = false;
+
+                //В зависимости от запроса запускаем модуль
+                //(отсчёт от нуля)
+                switch (input)
+                {
+                    case 0:
+                        Console.Write("Введите добавляемое значение: ");
+                        deck.AddHead(Console.ReadLine());
+                        break;
+
+                    case 1:
+                        Console.Write("Введите добавляемое значение: ");
+                        deck.AddTail(Console.ReadLine());
+                        break;
+
+                    case 2:
+                        Console.Write("Введите искомое значение: ");
+                        string findaValue = Console.ReadLine();
+                        Console.Write("Введите добавляемое значение: ");
+                        deck.InsertAfter(findaValue, Console.ReadLine());
+                        break;
+
+                    case 3:
+                        Console.Write("Введите искомое значение: ");
+                        string findbValue = Console.ReadLine();
+                        Console.Write("Введите добавляемое значение: ");
+                        deck.InsertBefore(findbValue, Console.ReadLine());
+                        break;
+
+                    case 4:
+                        Console.WriteLine("Начало вывода");
+                        deck.ViewHead();
+                        Console.WriteLine("Конец вывода");
+                        break;
+
+                    case 5:
+                        Console.WriteLine("Начало вывода");
+                        deck.ViewTail();
+                        Console.WriteLine("Конец вывода");
+                        break;
+
+                    case 6:
+                        Console.Write("Введите значение, которое нужно удалить: ");
+                        deck.Remove(Console.ReadLine());
+                        break;
+
+                    case 7:
+                        deck.RemoveHead();
+                        Console.WriteLine("Удалено");
+                        break;
+
+                    case 8:
+                        deck.RemoveTail();
+                        Console.WriteLine("Удалено");
+                        break;
+
+                    case 9:
+                        deck.RemoveByIndex(IOSystem.GetInt("Введите индекс: "));
+                        break;
+
+                    case 10:
                         endTest = true;
                         break;
                 }

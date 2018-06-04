@@ -136,9 +136,6 @@ namespace ASD.Sort
                 Thread.Sleep(10);
             }
 
-            //MergeSort(a, l, m);
-            //MergeSort(a, m + 1, r);
-
             Merge(a, l, r, m);
             return;
         }

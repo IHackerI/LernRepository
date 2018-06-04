@@ -39,7 +39,7 @@ namespace ASD.WorkTesters
                 //предоставить выбор тестируемой системы
                 //и сразу запустить её
                 bool testResult = IOSystem.InterfacedViewChoice(testerNames.Skip(1).ToArray(), new EmptyD[] {
-                    SetDeckQueueStack.TEST, //|
+                    SetDeckQueueStackTester.TEST, //|
                     SortTest.TEST,          //|
                     HashTableTest.TEST,     //|указание методов отправляемых на тест
                     BinaryTreeTester.TEST,  //|
