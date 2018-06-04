@@ -2,8 +2,14 @@
 
 namespace ChislMethods.WorkTesters
 {
+    /// <summary>
+    /// Тестер сплайнов
+    /// </summary>
     public static class SplineTest
     {
+        /// <summary>
+        /// Точка входа тестера
+        /// </summary>
         public static void TEST()
         {
             var spline = new Spline.Spline();

@@ -6,6 +6,9 @@ namespace ChislMethods.WorkTesters
 {
     public static class WorkMainTester
     {
+        /// <summary>
+        /// Названия тестируемых модулей
+        /// </summary>
         enum TesterName
         {
             None = 0,
@@ -18,17 +21,25 @@ namespace ChislMethods.WorkTesters
 
         public delegate void EmptyD();
 
+        /// <summary>
+        /// Точка входа в тестер
+        /// </summary>
         public static void TEST()
         {
             while (true)
             {
+                //Получает названия модулей в виде массива строк
                 var testerNames = Enum.GetNames(typeof(TesterName));
+
+                //Запрашивает Инструменты ввода/вывода
+                //предоставить выбор тестируемой системы
+                //и сразу запустить её
                 bool testResult = IOSystem.InterfacedViewChoice(testerNames.Skip(1).ToArray(), new EmptyD[] {
-                    DerSystemsTEST.TEST,
-                    FincValueFindersTest.TEST,
-                    IntegralTEST.TEST,
-                    LinAlTester.TEST,
-                    SplineTest.TEST
+                    DerSystemsTEST.TEST,        //|
+                    FincValueFindersTest.TEST,  //|
+                    IntegralTEST.TEST,          //|указание методов отправляемых на тест
+                    LinAlTester.TEST,           //|
+                    SplineTest.TEST             //|
                 });
 
                 if (!testResult)

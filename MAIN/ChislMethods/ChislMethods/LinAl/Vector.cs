@@ -154,6 +154,9 @@ namespace ChislMethods.LinAl
             return rez;
         }
 
+        /// <summary>
+        /// Метод гаусса
+        /// </summary>
         public Vector Gauss(Matrix matrix) // Метод Гаусса
         {
             Vector v = new Vector(vector);
@@ -215,6 +218,11 @@ namespace ChislMethods.LinAl
             return b;
         } 
 
+        /// <summary>
+        /// Метод Грамма-Шмидта
+        /// </summary>
+        /// <param name="m"></param>
+        /// <returns></returns>
         public Vector GramSchmidt(Matrix m) // Метод ортогонолизации (Метод Грамма-Шмидта)
         {
             Vector nan = new Vector(0);

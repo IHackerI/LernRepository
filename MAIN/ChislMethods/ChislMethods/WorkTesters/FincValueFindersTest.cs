@@ -3,13 +3,20 @@ using System;
 
 namespace ChislMethods.WorkTesters
 {
+    /// <summary>
+    /// Тестер искателей значений функций
+    /// </summary>
     public static class FincValueFindersTest
     {
+
+        /// <summary>
+        /// Точка входа тестера
+        /// </summary>
         public static void TEST()
         {
             try
             {
-                Console.WriteLine("Рекомендуемое значение: a = -0.5 b = 5 eps = 0.01");
+                Console.WriteLine("Рекомендуемые значения: a = -0.5 b = 5 eps = 0.01");
 
                 Console.WriteLine("Введите a: ");
                 double a = Convert.ToDouble(Console.ReadLine());

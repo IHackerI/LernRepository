@@ -5,10 +5,16 @@ using System.Text;
 
 namespace ChislMethods.Integral
 {
+    /// <summary>
+    /// Класс интегрирования
+    /// </summary>
     public class Integral
     {
         public delegate double F(double x);
 
+        /// <summary>
+        /// Метод симпсона
+        /// </summary
         public static double Simpson(double xBot, double xTop, double eps, F f)
         {
             int n = 1;
@@ -30,6 +36,9 @@ namespace ChislMethods.Integral
             return res;
         }
 
+        /// <summary>
+        /// Метод прямоугольников с запоминанием предыдущих значений
+        /// </summary>ы
         public static double Rectangle(double xBot, double xTop, double eps, F f)
         {
             int n = 1;
@@ -49,6 +58,9 @@ namespace ChislMethods.Integral
             return s;
         }
 
+        /// <summary>
+        /// Метод трапеций
+        /// </summary>
         public static double Trapezium(double xBot, double xTop, double eps, F f)
         {
             double x = xBot;

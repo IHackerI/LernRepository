@@ -4,6 +4,10 @@ using System;
 
 namespace ChislMethods.WorkTesters
 {
+
+    /// <summary>
+    /// Тестер решения дифуров
+    /// </summary>
     public static class DerSystemsTEST
     {
         private static FunDelegate fprav;
@@ -22,6 +26,9 @@ namespace ChislMethods.WorkTesters
                 double[] x = new double[] { 1.0 };
                 double[,] rez;
                 EulerAndRungeKutta rk = new EulerAndRungeKutta(0, 1, x, 0.1);
+
+                //Запрашивает Инструменты ввода/вывода
+                //предоставить выбор тестируемого модуля
                 var choice = IOSystem.SafeSimpleChoice("Выберите метод: ", new string[]
                 {
                     "Рунге-Кутта 2 порядка",
@@ -32,6 +39,8 @@ namespace ChislMethods.WorkTesters
 
                 var endWork = false;
 
+                //В зависимости от запроса запускаем модуль
+                //(отсчёт от нуля)
                 switch (choice)
                 {
                     case 0:
@@ -58,6 +67,9 @@ namespace ChislMethods.WorkTesters
             }
         }
 
+        /// <summary>
+        /// Функция дифуров
+        /// </summary>
         static double[] EasyMethod(double t, double[] x)
         {
             for (int i = 0; i < x.Length; i++)
@@ -67,6 +79,9 @@ namespace ChislMethods.WorkTesters
             return x;
         }
 
+        /// <summary>
+        /// Вывод решения
+        /// </summary>
         public static void Write(double[,] Matr, double a, double b, double h)
         {
             Console.WriteLine();

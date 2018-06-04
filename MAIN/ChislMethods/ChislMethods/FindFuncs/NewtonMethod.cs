@@ -7,6 +7,9 @@ namespace ChislMethods.FindFuncs
 {
     public static class NewtonMethod
     {
+        /// <summary>
+        /// Метод Ньютона
+        /// </summary>
         public static double Newton(double eps, double left, double right, DelF Func)
         {
             var curr = left + (right - left) / 2;

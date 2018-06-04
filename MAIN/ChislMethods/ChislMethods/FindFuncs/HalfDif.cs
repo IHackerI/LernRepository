@@ -5,8 +5,13 @@ using System.Text;
 
 namespace ChislMethods.FindFuncs
 {
+    public delegate double DelF(double x);
+
     public static class HalfDif
     {
+        /// <summary>
+        /// Метод половинного деления
+        /// </summary>
         public static double PolDel(double eps, double left, double right, DelF func)
         {
             var length = right - left;

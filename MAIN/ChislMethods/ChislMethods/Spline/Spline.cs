@@ -5,6 +5,9 @@ using System.Text;
 
 namespace ChislMethods.Spline
 {
+    /// <summary>
+    /// Сплайн
+    /// </summary>
     public class Spline
     {
         Splinee[] splines;
@@ -13,7 +16,10 @@ namespace ChislMethods.Spline
             public double a, b, c, d, x;// a, b, c, d - коэф.полинома, х - переменная            
         }
 
-        public void Build(double[] x, double[] y, int n)//построение сплайна
+        /// <summary>
+        /// построение сплайна
+        /// </summary>
+        public void Build(double[] x, double[] y, int n)
         {
             splines = new Splinee[n];//массив сплайнов            
 
@@ -54,7 +60,12 @@ namespace ChislMethods.Spline
             }
         }
 
-        public double Interpolate(double x)  // Интерполирование функции
+        /// <summary>
+        /// Интерполирование функции
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public double Interpolate(double x)
         {
             int n = splines.Length;
             Splinee s;

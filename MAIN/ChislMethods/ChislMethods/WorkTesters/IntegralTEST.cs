@@ -3,8 +3,14 @@ using System.Diagnostics;
 
 namespace ChislMethods.WorkTesters
 {
+    /// <summary>
+    /// Тестер интегрирования
+    /// </summary>
     public static class IntegralTEST
     {
+        /// <summary>
+        /// Точка входа тестера
+        /// </summary>
         public static void TEST()
         {
             try

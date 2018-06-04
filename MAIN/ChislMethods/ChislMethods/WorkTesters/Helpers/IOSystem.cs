@@ -6,10 +6,18 @@ using System.Text;
 
 namespace ChislMethods.WorkTesters.Helpers
 {
+
+    /// <summary>
+    /// Инструменты ввода/вывода
+    /// Облегчают жизнь, путём обеспечения удобного общения с пользователем
+    /// </summary>
     public class IOSystem
     {
         static int testCounter;
 
+        /// <summary>
+        /// Запрашивает пользователя и сразу запускает нужный тест
+        /// </summary>
         public static bool InterfacedViewChoice(string[] choiceValues, Delegate[] testerMethods)
         {
             testCounter++;
@@ -35,6 +43,9 @@ namespace ChislMethods.WorkTesters.Helpers
             return true;
         }
 
+        /// <summary>
+        /// Выводит выбор теста
+        /// </summary>
         public static int SimpleChoice(string header, string[] choiceValues)
         {
             Console.WriteLine(header);
@@ -61,6 +72,9 @@ namespace ChislMethods.WorkTesters.Helpers
             return choice - 1;
         }
 
+        /// <summary>
+        /// Выводит выбор теста с проверкой на правильность данных
+        /// </summary>
         public static int SafeSimpleChoice(string header, string[] choiceValues)
         {
             while (true) {
@@ -75,7 +89,10 @@ namespace ChislMethods.WorkTesters.Helpers
                 return choiceNum;
             }
         }
-
+        
+        /// <summary>
+        /// Запрашивает у пользователя ввести число
+        /// </summary>
         public static int GetInt(string getText)
         {
             int ansInt;

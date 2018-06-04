@@ -5,6 +5,10 @@ using System.Linq;
 namespace ChislMethods.LinAl
 {
     public delegate double Psi(double x, int number);
+
+    /// <summary>
+    /// Метод наименьших квадратов
+    /// </summary>
     public class LeastSquareMethod
     {
         public double[] X { get; set; }

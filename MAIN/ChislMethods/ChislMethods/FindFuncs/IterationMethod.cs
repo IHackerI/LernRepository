@@ -7,6 +7,9 @@ namespace ChislMethods.FindFuncs
 {
     public static class IterationMethod
     {
+        /// <summary>
+        /// Метод итерацций
+        /// </summary>
         public static double Iteration(double left, double right, double eps, DelF Func)
         {
             int max_iter= 1000;

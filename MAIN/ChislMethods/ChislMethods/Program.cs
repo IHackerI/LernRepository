@@ -6,18 +6,14 @@ using ChislMethods.Integral;
 
 namespace ChislMethods
 {
-    public delegate double DelF(double x);
-
+    /// <summary>
+    /// Точка входа. Отсюда начинается работа программы
+    /// </summary>
     class Program
     {
+        //Запуск тестера
         static void Main(string[] args)
         {
-            //FincValueFindersTest.TEST();
-            //LinAlTester.TEST();
-            //SplineTest.TEST();
-            //DerSystemsTEST.TEST();
-            //IntegralTEST.TEST();
-
             WorkTesters.WorkMainTester.TEST();
         }
     }

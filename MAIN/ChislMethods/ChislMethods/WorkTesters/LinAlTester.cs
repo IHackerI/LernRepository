@@ -5,6 +5,9 @@ using static ChislMethods.WorkTesters.WorkMainTester;
 
 namespace ChislMethods.WorkTesters
 {
+    /// <summary>
+    /// Тестирование линейной алгебры
+    /// </summary>
     public static class LinAlTester
     {
         public static void ram(Matrix r)// заполнение матрицы  случайными числами
@@ -22,6 +25,10 @@ namespace ChislMethods.WorkTesters
                 r[i] = random.Next(1, 5);
         }
         
+
+        /// <summary>
+        /// Точка входа тестера
+        /// </summary>
         public static void TEST()
         {
             try
@@ -54,6 +61,9 @@ namespace ChislMethods.WorkTesters
             }
         }
 
+        /// <summary>
+        /// Метод наименьшх квадратов
+        /// </summary>
         private static void LSMTest()
         {
             Console.WriteLine("Метод наименьших квадратов:");
@@ -68,6 +78,8 @@ namespace ChislMethods.WorkTesters
                 // Создание экземляра класса LSM
                 LeastSquareMethod myReg = new LeastSquareMethod(x, y);
 
+                //Запрашивает Инструменты ввода/вывода
+                //предоставить выбор тестируемого модуля
                 var ch = IOSystem.SafeSimpleChoice("Выберите действие: ", new string[]
                 {
                     "Вывести исходные данные",
@@ -77,6 +89,8 @@ namespace ChislMethods.WorkTesters
 
                 var endWork = false;
 
+                //В зависимости от запроса запускаем модуль
+                //(отсчёт от нуля)
                 switch (ch)
                 {
                     case 0:
@@ -123,7 +137,10 @@ namespace ChislMethods.WorkTesters
                     break;
             }
         }
-
+        
+        /// <summary>
+        /// Метод гаусса
+        /// </summary>
         private static void GaussTest()
         {
             const int A1 = 4;
@@ -154,6 +171,9 @@ namespace ChislMethods.WorkTesters
             (a * v.Gauss(a)).View();
         }
 
+        /// <summary>
+        /// Метод Грамма-Шмидта
+        /// </summary>
         private static void GramSchmidtTest()
         {
             const int A1 = 4;

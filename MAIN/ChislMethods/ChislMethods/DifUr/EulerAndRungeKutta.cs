@@ -6,6 +6,10 @@ using System.Text;
 namespace ChislMethods.DifUr
 {
     public delegate double[] FunDelegate(double t, double[] x);
+
+    /// <summary>
+    /// Решение дифуров
+    /// </summary>
     public class EulerAndRungeKutta
     {
         double a, b;//отрезок
@@ -20,7 +24,10 @@ namespace ChislMethods.DifUr
             x = xn;
         }
 
-        public double[,] EulerMethod(FunDelegate fun) // Метод Эйлера
+        /// <summary>
+        /// Метод Эйлера
+        /// </summary>
+        public double[,] EulerMethod(FunDelegate fun)
         {
             int n;//количество шагов
             double[] f1;
@@ -49,7 +56,10 @@ namespace ChislMethods.DifUr
 
         }
 
-        public double[,] MethodRK2(FunDelegate fun) // Метод Рунге-Кутта 2-го порядка
+        /// <summary>
+        /// Метод Рунге-Кутта 2-го порядка
+        /// </summary>
+        public double[,] MethodRK2(FunDelegate fun)
         {            
             var n = (int)((b - a) / h);//количество шагов
             double[,] xr = new double[n + 1, x.Length];
@@ -78,7 +88,10 @@ namespace ChislMethods.DifUr
             return xr;
         }
 
-        public double[,] MethodRK4(FunDelegate fun) // Метод Рунге-Кутта 4-го порядка
+        /// <summary>
+        /// Метод Рунге-Кутта 4-го порядка
+        /// </summary>
+        public double[,] MethodRK4(FunDelegate fun)
         {
             int n;//количество шагов
             double[] f1;
