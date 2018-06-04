@@ -17,3 +17,10 @@ C:\Users\Hacker\Downloads\4Semestr\lernRep_dev\MAIN\ASD\ASD\obj\Debug\ASD.csproj
 C:\Users\Hacker\Downloads\4Semestr\lernRep_dev\MAIN\ASD\ASD\obj\Debug\ASD.exe
 C:\Users\Hacker\Downloads\4Semestr\lernRep_dev\MAIN\ASD\ASD\obj\Debug\ASD.pdb
 D:\Projects\Repository\ASDandChM\MAIN\ASD\ASD\obj\Debug\ASD.csprojAssemblyReference.cache
+C:\Users\iLKA\Desktop\Петя\Новая папка\MAIN\ASD\ASD\bin\Debug\ASD.exe.config
+C:\Users\iLKA\Desktop\Петя\Новая папка\MAIN\ASD\ASD\bin\Debug\ASD.exe
+C:\Users\iLKA\Desktop\Петя\Новая папка\MAIN\ASD\ASD\bin\Debug\ASD.pdb
+C:\Users\iLKA\Desktop\Петя\Новая папка\MAIN\ASD\ASD\obj\Debug\ASD.csprojResolveAssemblyReference.cache
+C:\Users\iLKA\Desktop\Петя\Новая папка\MAIN\ASD\ASD\obj\Debug\ASD.csproj.CoreCompileInputs.cache
+C:\Users\iLKA\Desktop\Петя\Новая папка\MAIN\ASD\ASD\obj\Debug\ASD.exe
+C:\Users\iLKA\Desktop\Петя\Новая папка\MAIN\ASD\ASD\obj\Debug\ASD.pdb

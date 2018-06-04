@@ -12,32 +12,29 @@ namespace ASD.WorkTesters.Helper
     /// </summary>
     public class IOSystem
     {
-        static int testCounter;
+        //static int testCounter;
 
         /// <summary>
         /// Запрашивает пользователя и сразу запускает нужный тест
         /// </summary>
         public static bool InterfacedViewChoice(string[] choiceValues, Delegate[] testerMethods)
         {
-            testCounter++;
 
-            var choiceNum = SimpleChoice("Выберите тип тестирования " + testCounter + ":\r\n", choiceValues);
+            var choiceNum = SimpleChoice("Выберите тип теста :\r\n", choiceValues);
 
             if (choiceNum < 0)
             {
-                testCounter--;
                 return false;
             }
                         
-            Console.WriteLine("-------------Начало тестирования №" + testCounter + "-------------");
+            Console.WriteLine("Начало теста");
             Console.WriteLine();
 
             testerMethods[choiceNum].Method.Invoke(null, null);
 
             Console.WriteLine();
-            Console.WriteLine("-------------Конец тестирования №" + testCounter + "-------------");
-
-            testCounter--;
+            Console.WriteLine("Конец теста");
+            
 
             return true;
         }

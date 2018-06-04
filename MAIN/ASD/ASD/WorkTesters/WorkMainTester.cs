@@ -16,11 +16,11 @@ namespace ASD.WorkTesters
         enum TesterName
         {
             None = 0,
-            SetDeckQueueStack = 10,
-            Sort = 20,
-            HashTable = 30,
-            BinaryTree = 40,
-            Graph = 50
+            Хранилища = 10,
+            Сортировки = 20,
+            ХэшТаблица = 30,
+            БинарноеДерево = 40,
+            Графы = 50
         }
 
         public delegate void EmptyD();
@@ -56,8 +56,8 @@ namespace ASD.WorkTesters
                 }
 
                 Console.WriteLine();
-                Console.WriteLine("Хотите выйти? y/n");
-                if (Console.ReadLine().ToLower() == "y")
+                Console.WriteLine("Хотите выйти? д/н");
+                if (Console.ReadLine().ToLower() == "д")
                     break; // вылет из программы
                 Console.WriteLine();
             }

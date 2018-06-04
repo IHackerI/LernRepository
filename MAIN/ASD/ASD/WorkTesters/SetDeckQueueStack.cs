@@ -21,10 +21,10 @@ namespace ASD.WorkTesters
         enum ListName
         {
             None = 0,
-            Deck = 10,
-            Queue = 20,
-            Set = 30,
-            Stack = 40
+            ДвустороннийСписок = 10,
+            Очередь = 20,
+            Множество = 30,
+            Стек = 40
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace ASD.WorkTesters
             {
                 //Запрашивает Инструменты ввода/вывода
                 //предоставить выбор тестируемого модуля
-                var input = IOSystem.SafeSimpleChoice("Выберите действие с таблицей:", new string[]
+                var input = IOSystem.SafeSimpleChoice("Выберите действие:", new string[]
                         {
                         "Добавить узел в начало списка", //0
                         "Добавить узел в конец списка",
@@ -172,7 +172,7 @@ namespace ASD.WorkTesters
             {
                 //Запрашивает Инструменты ввода/вывода
                 //предоставить выбор тестируемого модуля
-                var input = IOSystem.SafeSimpleChoice("Выберите действие с таблицей:", new string[]
+                var input = IOSystem.SafeSimpleChoice("Выберите действие:", new string[]
                         {
                         "Добавить узел",
                         "Считать узел",
@@ -224,7 +224,7 @@ namespace ASD.WorkTesters
             {
                 //Запрашивает Инструменты ввода/вывода
                 //предоставить выбор тестируемого модуля
-                var input = IOSystem.SafeSimpleChoice("Выберите действие с таблицей:", new string[]
+                var input = IOSystem.SafeSimpleChoice("Выберите действие:", new string[]
                         {
                         "Добавить элемент",
                         "Добавить множество",
@@ -312,7 +312,7 @@ namespace ASD.WorkTesters
             {
                 //Запрашивает Инструменты ввода/вывода
                 //предоставить выбор тестируемого модуля
-                var input = IOSystem.SafeSimpleChoice("Выберите действие с таблицей:", new string[]
+                var input = IOSystem.SafeSimpleChoice("Выберите действие:", new string[]
                         {
                         "Добавить узел",
                         "Считать узел",
@@ -326,16 +326,16 @@ namespace ASD.WorkTesters
                 //(отсчёт от нуля)
                 switch (input)
                 {
-                    case 0:
+                    case 0: //Добавление в конец стека
                         Console.Write("Введите добавляемое значение: ");
                         stack.Push(Console.ReadLine());
                         break;
 
-                    case 1:
+                    case 1:  //Изъятие из конца стека
                         Console.WriteLine("Считанное значение: " + stack.Pop());
                         break;
 
-                    case 2:
+                    case 2: //Вывод стека
                         Console.WriteLine("Стек:");
                         stack.View();
                         Console.WriteLine("Конец вывода");
