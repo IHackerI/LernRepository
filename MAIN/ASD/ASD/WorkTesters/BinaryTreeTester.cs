@@ -4,11 +4,17 @@ using ASD.WorkTesters.Helper;
 
 namespace ASD.WorkTesters
 {
+    /// <summary>
+    /// Тестер бинарного дерева
+    /// </summary>
     public static class BinaryTreeTester
     {
-        //http://flash2048.com/post/bin-tree
+        /// <summary>
+        /// Точка входа в тестер
+        /// </summary>
         public static void TEST()
         {
+            #region Подготовка и вывод дерева
             BinaryTree<string> BN = new BinaryTree<string>();
 
             BN.Insert(10, "1");
@@ -24,9 +30,12 @@ namespace ASD.WorkTesters
             Console.WriteLine("Исходное дерево:");
             BinaryTreeExtensions<string>.Print(BN);
             Console.WriteLine();
+            #endregion
 
             while (true)
             {
+                //Запрашивает Инструменты ввода/вывода
+                //предоставить выбор тестируемого модуля
                 var input = IOSystem.SafeSimpleChoice("Выберите действие с деревом:", new string[]
                     {
                         "Добавление",
@@ -42,6 +51,8 @@ namespace ASD.WorkTesters
 
                 bool endTest = false;
 
+                //В зависимости от запроса запускаем модуль
+                //(отсчёт от нуля)
                 switch (input)
                 {
                     case 0:
@@ -58,13 +69,13 @@ namespace ASD.WorkTesters
                         break;
 
                     case 3:
-                        r = BN.Find(IOSystem.GetInt("Введите ключ: ")).MaxNode();
+                        r = BN.MaxNode();
                         Console.WriteLine(r.Key + " " + r.Value);
                         break;
 
                     case 4:
-                        r = BN.Find(IOSystem.GetInt("Введите ключ: ")).MinNode();
-                        Console.WriteLine(r == null ? null : r.Value);
+                        r = BN.MinNode();
+                        Console.WriteLine(r.Key + " " + r.Value);
                         break;
                     
                     case 5:

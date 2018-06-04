@@ -5,6 +5,9 @@ using System.Text;
 
 namespace ASD.Graph
 {
+    /// <summary>
+    /// Граф
+    /// </summary>
     class Graph<T>
     {
         
@@ -17,14 +20,20 @@ namespace ASD.Graph
         public List<Vertex<T>> Vertexes = new List<Vertex<T>>();
         public Dictionary<int, HashSet<int>> ConnectVertexes { get; } = new Dictionary<int, HashSet<int>>();
 
-        public void AddVertex(Vertex<T> Vertex) // Добавить вершину
+        /// <summary>
+        /// Добавить вершину в граф
+        /// </summary>
+        public void AddVertex(Vertex<T> Vertex)
         {
             Vertexes.Add(Vertex);
 
             ConnectVertexes[Vertexes.Count-1] = new HashSet<int>();
         }
 
-        public void AddEdge(int a, int b) // Добавить ребро
+        /// <summary>
+        /// Добавить ребро в граф
+        /// </summary>
+        public void AddEdge(int a, int b)
         {
             if (ConnectVertexes.ContainsKey(a) && ConnectVertexes.ContainsKey(b))
             {
@@ -32,9 +41,10 @@ namespace ASD.Graph
                 ConnectVertexes[b].Add(a);
             }
         }
-
-
-
+        
+        /// <summary>
+        /// Поиск в ширину
+        /// </summary>
         public HashSet<Vertex<T>> BypassWidth(Graph<T> graph, Vertex<T> primaryVertex)// обход в ширину
         {
             var visitedVertexes = new HashSet<Vertex<T>>();
@@ -60,7 +70,9 @@ namespace ASD.Graph
             return visitedVertexes;
         }
 
-
+        /// <summary>
+        /// Поиск в глубину
+        /// </summary>
         public HashSet<Vertex<T>> BypassDepth(Graph<T> graph, Vertex<T> primaryVertex)
         {
             var visitedVertexes = new HashSet<Vertex<T>>();// Отслеживает уже посещенные вершины

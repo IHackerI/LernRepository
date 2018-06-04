@@ -6,10 +6,17 @@ using System.Threading.Tasks;
 
 namespace ASD.WorkTesters.Helper
 {
+    /// <summary>
+    /// Инструменты ввода/вывода
+    /// Облегчают жизнь, путём обеспечения удобного общения с пользователем
+    /// </summary>
     public class IOSystem
     {
         static int testCounter;
 
+        /// <summary>
+        /// Запрашивает пользователя и сразу запускает нужный тест
+        /// </summary>
         public static bool InterfacedViewChoice(string[] choiceValues, Delegate[] testerMethods)
         {
             testCounter++;
@@ -35,6 +42,9 @@ namespace ASD.WorkTesters.Helper
             return true;
         }
 
+        /// <summary>
+        /// Выводит выбор теста
+        /// </summary>
         public static int SimpleChoice(string header, string[] choiceValues)
         {
             Console.WriteLine(header);
@@ -61,6 +71,9 @@ namespace ASD.WorkTesters.Helper
             return choice - 1;
         }
 
+        /// <summary>
+        /// Выводит выбор теста с проверкой на правильность данных
+        /// </summary>
         public static int SafeSimpleChoice(string header, string[] choiceValues)
         {
             while (true) {
@@ -76,6 +89,9 @@ namespace ASD.WorkTesters.Helper
             }
         }
 
+        /// <summary>
+        /// Запрашивает у пользователя ввести число
+        /// </summary>
         public static int GetInt(string getText)
         {
             int ansInt;

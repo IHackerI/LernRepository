@@ -5,10 +5,17 @@ using ASD.WorkTesters.Helper;
 
 namespace ASD.WorkTesters
 {
+    /// <summary>
+    /// Тестирование сортировок
+    /// </summary>
     public static class SortTest
     {
+        /// <summary>
+        /// Точка входа тестера
+        /// </summary>
         public static void TEST()
         {
+            #region Создание сортируемого массива
             int _count = IOSystem.GetInt("Введите размер генерируемого массива: ");
             int[] setInt = new int[_count];
             Random rand = new Random();
@@ -17,7 +24,10 @@ namespace ASD.WorkTesters
             {
                 setInt[i] = rand.Next(0, 50);
             }
-                        
+            #endregion
+
+            //Запрашивает Инструменты ввода/вывода
+            //предоставить выбор тестируемого модуля
             var input = IOSystem.SafeSimpleChoice("Каким методом сортировать?", new string[]
                     {
                     "Сортировка пузырьком",
@@ -27,6 +37,9 @@ namespace ASD.WorkTesters
                     "Быстрая сортировка"
                     });
 
+
+            //В зависимости от запроса запускаем модуль
+            //(отсчёт от нуля)
             switch (input)
             {
                 case 0:
@@ -74,6 +87,9 @@ namespace ASD.WorkTesters
             Console.WriteLine();
         }
 
+        /// <summary>
+        /// Отрисовывает переданный массив
+        /// </summary>
         static void ShowSet<T>(IList<T> arr)
         {
             var enumerator = arr.GetEnumerator();

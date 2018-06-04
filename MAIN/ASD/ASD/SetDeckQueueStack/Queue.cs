@@ -1,7 +1,10 @@
 ﻿using System;
 namespace ASD.SetDeckQueueStack
 {
-    public class Queue<T> // Очередь
+    /// <summary>
+    /// Очередь
+    /// </summary>
+    public class Queue<T>
     {
         public int Length { get; private set; }
         private Node<T> _headNode;
@@ -12,8 +15,12 @@ namespace ASD.SetDeckQueueStack
             _tailNode = _headNode = null;
             Length = 0;
         }
-        
-        public void Push(T element) // Добавление элемента в конец очереди
+
+
+        /// <summary>
+        /// Добавление элемента в конец очереди
+        /// </summary>
+        public void Push(T element)
         {
             if (_headNode == null)
             {
@@ -36,8 +43,11 @@ namespace ASD.SetDeckQueueStack
                 Length++;
             }
         }
-        
-        public T Pop() // Изъятие первого элемента
+
+        /// <summary>
+        /// Изъятие первого элемента
+        /// </summary>
+        public T Pop()
         {
             var ans = _headNode;
             if (_headNode == null)
@@ -53,12 +63,18 @@ namespace ASD.SetDeckQueueStack
 
         }
 
-        public Node<T> GetHeadNode() // Получение элемента из начала очереди
+        /// <summary>
+        /// Получение элемента из начала очереди
+        /// </summary>
+        public Node<T> GetHeadNode()
         {
             return _headNode;
         }
 
-        public void View() // Вывод очереди
+        /// <summary>
+        /// Вывод очереди
+        /// </summary>
+        public void View()
         {
             var curNode = GetHeadNode();
 

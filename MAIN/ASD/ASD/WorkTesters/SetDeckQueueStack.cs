@@ -5,8 +5,19 @@ using ASD.WorkTesters.Helper;
 
 namespace ASD.WorkTesters
 {
+    /// <summary>
+    /// Тестер систем хранения данных 
+    /// 
+    /// Set - динамический массив 
+    /// Deck - двусторонняя очередь
+    /// Queue - очередь
+    /// Stack - стек
+    /// </summary>
     public static class SetDeckQueueStack
     {
+        /// <summary>
+        /// Названия тестируемых модулей
+        /// </summary>
         enum ListName
         {
             None = 0,
@@ -16,17 +27,28 @@ namespace ASD.WorkTesters
             Stack = 40
         }
 
+        /// <summary>
+        /// Точка входа тестера
+        /// </summary>
         public static void TEST()
         {
             while (true)
             {
+
+                //Получает названия модулей в виде массива строк
                 var testerNames = Enum.GetNames(typeof(ListName));
+
+                //Запрашивает Инструменты ввода/вывода
+                //предоставить выбор тестируемой системы
+                //и сразу запустить её
                 bool testResult = IOSystem.InterfacedViewChoice(testerNames.Skip(1).ToArray(), new WorkMainTester.EmptyD[] {
-                    DeckTest,
-                    QueueTest,
-                    SetTest,
-                    StackTest
+                    DeckTest,   //|
+                    QueueTest,  //|
+                    SetTest,    //|указание методов отправляемых на тест
+                    StackTest   //|
                 });
+
+                //Проверка на выполненность теста
 
                 if (!testResult)
                 {
@@ -40,12 +62,17 @@ namespace ASD.WorkTesters
             }
         }
 
+        /// <summary>
+        /// Тестирование двусторонней очереди
+        /// </summary>
         private static void DeckTest()
         {
             Deck<string> deck = new Deck<string>();
 
             while (true)
             {
+                //Запрашивает Инструменты ввода/вывода
+                //предоставить выбор тестируемого модуля
                 var input = IOSystem.SafeSimpleChoice("Выберите действие с таблицей:", new string[]
                         {
                         "Добавить узел в начало списка", //0
@@ -63,6 +90,8 @@ namespace ASD.WorkTesters
                 
                 bool endTest = false;
 
+                //В зависимости от запроса запускаем модуль
+                //(отсчёт от нуля)
                 switch (input)
                 {
                     case 0:
@@ -132,12 +161,17 @@ namespace ASD.WorkTesters
             }
         }
         
+        /// <summary>
+        /// Тестирование очереди
+        /// </summary>
         private static void QueueTest()
         {
             Queue<string> queue = new Queue<string>();
 
             while (true)
             {
+                //Запрашивает Инструменты ввода/вывода
+                //предоставить выбор тестируемого модуля
                 var input = IOSystem.SafeSimpleChoice("Выберите действие с таблицей:", new string[]
                         {
                         "Добавить узел",
@@ -148,6 +182,8 @@ namespace ASD.WorkTesters
 
                 bool endTest = false;
 
+                //В зависимости от запроса запускаем модуль
+                //(отсчёт от нуля)
                 switch (input)
                 {
                     case 0:
@@ -177,12 +213,17 @@ namespace ASD.WorkTesters
             }
         }
 
+        /// <summary>
+        /// Тестирование динамического массива
+        /// </summary>
         private static void SetTest()
         {
             Set<string> set = new Set<string>();
 
             while (true)
             {
+                //Запрашивает Инструменты ввода/вывода
+                //предоставить выбор тестируемого модуля
                 var input = IOSystem.SafeSimpleChoice("Выберите действие с таблицей:", new string[]
                         {
                         "Добавить элемент",
@@ -197,6 +238,8 @@ namespace ASD.WorkTesters
 
                 bool endTest = false;
 
+                //В зависимости от запроса запускаем модуль
+                //(отсчёт от нуля)
                 switch (input)
                 {
                     case 0:
@@ -258,12 +301,17 @@ namespace ASD.WorkTesters
             
         }
 
+        /// <summary>
+        /// Тестирование стека
+        /// </summary>
         private static void StackTest()
         {
             Stack<string> stack = new Stack<string>();
 
             while (true)
             {
+                //Запрашивает Инструменты ввода/вывода
+                //предоставить выбор тестируемого модуля
                 var input = IOSystem.SafeSimpleChoice("Выберите действие с таблицей:", new string[]
                         {
                         "Добавить узел",
@@ -274,6 +322,8 @@ namespace ASD.WorkTesters
 
                 bool endTest = false;
 
+                //В зависимости от запроса запускаем модуль
+                //(отсчёт от нуля)
                 switch (input)
                 {
                     case 0:

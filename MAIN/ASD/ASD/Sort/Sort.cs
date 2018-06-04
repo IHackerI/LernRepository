@@ -3,9 +3,15 @@ using System;
 
 namespace ASD.Sort
 {
+    /// <summary>
+    /// Класс сортировок 
+    /// </summary>
     public static class Sort<T> where T : IComparable
     {
-        public static void BubbleSort(T[] set) // Сортировка пузырьком
+        /// <summary>
+        /// Сортировка пузырьком
+        /// </summary>
+        public static void BubbleSort(T[] set)
         {
             T temp;
             for (int i = 0; i < set.Length; i++)
@@ -22,7 +28,10 @@ namespace ASD.Sort
             }
         }
 
-        public static void InsertionSort(ref T[] set) // Сортировка вставкой
+        /// <summary>
+        /// Сортировка вставкой
+        /// </summary>
+        public static void InsertionSort(ref T[] set)
         {
             Set<T> result = new Set<T>();
             for (int i = 0; i < set.Length; i++)
@@ -36,7 +45,11 @@ namespace ASD.Sort
             }
             set = result.ToArray();
         }
-        public static void ShellSort(T[] set) // Сортировка Шелла
+
+        /// <summary>
+        /// Сортировка Шелла
+        /// </summary>
+        public static void ShellSort(T[] set)
         {
             int step = set.Length / 2;
 
@@ -53,8 +66,11 @@ namespace ASD.Sort
                 step /= 2;
             }
         }
-
-        public static void Merge(T[] Mas, int left, int right, int medium) // Сортировка слиянием
+        
+        /// <summary>
+        /// Сортировка слиянием
+        /// </summary>
+        public static void Merge(T[] Mas, int left, int right, int medium)
         {
             int j = left;
             int k = medium + 1;
@@ -90,6 +106,9 @@ namespace ASD.Sort
             }
         }
 
+        /// <summary>
+        /// Сортировка слиянием
+        /// </summary>
         public static void MergeSort(T[] a, int l, int r)
         {
             int m;
@@ -105,7 +124,11 @@ namespace ASD.Sort
             Merge(a, l, r, m);
             return;
         }
-        public static void QuickSort(T[] _items, int l, int r) // Быстрая сортировка
+
+        /// <summary>
+        /// Быстрая сортировка
+        /// </summary>
+        public static void QuickSort(T[] _items, int l, int r)
         {
             T temp;
             T x = _items[l + (r - l) / 2]; //запись эквивалентна (l+r)/2, но не вызввает переполнения на больших данных

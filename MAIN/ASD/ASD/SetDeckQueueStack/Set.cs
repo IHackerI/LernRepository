@@ -6,7 +6,11 @@ using System.Text;
 
 namespace ASD.SetDeckQueueStack
 {
-    public class Set<T>: IList<T> where T : IComparable // Множество
+    /// <summary>
+    /// Динамический список
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class Set<T>: IList<T> where T : IComparable
     {
         T[] _items;
         public int Count { get; private set; }
@@ -16,6 +20,9 @@ namespace ASD.SetDeckQueueStack
             get { return false; }
         }
         
+        /// <summary>
+        /// Обращение по индексу
+        /// </summary>
         public T this[int index]
         {
             get
@@ -45,7 +52,10 @@ namespace ASD.SetDeckQueueStack
             return -1;
         }
 
-        public void Add(T obj) // Добавление элемента в множество
+        /// <summary>
+        /// Добавление элемента в множество
+        /// </summary>
+        public void Add(T obj)
         {
             if (IndexOf(obj) > -1)
             {
@@ -58,7 +68,10 @@ namespace ASD.SetDeckQueueStack
             Count++;
         }
 
-        public void AddRange(IList<T> range) // Добавление в конец исходного множества переданного множества
+        /// <summary>
+        /// Добавление в конец исходного множества переданного множества
+        /// </summary>
+        public void AddRange(IList<T> range)
         {
             var ar = (from x in range where !Contains(x) select x).ToArray();
 
@@ -74,7 +87,10 @@ namespace ASD.SetDeckQueueStack
             Count = finalLen;
         }
 
-        public static Set<TT> Union<TT>(Set<TT> FirstRange, Set<TT> SecondRange) where TT : IComparable // Объединение множеств
+        /// <summary>
+        /// Объединение множеств
+        /// </summary>
+        public static Set<TT> Union<TT>(Set<TT> FirstRange, Set<TT> SecondRange) where TT : IComparable
         {
             var ans = new Set<TT>();
             ans.AddRange(FirstRange.ToArray());
@@ -82,7 +98,10 @@ namespace ASD.SetDeckQueueStack
             return ans;
         }
 
-        public static Set<TT> Intersection<TT>(Set<TT> FirstRange, Set<TT> SecondRange) where TT : IComparable // Пересечение множеств
+        /// <summary>
+        /// Пересечение множеств
+        /// </summary>
+        public static Set<TT> Intersection<TT>(Set<TT> FirstRange, Set<TT> SecondRange) where TT : IComparable
         {
             var ans = new Set<TT>();
 
@@ -95,7 +114,10 @@ namespace ASD.SetDeckQueueStack
             return ans;
         }
 
-        public static Set<TT> Addition<TT>(Set<TT> FirstRange, Set<TT> SecondRange) where TT : IComparable // Дополнение множества
+        /// <summary>
+        /// Дополнение множества
+        /// </summary>
+        public static Set<TT> Addition<TT>(Set<TT> FirstRange, Set<TT> SecondRange) where TT : IComparable
         {
             var ans = new Set<TT>();
 
@@ -108,7 +130,10 @@ namespace ASD.SetDeckQueueStack
             return ans;
         }
 
-        public bool Remove(T obj) // Удаление элемента множества
+        /// <summary>
+        /// Удаление элемента множества
+        /// </summary>
+        public bool Remove(T obj)
         {
             var index = IndexOf(obj);
             if (index < 0)
@@ -117,7 +142,10 @@ namespace ASD.SetDeckQueueStack
             return true;
         }
 
-        public void RemoveAt(int index) // Удаление элемента множества по индексу
+        /// <summary>
+        /// Удаление элемента множества по индексу
+        /// </summary>
+        public void RemoveAt(int index)
         {
             for (int i = index; i < Count - 1; i++)
             {
@@ -126,7 +154,10 @@ namespace ASD.SetDeckQueueStack
             Count--;
         }
 
-        public void Insert(int index, T value) // Добавление элемента с заданным индексом
+        /// <summary>
+        /// Добавление элемента с заданным индексом
+        /// </summary>
+        public void Insert(int index, T value)
         {
             if (index < 0 || index > Count) throw new ArgumentOutOfRangeException();
             Add(default(T));
@@ -138,7 +169,10 @@ namespace ASD.SetDeckQueueStack
             this[index] = value;
         }
 
-        public void CheckArray(int index) // Проверяет вываливается ли индекс за пределы массива и длиняет его, если это необходимо
+        /// <summary>
+        ///  Проверяет вываливается ли индекс за пределы массива и длиняет его, если это необходимо
+        /// </summary>
+        public void CheckArray(int index)
         {
             if (_items == null)
             {
@@ -167,7 +201,10 @@ namespace ASD.SetDeckQueueStack
             }
         }
 
-        public T[] ToArray() // Преобразование динамического массива в статический
+        /// <summary>
+        /// Преобразование динамического массива в статический
+        /// </summary>
+        public T[] ToArray()
         {
             var ans = new T[Count];
 
@@ -178,7 +215,10 @@ namespace ASD.SetDeckQueueStack
             return ans;
         }
 
-        public static List<Set<TT>> Subset<TT>(Set<TT> set) where TT : IComparable // Вывод множество всех подмножеств
+        /// <summary>
+        /// Вывод множество всех подмножеств
+        /// </summary>
+        public static List<Set<TT>> Subset<TT>(Set<TT> set) where TT : IComparable
         {
             var listSub = new List<Set<TT>>();
 
@@ -197,13 +237,19 @@ namespace ASD.SetDeckQueueStack
             return listSub;
         }
 
-        public void Clear() // Очистка множества
+        /// <summary>
+        /// Очистка множества
+        /// </summary>
+        public void Clear()
         {
             _items = new T[0];
             Count = 0;
         }
 
-        public void View() // Вывод множества
+        /// <summary>
+        /// Вывод множества
+        /// </summary>
+        public void View()
         {
             foreach (var element in ToArray())
             {
@@ -212,7 +258,10 @@ namespace ASD.SetDeckQueueStack
             Console.WriteLine();
         }
 
-        public void CopyTo(T[] array, int arrayIndex) // Копирует в переданный массив элементы начиная с переданного индекса
+        /// <summary>
+        /// Копирует в переданный массив элементы начиная с переданного индекса
+        /// </summary>
+        public void CopyTo(T[] array, int arrayIndex)
         {
             if (array == null) throw new ArgumentNullException();
             if (arrayIndex < 0) throw new ArgumentOutOfRangeException();

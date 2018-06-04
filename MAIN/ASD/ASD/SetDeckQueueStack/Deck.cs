@@ -5,7 +5,11 @@ using System.Text;
 
 namespace ASD.SetDeckQueueStack
 {
-    public class Deck <T> // Двусвязный список
+    /// <summary>
+    /// Двусторонняя очередь
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class Deck <T>
     {
         public int Length { get; private set; }
         private Node<T> _headNode;
@@ -17,7 +21,10 @@ namespace ASD.SetDeckQueueStack
             Length = 0;
         }
 
-        public void AddHead(T element) // Добавить элемент в наччало списка
+        /// <summary>
+        /// Добавить элемент в наччало списка
+        /// </summary>
+        public void AddHead(T element)
         {
             Node<T> _current = new Node<T>();
             if (_headNode == null)
@@ -36,7 +43,10 @@ namespace ASD.SetDeckQueueStack
             Length++;
         }
 
-        public void AddTail(T element) // Добавить элемент в конец списка
+        /// <summary>
+        /// Добавить элемент в конец списка
+        /// </summary>
+        public void AddTail(T element)
         {
             if (_headNode == null)
                 AddHead(element);
@@ -52,7 +62,10 @@ namespace ASD.SetDeckQueueStack
             }
         }
 
-        public void InsertBefore(T beforeEl, T addElement) // Добавить элемент ДО определённого элемента в списке
+        /// <summary>
+        /// Добавить элемент ДО определённого элемента в списке
+        /// </summary>
+        public void InsertBefore(T beforeEl, T addElement)
         {
             if (Contains(beforeEl))
             {
@@ -89,7 +102,10 @@ namespace ASD.SetDeckQueueStack
 
         }
 
-        public void InsertAfter(T afterEl, T addEl) // Добавить элемент ПОСЛЕ определённого элемента в списке
+        /// <summary>
+        /// Добавить элемент ПОСЛЕ определённого элемента в списке
+        /// </summary>
+        public void InsertAfter(T afterEl, T addEl)
         {
             if (Contains(afterEl))
             {
@@ -124,6 +140,9 @@ namespace ASD.SetDeckQueueStack
             }
         }
 
+        /// <summary>
+        /// Обращение по индексу
+        /// </summary>
         public T this[int _position] 
         {
             get
@@ -135,7 +154,10 @@ namespace ASD.SetDeckQueueStack
             }
         }
 
-        public void Remove(T removeEl) // Удаление элемента
+        /// <summary>
+        /// Удаление элемента
+        /// </summary>
+        public void Remove(T removeEl)
         {
             Node<T> current = _headNode;
             while (current != null)
@@ -158,7 +180,10 @@ namespace ASD.SetDeckQueueStack
             }
         }
 
-        public void RemoveHead() // Удаление элемента в верху списка
+        /// <summary>
+        /// Удаление элемента в верху списка
+        /// </summary>
+        public void RemoveHead()
         {
             Length--;
             if (_headNode != null)
@@ -174,7 +199,10 @@ namespace ASD.SetDeckQueueStack
 
         }
 
-        public void RemoveTail() // Удаление эелемента в конце списка
+        /// <summary>
+        /// Удаление эелемента в конце списка
+        /// </summary>
+        public void RemoveTail()
         {
             if (_tailNode != null)
             {
@@ -189,7 +217,11 @@ namespace ASD.SetDeckQueueStack
 
         }
 
-        public void RemoveByIndex(int i) // Удаление элемента по индексу
+
+        /// <summary>
+        /// Удаление элемента по индексу
+        /// </summary>
+        public void RemoveByIndex(int i)
         {
             Node<T> current = _headNode;
             int j = -1;
@@ -221,8 +253,10 @@ namespace ASD.SetDeckQueueStack
             }
         }
 
-
-        public bool Contains(T _element) // Проверяет, содержит ли список данный элемент
+        /// <summary>
+        /// Проверяет, содержит ли список данный элемент
+        /// </summary>
+        public bool Contains(T _element)
         {
             Node<T> current = _headNode;
             while (current != null)
@@ -235,7 +269,10 @@ namespace ASD.SetDeckQueueStack
             return false;
         }
 
-        public int GetIndex(T _element) // Получение индекса переданного элемента
+        /// <summary>
+        /// Получение индекса переданного элемента
+        /// </summary>
+        public int GetIndex(T _element)
         {
             Node<T> current = _headNode;
             int i = -1;
@@ -250,7 +287,10 @@ namespace ASD.SetDeckQueueStack
             return i;
         }
 
-        public void ViewHead() // Вывод элемента верха списка
+        /// <summary>
+        /// Вывод элемента верха списка
+        /// </summary>
+        public void ViewHead()
         {
             for (int i = 0; i < Length; i++)
             {
@@ -259,7 +299,10 @@ namespace ASD.SetDeckQueueStack
             Console.WriteLine();
         }
 
-        public void ViewTail() // Вывод элемента низа списка
+        /// <summary>
+        /// Вывод элемента низа списка
+        /// </summary>
+        public void ViewTail()
         {
             for (int i = Length - 1; i > -1; i--)
                 Console.Write(this[i] + " ");

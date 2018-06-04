@@ -5,6 +5,9 @@ using System.Text;
 
 namespace ASD.HashTable
 {
+    /// <summary>
+    /// Подсортировочная таблица хешей
+    /// </summary>
     class HashTableList<T> : IHashTable<T>
     {
         public int Size { get; private set; }
@@ -20,13 +23,18 @@ namespace ASD.HashTable
         }
 
 
-        public int CalcHash(int key) // Вычисление хэша
+        /// <summary>
+        /// Вычисление хэша
+        /// </summary>
+        public int CalcHash(int key)
         {
             return key % Size;
         }
 
-        
-        public void Add(int key, T value) // Добавление новой записи
+        /// <summary>
+        /// Добавление новой записи
+        /// </summary>
+        public void Add(int key, T value)
         {
             Remove(key);
 
@@ -36,7 +44,10 @@ namespace ASD.HashTable
             Count++;
         }
 
-        public T FindByKey(int key) // Поиск по ключу
+        /// <summary>
+        /// Поиск по ключу
+        /// </summary>
+        public T FindByKey(int key)
         {
             int index = CalcHash(key);
 
@@ -48,8 +59,10 @@ namespace ASD.HashTable
             return _table[index][nodeIndex].Value;
         }
 
-        
-        public void Remove(int key) // Удаление по ключу
+        /// <summary>
+        /// Удаление по ключу
+        /// </summary>
+        public void Remove(int key)
         {
             int index = CalcHash(key);
 
@@ -61,8 +74,11 @@ namespace ASD.HashTable
 
             Count--;
         }
-        
-        public void View() // Вывод таблицы
+
+        /// <summary>
+        /// Вывод таблицы
+        /// </summary>
+        public void View()
         {
             for (int index = 0; index < Size; index++)
             {

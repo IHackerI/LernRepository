@@ -5,6 +5,10 @@ using System.Text;
 
 namespace ASD.Graph
 {
+    /// <summary>
+    /// Грань графа
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     class Edge<T>
     {
         public Vertex<T> FirstPoint;

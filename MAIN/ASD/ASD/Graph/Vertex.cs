@@ -5,6 +5,10 @@ using System.Text;
 
 namespace ASD.Graph
 {
+
+    /// <summary>
+    /// Вершина графа
+    /// </summary>
     class Vertex<T>
     {
 

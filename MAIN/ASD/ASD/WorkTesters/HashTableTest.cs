@@ -4,13 +4,21 @@ using ASD.WorkTesters.Helper;
 
 namespace ASD.WorkTesters
 {
+    /// <summary>
+    /// Тестирует таблицу хешей
+    /// </summary>
     public static class HashTableTest
     {
+        /// <summary>
+        /// Точка входа в тестер
+        /// </summary>
         public static void TEST()
         {
             bool choiceStatus = false;
             while (!choiceStatus)
             {
+                //Запрашивает Инструменты ввода/вывода
+                //предоставить выбор тестируемого модуля
                 choiceStatus = IOSystem.InterfacedViewChoice(new string[] { "MyHashTable", "HashTableList" }, new WorkMainTester.EmptyD[] { MyHashTableTEST, HashTableListTEST });
                 if (!choiceStatus)
                 {
@@ -30,10 +38,15 @@ namespace ASD.WorkTesters
             IHashTableTest(new HashTableList<string>(5));
         }
 
+        /// <summary>
+        /// Тестирование таблицы
+        /// </summary>
         private static void IHashTableTest(IHashTable<string> table)
         {
             while (true)
             {
+                //Запрашивает Инструменты ввода/вывода
+                //предоставить выбор тестируемого модуля
                 var input = IOSystem.SafeSimpleChoice("Выберите действие с таблицей:", new string[]
                     {
                         "Добавить узел",
@@ -45,6 +58,8 @@ namespace ASD.WorkTesters
 
                 bool endTest = false;
 
+                //В зависимости от запроса запускаем модуль
+                //(отсчёт от нуля)
                 switch (input)
                 {
                     case 0:

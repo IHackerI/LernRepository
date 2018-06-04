@@ -5,6 +5,9 @@ using System.Text;
 
 namespace ASD.SetDeckQueueStack
 {
+    /// <summary>
+    /// Стек
+    /// </summary>
     public class Stack<T> 
     {
         public int Length { get; private set; }
@@ -17,7 +20,10 @@ namespace ASD.SetDeckQueueStack
             Length = 0;
         }
 
-        public void Push(T element) // Добавление элемента в начало стека
+        /// <summary>
+        /// Добавление элемента в конец стека
+        /// </summary>
+        public void Push(T element)
         {
             if (_headNode == null)
             {
@@ -41,7 +47,10 @@ namespace ASD.SetDeckQueueStack
             }
         }
 
-        public T Pop() // Изъятие элемента из начала стека
+        /// <summary>
+        /// Изъятие элемента из конца стека
+        /// </summary>
+        public T Pop()
         {
             var ans = _tailNode;
 
@@ -59,12 +68,18 @@ namespace ASD.SetDeckQueueStack
             return ans.Element;
         }
 
-        public Node<T> GetTailNode() // Получение последнего элемента
+        /// <summary>
+        /// Получение последнего элемента
+        /// </summary>
+        public Node<T> GetTailNode()
         {
             return _tailNode;
         }
 
-        public void View() // Вывод стека
+        /// <summary>
+        /// Вывод стека
+        /// </summary>
+        public void View()
         {
             var curNode = GetTailNode();
 

@@ -5,6 +5,9 @@ using System.Text;
 
 namespace ASD.HashTable
 {
+    /// <summary>
+    /// Прямая таблица хэшей
+    /// </summary>
     class MyHashTable<TValue> : IHashTable<TValue>
     {
         private int _count = 0;
@@ -28,7 +31,10 @@ namespace ASD.HashTable
         }
         #endregion
 
-        private int FullGetIndexByKey(int key) // Вычисляет хэш и по нему возвращает индекс ключа в массиве
+        /// <summary>
+        /// Вычисляет хэш и по нему возвращает индекс ключа в массиве
+        /// </summary>
+        private int FullGetIndexByKey(int key)
         {
             var tmpIndex = key.GetHashCode() % _table.Length;
 
@@ -44,7 +50,10 @@ namespace ASD.HashTable
             }
         }
 
-        public TValue FindByKey(int key) // Поиск по ключу
+        /// <summary>
+        /// Поиск по ключу
+        /// </summary>
+        public TValue FindByKey(int key)
         {
             var index = FullGetIndexByKey(key);
             if (_table[index] == null)
@@ -55,7 +64,10 @@ namespace ASD.HashTable
             return _table[index].Value;
         }
 
-        public void Add(int key, TValue value) // Добавление записи
+        /// <summary>
+        /// Добавление записи
+        /// </summary>
+        public void Add(int key, TValue value)
         {
             if (_count >= _table.Length * 0.75)
                 Resize();
@@ -68,7 +80,10 @@ namespace ASD.HashTable
             _count++;
         }
 
-        public void Remove(int key) // Удаление по ключу
+        /// <summary>
+        /// Удаление по ключу
+        /// </summary>
+        public void Remove(int key)
         {
             int index = FullGetIndexByKey(key);
 
@@ -84,7 +99,10 @@ namespace ASD.HashTable
             }
         }
 
-        public void View() // Вывод таблицы
+        /// <summary>
+        /// Вывод таблицы
+        /// </summary>
+        public void View()
         {
             for (int i = 0; i < _table.Length; i++)
             {
@@ -94,7 +112,10 @@ namespace ASD.HashTable
             }
         }
 
-        private void Resize() // Изменение размеров таблицы
+        /// <summary>
+        /// Изменение размеров таблицы
+        /// </summary>
+        private void Resize()
         {
             Array.Resize(ref _table, _table.Length<<1);
         }

@@ -5,43 +5,49 @@ using System.Text;
 
 namespace ASD.BinTree // data = key
 {
-    public enum BinSide
-    {
-        Left,
-        Right
-    }
-    
+    /// <summary>
+    /// Бинарное дерево
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class BinaryTree <T>
     {
 
-        public long? Key { get; private set; }
-        public T Value;
-        public BinaryTree<T> Left { get; set; }
-        public BinaryTree<T> Right { get; set; }
-        public BinaryTree<T> Parent { get; set; }
+        Node<T> head;
+        public Node<T> Head { get { return head; } }
 
-        
-        public void Insert(long key, T value)// Вставляет целочисленное значение в дерево
+        /// <summary>
+        /// Вставляет значение в дерево
+        /// </summary>
+        public void Insert(long key, T value)
         {
-            if (Key == null || Key == key)
+            if (head == null || head.Key == key)
             {
-                Key = key;
-                Value = value;
+                if (head == null)
+                    head = new Node<T>();
+
+                head.Key = key;
+                head.Value = value;
                 return;
             }
-            if (Key > key)
+
+            if (head.Key > key)
             {
-                if (Left == null) Left = new BinaryTree<T>();
-                Insert(key, value,  Left, this);
+                if (head.Left == null) head.Left = new Node<T>();
+                Insert(key, value, head.Left, head);
             }
             else
             {
-                if (Right == null) Right = new BinaryTree<T>();
-                Insert(key, value, Right, this);
+                if (head.Right == null) head.Right = new Node<T>();
+                Insert(key, value, head.Right, head);
             }
+
+            //Insert(key, value, null, head);
         }
 
-        private void Insert(long data, T value, BinaryTree<T> node, BinaryTree<T> parent)
+        /// <summary>
+        /// Вставляет значение в определённый узел дерева
+        /// </summary>
+        private void Insert(long data, T value, Node<T> node, Node<T> parent)
         {
 
             if (node.Key == null || node.Key == data)
@@ -53,66 +59,48 @@ namespace ASD.BinTree // data = key
             }
             if (node.Key > data)
             {
-                if (node.Left == null) node.Left = new BinaryTree<T>();
+                if (node.Left == null) node.Left = new Node<T>();
                 Insert(data, value, node.Left, node);
             }
             else
             {
-                if (node.Right == null) node.Right = new BinaryTree<T>();
+                if (node.Right == null) node.Right = new Node<T>();
                 Insert(data, value, node.Right, node);
             }
-        } // Вставляет значение в определённый узел дерева
+        }
 
-     
-        private void Insert(BinaryTree<T> data, BinaryTree<T> node, BinaryTree<T> parent)
+        /// <summary>
+        /// Вставляет узел в определённый узел дерева
+        /// </summary>
+        private void Insert(Node<T> remNode, Node<T> newNode, Node<T> parent)
         {
-
-            if (node.Key == null || node.Key == data.Key)
+            if (newNode.Key == null || newNode.Key == remNode.Key)
             {
-                node.Key = data.Key;
-                node.Value = data.Value;
-                node.Left = data.Left;
-                node.Right = data.Right;
-                node.Parent = parent;
+                newNode.Key = remNode.Key;
+                newNode.Value = remNode.Value;
+                newNode.Left = remNode.Left;
+                newNode.Right = remNode.Right;
+                newNode.Parent = parent;
                 return;
             }
-            if (node.Key > data.Key)
+            if (newNode.Key > remNode.Key)
             {
-                if (node.Left == null) node.Left = new BinaryTree<T>();
-                Insert(data, node.Left, node);
+                if (newNode.Left == null) newNode.Left = new Node<T>();
+                Insert(remNode, newNode.Left, newNode);
             }
             else
             {
-                if (node.Right == null) node.Right = new BinaryTree<T>();
-                Insert(data, node.Right, node);
+                if (newNode.Right == null) newNode.Right = new Node<T>();
+                Insert(remNode, newNode.Right, newNode);
             }
-        } // Вставляет узел в определённый узел дерева
-
-        private BinSide? MeForParent(BinaryTree<T> node) // Определяет, в какой ветви для родительского лежит данный узел
-
-        {
-            if (node.Parent == null) return null;
-            if (node.Parent.Left == node) return BinSide.Left;
-            if (node.Parent.Right == node) return BinSide.Right;
-            return null;
         }
-
-        public int Level() // Возвращает уровень текущего узла
-        {
-            var level = 0;
-            var curr = this;
-            while(curr.Parent != null)
-            {
-                level++;
-                curr = curr.Parent;
-            }
-            return level;
-        }
-
-        public BinaryTree<T> MaxNode()
-        {
             
-            var curr = this;
+        /// <summary>
+        /// Максимальный ключ в дереве
+        /// </summary>
+        public Node<T> MaxNode()
+        {
+            var curr = head;
             while (curr.Right != null)
             {
                 curr = curr.Right;
@@ -120,10 +108,13 @@ namespace ASD.BinTree // data = key
             return curr;
         }
 
-        public BinaryTree<T> MinNode()
+        /// <summary>
+        /// Минимальный ключ в дереве
+        /// </summary>
+        /// <returns></returns>
+        public Node<T> MinNode()
         {
-
-            var curr = this;
+            var curr = head;
             while (curr.Left != null)
             {
                 curr = curr.Left;
@@ -131,12 +122,13 @@ namespace ASD.BinTree // data = key
             return curr;
         }
 
-        
-        public void Remove(BinaryTree<T> node) // Удаляет узел из дерева
-
+        /// <summary>
+        /// Удаляет узел из дерева
+        /// </summary>
+        public void Remove(Node<T> node)
         {
             if (node == null) return;
-            var me = MeForParent(node);
+            var me = node.MeForParent();
             
             if (node.Left == null && node.Right == null)//Если у узла нет дочерних элементов, его можно удалять
             {
@@ -148,6 +140,10 @@ namespace ASD.BinTree // data = key
                 {
                     node.Parent.Right = null;
                 }
+
+                if (node == head)
+                    head = null;
+
                 return;
             }
             if (node.Left == null) //Если нет левого дочернего, то правый дочерний становится на место удаляемого
@@ -202,6 +198,7 @@ namespace ASD.BinTree // data = key
                 node.Value = node.Right.Value;
                 node.Right = bufRightRight;
                 node.Left = bufRightLeft;
+                head = node;
                 Insert(bufLeft, node, node);
             }
             else
@@ -211,6 +208,9 @@ namespace ASD.BinTree // data = key
             }
         }
 
+        /// <summary>
+        /// Удаляет узел из дерева по ключу
+        /// </summary>
         public void Remove(long key)
         {
             var removeNode = Find(key);
@@ -218,20 +218,28 @@ namespace ASD.BinTree // data = key
             {
                 Remove(removeNode);
             }
-        } // Удаляет значение из дерева
-        
-        public BinaryTree<T> Find(long key)
-        {
-            if (Key == key) return this;
-            if (Key > key)
-            {
-                return Find(key, Left);
-            }
-            return Find(key, Right);
-        } // Ищет узел с заданным значением
+        }
 
-        
-        public BinaryTree<T> Find(long key, BinaryTree<T> node)
+        /// <summary>
+        /// Ищет узел с заданным значением
+        /// </summary>
+        public Node<T> Find(long key)
+        {
+            if (head == null)
+                return null;
+
+            if (head.Key == key) return head;
+            if (head.Key > key)
+            {
+                return Find(key, head.Left);
+            }
+            return Find(key, head.Right);
+        }
+
+        /// <summary>
+        /// Ищет значение в определённом узле
+        /// </summary>
+        public Node<T> Find(long key, Node<T> node)
         {
             if (node == null) return null;
 
@@ -241,15 +249,24 @@ namespace ASD.BinTree // data = key
                 return Find(key, node.Left);
             }
             return Find(key, node.Right);
-        } // Ищет значение в определённом узле
+        }
 
+        /// <summary>
+        /// Количество элементов в дереве
+        /// </summary>
         public long CountElements()
         {
-            return CountElements(this);
-        } // Количество элементов в дереве
-        
-        private long CountElements(BinaryTree<T> node)
+            return CountElements(head);
+        }
+
+        /// <summary>
+        /// Количество элементов в определённом узле
+        /// </summary>
+        private long CountElements(Node<T> node)
         {
+            if (node == null)
+                return 0;
+
             long count = 1;
             if (node.Right != null)
             {
@@ -260,66 +277,55 @@ namespace ASD.BinTree // data = key
                 count += CountElements(node.Left);
             }
             return count;
-        } // Количество элементов в определённом узле
-        
-        public BinaryTree<T> NextNode()
-        {
-            var val = this;
-            if (val.Right == null)
-            {
-                if (val == val.Parent.Left)
-                    return val.Parent;
-                else
-                {
-                    while (val != val.Parent.Left)
-                    {
-                        val = val.Parent;
-                        if (val.Parent == null)
-                            return null;
-                    }
-                    return val.Parent;
-                }
-            }
-            else
-            {
-                val = val.Right;
-                while (val.Left != null)
-                    val = val.Left;
-                return val;
-            }
         }
     }
 
     public class BinaryTreeExtensions<T>
     {
-        public static void Print(BinaryTree<T> node)
+        /// <summary>
+        /// Вывод дерева
+        /// </summary>
+        public static void Print(BinaryTree<T> tree)
         {
-            if (node != null)
+            if (tree == null || tree.Head == null)
             {
-                if (node.Parent == null)
-                {
-                    Console.WriteLine("ROOT:{0}", node.Key);
-                }
-                else
-                {
-                    if (node.Parent.Left == node)
-                    {
-                        Console.WriteLine("Left for {1}  --> {0}", node.Key, node.Parent.Key);
-                    }
+                return;
+            }
 
-                    if (node.Parent.Right == node)
-                    {
-                        Console.WriteLine("Right for {1} --> {0}", node.Key, node.Parent.Key);
-                    }
-                }
-                if (node.Left != null)
+            Print(tree.Head);
+        }
+
+        /// <summary>
+        /// Вывод элемента дерева
+        /// </summary>
+        public static void Print(Node<T> baseNode)
+        {
+            if (baseNode == null)
+                return;
+
+            if (baseNode.Parent == null)
+            {
+                Console.WriteLine("ROOT:{0}", baseNode.Key);
+            }
+            else
+            {
+                if (baseNode.Parent.Left == baseNode)
                 {
-                    Print(node.Left);
+                    Console.WriteLine("Left for {1}  --> {0}", baseNode.Key, baseNode.Parent.Key);
                 }
-                if (node.Right != null)
+
+                if (baseNode.Parent.Right == baseNode)
                 {
-                    Print(node.Right);
+                    Console.WriteLine("Right for {1} --> {0}", baseNode.Key, baseNode.Parent.Key);
                 }
+            }
+            if (baseNode.Left != null)
+            {
+                Print(baseNode.Left);
+            }
+            if (baseNode.Right != null)
+            {
+                Print(baseNode.Right);
             }
         }
     }

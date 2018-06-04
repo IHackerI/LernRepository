@@ -4,10 +4,19 @@ using ASD.Graph;
 
 namespace ASD.WorkTesters
 {
+    /// <summary>
+    /// Тестирование графа
+    /// </summary>
     public static class GraphTester
     {
+
+        /// <summary>
+        /// Точка входа в тестер
+        /// </summary>
         public static void TEST()
         {
+
+            #region Создание графа
             Vertex<int> v0 = new Vertex<int>(1, "A");
             Vertex<int> v1 = new Vertex<int>(2, "B");
             Vertex<int> v2 = new Vertex<int>(3, "C");
@@ -30,7 +39,7 @@ namespace ASD.WorkTesters
 
 
             var graph = new Graph<int>(vertexes, edges);
-
+            #endregion
 
 
             Console.WriteLine("________Обход в ширину_______ ");
