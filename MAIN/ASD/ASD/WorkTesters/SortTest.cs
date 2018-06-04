@@ -10,6 +10,7 @@ namespace ASD.WorkTesters
     /// </summary>
     public static class SortTest
     {
+
         /// <summary>
         /// Точка входа тестера
         /// </summary>
