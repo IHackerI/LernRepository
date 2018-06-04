@@ -1,5 +1,6 @@
 ﻿using ASD.SetDeckQueueStack;
 using System;
+using System.Threading;
 
 namespace ASD.Sort
 {
@@ -70,7 +71,7 @@ namespace ASD.Sort
         /// <summary>
         /// Сортировка слиянием
         /// </summary>
-        public static void Merge(T[] Mas, int left, int right, int medium)
+        private static void Merge(T[] Mas, int left, int right, int medium)
         {
             int j = left;
             int k = medium + 1;
@@ -109,8 +110,12 @@ namespace ASD.Sort
         /// <summary>
         /// Сортировка слиянием
         /// </summary>
-        public static void MergeSort(T[] a, int l, int r)
+        private static void MergeSort(object o)
         {
+            var a = (T[])((object[])o)[0];
+            var l = (int)((object[])o)[1];
+            var r = (int)((object[])o)[2];
+
             int m;
 
             if (l >= r)// Условие выхода из рекурсии
@@ -119,10 +124,28 @@ namespace ASD.Sort
             m = (l + r) / 2;
 
             // Рекурсивная сортировка полученных массивов
-            MergeSort(a, l, m);
-            MergeSort(a, m + 1, r);
+
+            var firstThread = new Thread(MergeSort);
+            firstThread.Start(new object[] { a, l, m });
+
+            var secondThread = new Thread(MergeSort);
+            secondThread.Start(new object[] { a, m + 1, r });
+
+            while (firstThread.IsAlive || secondThread.IsAlive)
+            {
+                Thread.Sleep(10);
+            }
+
+            //MergeSort(a, l, m);
+            //MergeSort(a, m + 1, r);
+
             Merge(a, l, r, m);
             return;
+        }
+
+        public static void MergeSort(T[] a, int l, int r)
+        {
+            MergeSort(new object[] { a, l, r });
         }
 
         /// <summary>
