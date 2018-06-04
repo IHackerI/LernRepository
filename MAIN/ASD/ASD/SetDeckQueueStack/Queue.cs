@@ -1,7 +1,7 @@
 ﻿using System;
-namespace ASD.CustomLists
+namespace ASD.SetDeckQueueStack
 {
-    public class Queue<T>
+    public class Queue<T> // Очередь
     {
         public int Length { get; private set; }
         private Node<T> _headNode;
@@ -13,7 +13,7 @@ namespace ASD.CustomLists
             Length = 0;
         }
         
-        public void Push(T element)
+        public void Push(T element) // Добавление элемента в конец очереди
         {
             if (_headNode == null)
             {
@@ -37,22 +37,28 @@ namespace ASD.CustomLists
             }
         }
         
-        public T Pop()
+        public T Pop() // Изъятие первого элемента
         {
             var ans = _headNode;
+            if (_headNode == null)
+                return default(T);
             _headNode = _headNode.Next;
-            if(_headNode != null)
+            if (_headNode != null)
                 _headNode.Prev = null;
+            else
+                _tailNode = null;
+
             Length--;
             return ans.Element;
+
         }
-        
-        public Node<T> GetHeadNode()
+
+        public Node<T> GetHeadNode() // Получение элемента из начала очереди
         {
             return _headNode;
         }
 
-        public void View()
+        public void View() // Вывод очереди
         {
             var curNode = GetHeadNode();
 

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ASD.CustomLists
+namespace ASD.SetDeckQueueStack
 {
-    public class Stack<T>
+    public class Stack<T> 
     {
         public int Length { get; private set; }
         private Node<T> _headNode;
@@ -17,7 +17,7 @@ namespace ASD.CustomLists
             Length = 0;
         }
 
-        public void Push(T element)
+        public void Push(T element) // Добавление элемента в начало стека
         {
             if (_headNode == null)
             {
@@ -41,21 +41,30 @@ namespace ASD.CustomLists
             }
         }
 
-        public T Pop()
+        public T Pop() // Изъятие элемента из начала стека
         {
             var ans = _tailNode;
+
+            if (_tailNode == null)
+                return default(T);
+
             _tailNode = _tailNode.Prev;
-            _tailNode.Next = null;
+
+            if (_tailNode != null)
+                _tailNode.Next = null;
+            else
+                _headNode = null;
+            
             Length--;
             return ans.Element;
         }
 
-        public Node<T> GetTailNode()
+        public Node<T> GetTailNode() // Получение последнего элемента
         {
             return _tailNode;
         }
 
-        public void View()
+        public void View() // Вывод стека
         {
             var curNode = GetTailNode();
 

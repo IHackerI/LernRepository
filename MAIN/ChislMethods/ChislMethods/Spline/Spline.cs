@@ -54,7 +54,7 @@ namespace ChislMethods.Spline
             }
         }
 
-        public double Interpolate(double x)  //интерполирование функции
+        public double Interpolate(double x)  // Интерполирование функции
         {
             int n = splines.Length;
             Splinee s;

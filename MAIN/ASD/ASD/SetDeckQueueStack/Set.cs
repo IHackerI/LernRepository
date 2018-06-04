@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ASD.CustomLists
+namespace ASD.SetDeckQueueStack
 {
-    public class Set<T>: IList<T> where T : IComparable
+    public class Set<T>: IList<T> where T : IComparable // Множество
     {
         T[] _items;
         public int Count { get; private set; }
@@ -45,7 +45,7 @@ namespace ASD.CustomLists
             return -1;
         }
 
-        public void Add(T obj)
+        public void Add(T obj) // Добавление элемента в множество
         {
             if (IndexOf(obj) > -1)
             {
@@ -58,7 +58,7 @@ namespace ASD.CustomLists
             Count++;
         }
 
-        public void AddRange(IList<T> range)
+        public void AddRange(IList<T> range) // Добавление в конец исходного множества переданного множества
         {
             var ar = (from x in range where !Contains(x) select x).ToArray();
 
@@ -74,7 +74,7 @@ namespace ASD.CustomLists
             Count = finalLen;
         }
 
-        public static Set<TT> Union<TT>(Set<TT> FirstRange, Set<TT> SecondRange) where TT : IComparable // Объединение
+        public static Set<TT> Union<TT>(Set<TT> FirstRange, Set<TT> SecondRange) where TT : IComparable // Объединение множеств
         {
             var ans = new Set<TT>();
             ans.AddRange(FirstRange.ToArray());
@@ -82,7 +82,7 @@ namespace ASD.CustomLists
             return ans;
         }
 
-        public static Set<TT> Intersection<TT>(Set<TT> FirstRange, Set<TT> SecondRange) where TT : IComparable // Пересечение 
+        public static Set<TT> Intersection<TT>(Set<TT> FirstRange, Set<TT> SecondRange) where TT : IComparable // Пересечение множеств
         {
             var ans = new Set<TT>();
 
@@ -95,7 +95,7 @@ namespace ASD.CustomLists
             return ans;
         }
 
-        public static Set<TT> Addition<TT>(Set<TT> FirstRange, Set<TT> SecondRange) where TT : IComparable // Дополнение 
+        public static Set<TT> Addition<TT>(Set<TT> FirstRange, Set<TT> SecondRange) where TT : IComparable // Дополнение множества
         {
             var ans = new Set<TT>();
 
@@ -108,7 +108,7 @@ namespace ASD.CustomLists
             return ans;
         }
 
-        public bool Remove(T obj)
+        public bool Remove(T obj) // Удаление элемента множества
         {
             var index = IndexOf(obj);
             if (index < 0)
@@ -117,7 +117,7 @@ namespace ASD.CustomLists
             return true;
         }
 
-        public void RemoveAt(int index)
+        public void RemoveAt(int index) // Удаление элемента множества по индексу
         {
             for (int i = index; i < Count - 1; i++)
             {
@@ -126,7 +126,7 @@ namespace ASD.CustomLists
             Count--;
         }
 
-        public void Insert(int index, T value)
+        public void Insert(int index, T value) // Добавление элемента с заданным индексом
         {
             if (index < 0 || index > Count) throw new ArgumentOutOfRangeException();
             Add(default(T));
@@ -138,7 +138,7 @@ namespace ASD.CustomLists
             this[index] = value;
         }
 
-        public void CheckArray(int index)
+        public void CheckArray(int index) // Проверяет вываливается ли индекс за пределы массива и длиняет его, если это необходимо
         {
             if (_items == null)
             {
@@ -146,11 +146,12 @@ namespace ASD.CustomLists
                 return;
             }
 
-            int newLen = _items.Length;
+            int newLen = _items.Length > 0 ? _items.Length : 1;
+
 
             while (newLen <= index)
             {
-                newLen <<= 1;
+                newLen <<= 1; // Умножение на 2
             }
 
             if (newLen > _items.Length)
@@ -166,7 +167,7 @@ namespace ASD.CustomLists
             }
         }
 
-        public T[] ToArray()
+        public T[] ToArray() // Преобразование динамического массива в статический
         {
             var ans = new T[Count];
 
@@ -177,7 +178,7 @@ namespace ASD.CustomLists
             return ans;
         }
 
-        public static List<Set<TT>> Subset<TT>(Set<TT> set) where TT : IComparable
+        public static List<Set<TT>> Subset<TT>(Set<TT> set) where TT : IComparable // Вывод множество всех подмножеств
         {
             var listSub = new List<Set<TT>>();
 
@@ -196,13 +197,13 @@ namespace ASD.CustomLists
             return listSub;
         }
 
-        public void Clear()
+        public void Clear() // Очистка множества
         {
             _items = new T[0];
             Count = 0;
         }
 
-        public void View()
+        public void View() // Вывод множества
         {
             foreach (var element in ToArray())
             {
@@ -211,7 +212,7 @@ namespace ASD.CustomLists
             Console.WriteLine();
         }
 
-        public void CopyTo(T[] array, int arrayIndex)
+        public void CopyTo(T[] array, int arrayIndex) // Копирует в переданный массив элементы начиная с переданного индекса
         {
             if (array == null) throw new ArgumentNullException();
             if (arrayIndex < 0) throw new ArgumentOutOfRangeException();

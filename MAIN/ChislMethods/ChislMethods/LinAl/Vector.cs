@@ -41,7 +41,7 @@ namespace ChislMethods.LinAl
             {
                 if (i < 0 && i >= size)
                 {
-                    Console.WriteLine(" Индексы вышли за пределы матрицы ");
+                    Console.WriteLine("Индексы вышли за пределы матрицы ");
                     return 0;
                 }
                 else
@@ -51,7 +51,7 @@ namespace ChislMethods.LinAl
             {
                 if (i < 0 && i >= size)
                 {
-                    Console.WriteLine(" Индексы вышли за пределы матрицы ");
+                    Console.WriteLine("Индексы вышли за пределы матрицы ");
                 }
                 else
                     vector[i] = value;
@@ -79,7 +79,7 @@ namespace ChislMethods.LinAl
             return rez;
         }
 
-        public void View()
+        public void View() // вывод вектора
         {
             Console.Write("( ");
             for (int i = 0; i < this.size; i++)
@@ -87,7 +87,7 @@ namespace ChislMethods.LinAl
             Console.WriteLine(")");
         }
 
-        public double multiplication(Vector a) //умножение векторов cкалярное
+        public double Multiplication(Vector a) // Скалярное умножение векторов
         {
             if (size == a.size)
             {
@@ -99,7 +99,7 @@ namespace ChislMethods.LinAl
             return 0;
         }
 
-        public Vector multiplication(double x)// умножение вектора на число
+        public Vector Multiplication(double x)// Умножение вектора на число
         {
             Vector rez = new Vector(size);
             for (int i = 0; i < size; i++)
@@ -108,7 +108,7 @@ namespace ChislMethods.LinAl
 
         }
 
-        public Vector addition(Vector a)//сложение
+        public Vector Addition(Vector a)// Сложение векторов
         {
             if (size == a.size)
             {
@@ -121,7 +121,7 @@ namespace ChislMethods.LinAl
             return nan;
         }
 
-        public Vector subtraction(Vector a)//вычитание
+        public Vector Subtraction(Vector a)// Вычитание векторов
         {
             if (size == a.size)
             {
@@ -134,7 +134,7 @@ namespace ChislMethods.LinAl
             return nan;
         }
         
-        public double len() // длина вектора
+        public double Len() // Длина вектора
         {
 
             double x = 0;
@@ -145,16 +145,16 @@ namespace ChislMethods.LinAl
             return x;
         }
 
-        public Vector normalization()// нормализация вектора
+        public Vector Normalization()// Нормализация вектора
         {
             Vector rez = new Vector(vector);
-            double x = len();
+            double x = Len();
             for (int i = 0; i < size; i++)
                 rez[i] = rez[i] / x;
             return rez;
         }
 
-        public Vector Gauss(Matrix matrix) // метод Гаусса
+        public Vector Gauss(Matrix matrix) // Метод Гаусса
         {
             Vector v = new Vector(vector);
 
@@ -215,7 +215,7 @@ namespace ChislMethods.LinAl
             return b;
         } 
 
-        public Vector GramSchmidt(Matrix m) // метод ортогонолизации
+        public Vector GramSchmidt(Matrix m) // Метод ортогонолизации (Метод Грамма-Шмидта)
         {
             Vector nan = new Vector(0);
             if (m.Col != m.Row) return nan;
@@ -236,10 +236,10 @@ namespace ChislMethods.LinAl
             for (int i = 0; i < size; i++)
                 u[0, i] = m[0, i]; // u[0]
 
-            v.SetRow(u.GetRow(0).normalization(), 0); //v[0]
+            v.SetRow(u.GetRow(0).Normalization(), 0); //v[0]
 
             Vector t = new Vector(size);
-            t[0] = vector[0] / u.GetRow(0).len(); // h[0]
+            t[0] = vector[0] / u.GetRow(0).Len(); // h[0]
 
             int count = 1; // счетчик пременных, для кот уже найдены первые значения
             double te;
@@ -253,7 +253,7 @@ namespace ChislMethods.LinAl
 
                 for (int j = 0; j < count; j++)
                 {
-                    te = m.GetRow(count).multiplication(v.GetRow(j));
+                    te = m.GetRow(count).Multiplication(v.GetRow(j));
 
                     for (int i = 0; i < size; i++)
                         temp[i] += te * v[j, i]; // получили c[i, j] * v[k]
@@ -264,9 +264,9 @@ namespace ChislMethods.LinAl
                 for (int i = 0; i < size; i++) // находим u
                     u[count, i] = m[count, i] - temp[i];
 
-                t[count] = (vector[count] - temp_h) / u.GetRow(count).len(); // нашли h
+                t[count] = (vector[count] - temp_h) / u.GetRow(count).Len(); // нашли h
 
-                v.SetRow(u.GetRow(count).normalization().normalization(), count);
+                v.SetRow(u.GetRow(count).Normalization().Normalization(), count);
 
                 count++;
 

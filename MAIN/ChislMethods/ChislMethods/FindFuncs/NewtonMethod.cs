@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ChislMethods.FindFuncs
 {
-    public static class NewtonFind
+    public static class NewtonMethod
     {
         public static double Newton(double eps, double left, double right, DelF Func)
         {

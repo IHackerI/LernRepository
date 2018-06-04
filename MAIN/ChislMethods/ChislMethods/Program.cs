@@ -1,7 +1,7 @@
 ﻿using ChislMethods.FindFuncs;
 using ChislMethods.LinAl;
 using ChislMethods.Spline;
-using ChislMethods.DerSystems;
+using ChislMethods.DifUr;
 using ChislMethods.Integral;
 
 namespace ChislMethods

@@ -1,4 +1,4 @@
-﻿using ChislMethods.DerSystems;
+﻿using ChislMethods.DifUr;
 using ChislMethods.WorkTesters.Helpers;
 using System;
 
@@ -16,37 +16,34 @@ namespace ChislMethods.WorkTesters
         static void SimpleTest()
         {
             fprav += EasyMethod;
-
-            double[] x = new double[] { 1.0 };
-            double[,] rez;
-            RangeKutta rk = new RangeKutta(0, 1, x, 0.1);
-
+            
             while (true)
             {
-                var ch = IOSystem.SafeSimpleChoice("Выберите метод: ", new string[]
+                double[] x = new double[] { 1.0 };
+                double[,] rez;
+                EulerAndRungeKutta rk = new EulerAndRungeKutta(0, 1, x, 0.1);
+                var choice = IOSystem.SafeSimpleChoice("Выберите метод: ", new string[]
                 {
-                    "Range Kutta 2 порядка",
-                    "Range Kutta 4 порядка",
+                    "Рунге-Кутта 2 порядка",
+                    "Рунге-Кутта 4 порядка",
                     "Метод Эйлера",
                     "Закончить тест"
                 });
 
-                //Console.WriteLine();
-
                 var endWork = false;
 
-                switch (ch)
+                switch (choice)
                 {
                     case 0:
-                        rez = rk.MetodRK2(fprav);
+                        rez = rk.MethodRK2(fprav);
                         Write(rez, 0.0, 1.0, 0.1);
                         break;
                     case 1:
-                        rez = rk.MetodRK4(fprav);
+                        rez = rk.MethodRK4(fprav);
                         Write(rez, 0.0, 1.0, 0.1);
                         break;
                     case 2:
-                        rez = rk.MetodEulera(fprav);
+                        rez = rk.EulerMethod(fprav);
                         Write(rez, 0.0, 1.0, 0.1);
                         break;
                     case 3:

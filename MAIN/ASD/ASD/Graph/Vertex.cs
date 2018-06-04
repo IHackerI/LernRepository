@@ -8,7 +8,7 @@ namespace ASD.Graph
     class Vertex<T>
     {
 
-        public Vertex(T value, string label)
+        public Vertex(T value, string label) // Создание вершины
         {
             Label = label;
             Value = value;

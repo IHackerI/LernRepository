@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ASD.WorkTesters.Helpers
+namespace ASD.WorkTesters.Helper
 {
     public class IOSystem
     {
@@ -22,13 +22,13 @@ namespace ASD.WorkTesters.Helpers
                 return false;
             }
                         
-            Console.WriteLine("-------------Начало тестирования " + testCounter + "-------------");
+            Console.WriteLine("-------------Начало тестирования №" + testCounter + "-------------");
             Console.WriteLine();
 
             testerMethods[choiceNum].Method.Invoke(null, null);
 
             Console.WriteLine();
-            Console.WriteLine("-------------Конец тестирования " + testCounter + "-------------");
+            Console.WriteLine("-------------Конец тестирования №" + testCounter + "-------------");
 
             testCounter--;
 

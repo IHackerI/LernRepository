@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ASD.Sort;
-using ASD.WorkTesters.Helpers;
+using ASD.WorkTesters.Helper;
 
 namespace ASD.WorkTesters
 {
@@ -24,8 +24,7 @@ namespace ASD.WorkTesters
                     "Сортировка вставками",
                     "Сортировка Шелла",
                     "Сортировка Merge (слиянием)",
-                    "Быстрая сортировка",
-                    "Быстрая сортировка (не рекурсиив)"
+                    "Быстрая сортировка"
                     });
 
             switch (input)
@@ -69,13 +68,7 @@ namespace ASD.WorkTesters
                     Console.Write("Cортированное множество: ");
                     ShowSet(setInt);
                     break;
-                case 5:
-                    Console.Write("Несортированное множество: ");
-                    ShowSet(setInt);
-                    Sort<int>.NoRecursQuickSort(setInt, 0, setInt.Length - 1);
-                    Console.Write("Cортированное множество: ");
-                    ShowSet(setInt);
-                    break;
+               
             }
 
             Console.WriteLine();

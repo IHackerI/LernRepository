@@ -1,6 +1,6 @@
 ﻿using System;
 using ASD.HashTable;
-using ASD.WorkTesters.Helpers;
+using ASD.WorkTesters.Helper;
 
 namespace ASD.WorkTesters
 {
@@ -9,7 +9,8 @@ namespace ASD.WorkTesters
         public static void TEST()
         {
             bool choiceStatus = false;
-            while (!choiceStatus) {
+            while (!choiceStatus)
+            {
                 choiceStatus = IOSystem.InterfacedViewChoice(new string[] { "MyHashTable", "HashTableList" }, new WorkMainTester.EmptyD[] { MyHashTableTEST, HashTableListTEST });
                 if (!choiceStatus)
                 {
@@ -18,15 +19,13 @@ namespace ASD.WorkTesters
                 }
             }
         }
-
-        //Тестирование MyHashTable
-        private static void MyHashTableTEST()
+        
+        private static void MyHashTableTEST() // Тестирование MyHashTable
         {
             IHashTableTest(new MyHashTable<string>(10));
         }
         
-        //Тестирование HashTableList
-        private static void HashTableListTEST()
+        private static void HashTableListTEST() // Тестирование HashTableList
         {
             IHashTableTest(new HashTableList<string>(5));
         }
@@ -41,7 +40,7 @@ namespace ASD.WorkTesters
                         "Удалить узел",
                         "Получить узел",
                         "Вывести таблицу",
-                        "Закончить тест"
+                        "Закончить тестирование"
                     });
 
                 bool endTest = false;

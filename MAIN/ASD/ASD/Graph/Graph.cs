@@ -17,14 +17,14 @@ namespace ASD.Graph
         public List<Vertex<T>> Vertexes = new List<Vertex<T>>();
         public Dictionary<int, HashSet<int>> ConnectVertexes { get; } = new Dictionary<int, HashSet<int>>();
 
-        public void AddVertex(Vertex<T> Vertex)
+        public void AddVertex(Vertex<T> Vertex) // Добавить вершину
         {
             Vertexes.Add(Vertex);
 
             ConnectVertexes[Vertexes.Count-1] = new HashSet<int>();
         }
 
-        public void AddEdge(int a, int b)
+        public void AddEdge(int a, int b) // Добавить ребро
         {
             if (ConnectVertexes.ContainsKey(a) && ConnectVertexes.ContainsKey(b))
             {
@@ -42,7 +42,7 @@ namespace ASD.Graph
             if (!graph.ConnectVertexes.ContainsKey(Vertexes.FindIndex(x => x == primaryVertex)))
                 return visitedVertexes;
 
-            var queue = new Queue<Vertex<T>>();//отслеживает  найденные вершины  ,  которые не посетили. Первоначально "queue"   содержит начальную вершину
+            var queue = new Queue<Vertex<T>>();//отслеживает  найденные вершины  ,  которые не посетили. Первоначально "queue" содержит начальную вершину
             queue.Enqueue(primaryVertex);
 
             while (queue.Count > 0)

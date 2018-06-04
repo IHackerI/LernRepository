@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
-using ASD.CustomLists;
-using ASD.WorkTesters.Helpers;
+using ASD.SetDeckQueueStack;
+using ASD.WorkTesters.Helper;
 
 namespace ASD.WorkTesters
 {
-    public static class CustomListsTester
+    public static class SetDeckQueueStack
     {
         enum ListName
         {
@@ -175,8 +175,6 @@ namespace ASD.WorkTesters
                 if (endTest)
                     break;
             }
-
-            //Console.WriteLine(queue);
         }
 
         private static void SetTest()
@@ -194,7 +192,7 @@ namespace ASD.WorkTesters
                         "Дополение множества",
                         "Множество подмножеств",
                         "Вывести множество",
-                        "Закончить тест"
+                        "Закончить тестирование"
                         });
 
                 bool endTest = false;
@@ -213,9 +211,9 @@ namespace ASD.WorkTesters
 
                     case 2:
                         Console.Write("Введите значения другого множества через пробел: ");
-                        var seconduRange = new Set<string>();
-                        seconduRange.AddRange(Console.ReadLine().Split(' '));
-                        Set<string>.Union(set, seconduRange).View();
+                        var secondRange = new Set<string>();
+                        secondRange.AddRange(Console.ReadLine().Split(' '));
+                        Set<string>.Union(set, secondRange).View();
                         break;
 
                     case 3:
@@ -233,10 +231,10 @@ namespace ASD.WorkTesters
                         break;
 
                     case 5:
+                        Console.WriteLine("Множество подмножеств: ");
                         var ans = Set<string>.Subset(set);
                         foreach (var subset in ans)
                         {
-                            //Console.WriteLine();
                             subset.View();
                         }
                         Console.WriteLine();
@@ -257,8 +255,7 @@ namespace ASD.WorkTesters
                 if (endTest)
                     break;
             }
-
-            //Console.WriteLine(set);
+            
         }
 
         private static void StackTest()
@@ -272,7 +269,7 @@ namespace ASD.WorkTesters
                         "Добавить узел",
                         "Считать узел",
                         "Показать стек",
-                        "Закончить тест"
+                        "Закончить тестирование"
                         });
 
                 bool endTest = false;

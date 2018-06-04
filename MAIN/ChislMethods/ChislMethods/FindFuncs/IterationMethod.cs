@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ChislMethods.FindFuncs
 {
-    public static class IterationFind
+    public static class IterationMethod
     {
         public static double Iteration(double left, double right, double eps, DelF Func)
         {

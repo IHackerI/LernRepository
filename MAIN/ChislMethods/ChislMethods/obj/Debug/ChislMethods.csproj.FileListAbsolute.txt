@@ -14,3 +14,10 @@ C:\Users\Hacker\Downloads\4Semestr\lernRep_dev\MAIN\ChislMethods\ChislMethods\ob
 C:\Users\Hacker\Downloads\4Semestr\lernRep_dev\MAIN\ChislMethods\ChislMethods\obj\Debug\ChislMethods.exe
 C:\Users\Hacker\Downloads\4Semestr\lernRep_dev\MAIN\ChislMethods\ChislMethods\obj\Debug\ChislMethods.pdb
 C:\Users\Hacker\Downloads\4Semestr\lernRep_dev\MAIN\ChislMethods\ChislMethods\bin\Debug\ChislMethods.exe.config
+D:\Projects\Repository\ASDandChM\MAIN\ChislMethods\ChislMethods\bin\Debug\ChislMethods.exe.config
+D:\Projects\Repository\ASDandChM\MAIN\ChislMethods\ChislMethods\bin\Debug\ChislMethods.exe
+D:\Projects\Repository\ASDandChM\MAIN\ChislMethods\ChislMethods\bin\Debug\ChislMethods.pdb
+D:\Projects\Repository\ASDandChM\MAIN\ChislMethods\ChislMethods\obj\Debug\ChislMethods.csprojAssemblyReference.cache
+D:\Projects\Repository\ASDandChM\MAIN\ChislMethods\ChislMethods\obj\Debug\ChislMethods.csproj.CoreCompileInputs.cache
+D:\Projects\Repository\ASDandChM\MAIN\ChislMethods\ChislMethods\obj\Debug\ChislMethods.exe
+D:\Projects\Repository\ASDandChM\MAIN\ChislMethods\ChislMethods\obj\Debug\ChislMethods.pdb

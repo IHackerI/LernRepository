@@ -42,8 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BinaryTree\BinNode.cs" />
-    <Compile Include="BinaryTree\Node.cs" />
+    <Compile Include="BinTree\BinaryTree.cs" />
+    <Compile Include="BinTree\Node.cs" />
+    <Compile Include="SetDeckQueueStack\CycleDeck.cs" />
     <Compile Include="WorkTesters\BinaryTreeTester.cs" />
     <Compile Include="Graph\Edge.cs" />
     <Compile Include="Graph\Graph.cs" />
@@ -55,16 +56,16 @@
     <Compile Include="HashTable\IHashTable.cs" />
     <Compile Include="HashTable\MyHashTable.cs" />
     <Compile Include="WorkTesters\HashTableTest.cs" />
-    <Compile Include="WorkTesters\Helpers\IOSystem.cs" />
+    <Compile Include="WorkTesters\Helper\IOSystem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CustomLists\Deck.cs" />
-    <Compile Include="CustomLists\Node.cs" />
-    <Compile Include="CustomLists\Queue.cs" />
-    <Compile Include="CustomLists\Set.cs" />
+    <Compile Include="SetDeckQueueStack\Deck.cs" />
+    <Compile Include="SetDeckQueueStack\Node.cs" />
+    <Compile Include="SetDeckQueueStack\Queue.cs" />
+    <Compile Include="SetDeckQueueStack\Set.cs" />
     <Compile Include="Sort\Sort.cs" />
-    <Compile Include="CustomLists\Stack.cs" />
-    <Compile Include="WorkTesters\CustomListsTester.cs" />
+    <Compile Include="SetDeckQueueStack\Stack.cs" />
+    <Compile Include="WorkTesters\SetDeckQueueStack.cs" />
     <Compile Include="WorkTesters\SortTest.cs" />
     <Compile Include="WorkTesters\WorkMainTester.cs" />
   </ItemGroup>

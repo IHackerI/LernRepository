@@ -1,26 +1,28 @@
 ﻿using System;
-using ASD.BinaryTree;
-using ASD.WorkTesters.Helpers;
+using ASD.BinTree;
+using ASD.WorkTesters.Helper;
 
 namespace ASD.WorkTesters
 {
     public static class BinaryTreeTester
     {
+        //http://flash2048.com/post/bin-tree
         public static void TEST()
         {
-            BinNode BN = new BinNode();
+            BinaryTree<string> BN = new BinaryTree<string>();
 
-            BN.Add(10, "1");
-            BN.Add(4, "1");
-            BN.Add(2, "1");
-            BN.Add(3, "1");
-            BN.Add(16, "1");
-            BN.Add(13, "1");
-            BN.Add(18, "1");
-            BN.Add(17, "1");
+            BN.Insert(10, "1");
+            BN.Insert(4, "2");
+            BN.Insert(2, "3");
+            BN.Insert(3, "4");
+            BN.Insert(16, "5");
+            BN.Insert(13, "6");
+            BN.Insert(18, "7");
+            BN.Insert(17, "8");
+            BN.Insert(19, "9");
 
-            Console.WriteLine("Исходный массив");
-            Console.WriteLine(BN.View());
+            Console.WriteLine("Исходное дерево:");
+            BinaryTreeExtensions<string>.Print(BN);
             Console.WriteLine();
 
             while (true)
@@ -30,15 +32,12 @@ namespace ASD.WorkTesters
                         "Добавление",
                         "Поиск по ключу",
                         "Определение уровня по ключу",
-                        "Поиск максимального элемента узла",
+                        "Поиск Максимального элемента узла",
                         "Поиск Минимального элемента узла",
-                        "Поиск следующего элемента по индексу",
                         "Удаление узла",
-                        "Вывод дерева",
-                        "Удаление нижнего элемента",
                         "Рекурсивный вывод",
                         "Нерекурсивный вывод",
-                        "Закончить тест"
+                        "Закончить тестирование"
                     });
 
                 bool endTest = false;
@@ -46,55 +45,48 @@ namespace ASD.WorkTesters
                 switch (input)
                 {
                     case 0:
-                        BN.Add(IOSystem.GetInt("Введите ключ: "), "1");
+                        BN.Insert(IOSystem.GetInt("Введите ключ: "), "1");
                         break;
 
                     case 1:
-                        Console.WriteLine(BN.Value(IOSystem.GetInt("Введите ключ: ")));
+                        var r = BN.Find(IOSystem.GetInt("Введите ключ: "));
+                        Console.WriteLine(r == null ? null : r.Value);
                         break;
 
                     case 2:
-                        Console.WriteLine(BN.Level(BN.Value(IOSystem.GetInt("Введите ключ: "))));
+                        Console.WriteLine(BN.Find(IOSystem.GetInt("Введите ключ: ")).Level());
                         break;
 
                     case 3:
-                        Console.WriteLine(BN.MaxNode(BN.Value(IOSystem.GetInt("Введите ключ: "))).Key);
+                        r = BN.Find(IOSystem.GetInt("Введите ключ: ")).MaxNode();
+                        Console.WriteLine(r.Key + " " + r.Value);
                         break;
 
                     case 4:
-                        Console.WriteLine(BN.MinNode(BN.Value(IOSystem.GetInt("Введите ключ: "))).Key);
+                        r = BN.Find(IOSystem.GetInt("Введите ключ: ")).MinNode();
+                        Console.WriteLine(r == null ? null : r.Value);
                         break;
-
+                    
                     case 5:
-                        Console.WriteLine(BN.NextNode(BN.Value(IOSystem.GetInt("Введите ключ: "))).Key);
+                        BN.Remove(IOSystem.GetInt("Введите ключ: "));
                         break;
 
                     case 6:
-                        BN.DellNode(IOSystem.GetInt("Введите ключ: "));
+                        Console.WriteLine("Рекурсивный вывод: ");
+                        BinaryTreeExtensions<string>.Print(BN);
                         break;
 
                     case 7:
-                        Console.WriteLine(BN.View());
-                        break;
-
-                    case 8:
-                        BN.Dell_node_Ur();
-                        break;
-
-                    case 9:
-                        BN.recInOrder(BN.Root());
-                        break;
-
-                    case 10:
-                        Node t = BN.MinNode(BN.Root());
+                        Console.WriteLine("Нерекурсивный вывод: ");
+                        var t = BN.MinNode();
                         while (t != null)
                         {
                             Console.WriteLine(" Key: {0} Value: {1}", t.Key, t.Value);
-                            t = BN.NextNode(t);
+                            t = t.NextNode();
                         }
                         break;
 
-                    case 11:
+                    case 8:
                         endTest = true;
                         break;
                 }

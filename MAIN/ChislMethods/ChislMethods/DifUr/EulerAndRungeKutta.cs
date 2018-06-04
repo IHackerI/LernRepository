@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ChislMethods.DerSystems
+namespace ChislMethods.DifUr
 {
     public delegate double[] FunDelegate(double t, double[] x);
-    public class RangeKutta
+    public class EulerAndRungeKutta
     {
         double a, b;//отрезок
         double h;//шаг
         double[] x;//вектор начальных состояний
 
-        public RangeKutta(double a, double b, double[] xn, double h)
+        public EulerAndRungeKutta(double a, double b, double[] xn, double h)
         {
             this.a = a;
             this.b = b;
@@ -20,11 +20,10 @@ namespace ChislMethods.DerSystems
             x = xn;
         }
 
-        public double[,] MetodEulera(FunDelegate fun)
+        public double[,] EulerMethod(FunDelegate fun) // Метод Эйлера
         {
             int n;//количество шагов
             double[] f1;
-
 
             n = (int)((b - a) / h);//количество шагов
             double[,] xr = new double[n + 1, x.Length];
@@ -41,27 +40,18 @@ namespace ChislMethods.DerSystems
 
                 for (int k = 0; k < x.Length; k++)
                     x[k] = x[k] + h * f1[k];
-                Console.Write(("t=" + t).PadRight(10));
                 for (int j = 0; j < x.Length; j++)
                 {
                     xr[i, j] = x[j];
-                    WriteArgs(j, x[j], Math.Exp(t));
                 }
-                Console.WriteLine();
-
             }
             return xr;
 
         }
 
-        public double[,] MetodRK2(FunDelegate fun)
-        {
-            int n;//количество шагов
-            double[] f1;
-            double[] f2;
-
-
-            n = (int)((b - a) / h);//количество шагов
+        public double[,] MethodRK2(FunDelegate fun) // Метод Рунге-Кутта 2-го порядка
+        {            
+            var n = (int)((b - a) / h);//количество шагов
             double[,] xr = new double[n + 1, x.Length];
             double t = a;
             double[] pr = new double[x.Length];
@@ -71,27 +61,24 @@ namespace ChislMethods.DerSystems
             for (int i = 1; i <= n; i++)
             {
 
-                f1 = fun(t, x); //1
+                double[] f1 = fun(t, x); //1
                 t = t + h;
                 for (int k = 0; k < x.Length; k++)
                     pr[k] = x[k] + h * f1[k];
 
-                f2 = fun(t, pr);
+                double[] f2 = fun(t, pr);
                 for (int k = 0; k < x.Length; k++)
                     x[k] = x[k] + (h / 2) * (f1[k] + f2[k]);
 
-                Console.Write(("t=" + t).PadRight(10));
                 for (int j = 0; j < x.Length; j++)
                 {
                     xr[i, j] = x[j];
-                    WriteArgs(j, x[j], Math.Exp(t));
                 }
-                Console.WriteLine();
             }
             return xr;
         }
 
-        public double[,] MetodRK4(FunDelegate fun)
+        public double[,] MethodRK4(FunDelegate fun) // Метод Рунге-Кутта 4-го порядка
         {
             int n;//количество шагов
             double[] f1;
@@ -127,20 +114,12 @@ namespace ChislMethods.DerSystems
                 for (int k = 0; k < x.Length; k++)
                     x[k] = x[k] + (h / 6) * (f1[k] + f2[k] * 2 + f3[k] * 2 + f4[k]);
 
-                Console.Write(("t=" + t).PadRight(10));
                 for (int j = 0; j < x.Length; j++)
                 {
                     xr[i, j] = x[j];
-                    WriteArgs(j, x[j], Math.Exp(t));
                 }
-                Console.WriteLine();
             }
             return xr;
-        }
-
-        private void WriteArgs(params object[] args)
-        {
-            Console.Write(("x["+ args[0] + "]="+ args[1]).PadRight(20) + " xa=" + args[2]);
         }
     }
 }

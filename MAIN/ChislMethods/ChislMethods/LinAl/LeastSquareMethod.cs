@@ -17,11 +17,11 @@ namespace ChislMethods.LinAl
         // Среднеквадратичное отклонение
         public double Delta { get { return CalculateDelta(); } }
 
-        // Конструктор класса. Примает 2 массива значений х и у
+        // Конструктор класса. Принимает 2 массива значений х и у
         // Длина массивов должна быть одинакова, иначе нужно обработать исключение
         public LeastSquareMethod(double[] x, double[] y)
         {
-            if (x.Length != y.Length) throw new ArgumentException("X and Y arrays should be equal!");
+            if (x.Length != y.Length) throw new ArgumentException("Массивы X и Y должны быть одинаковой длины!");
             X = new double[x.Length];
             Y = new double[y.Length];
 
@@ -37,7 +37,7 @@ namespace ChislMethods.LinAl
         public void Polynomial(int m)
         {
             if (m <= 0) throw new ArgumentException("Порядок полинома должен быть больше 0");
-            if (m >= X.Length) throw new ArgumentException("Порядок полинома должен быть на много меньше количества точек!");
+            if (m >= X.Length) throw new ArgumentException("Порядок полинома должен быть намного меньше количества точек!");
 
             // массив для хранения значений базисных функций
             double[,] basic = new double[X.Length, m + 1];

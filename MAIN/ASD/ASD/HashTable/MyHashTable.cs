@@ -16,7 +16,7 @@ namespace ASD.HashTable
             get { return _count; }
         }
 
-        #region Constructor
+        #region Constructors
         public MyHashTable()
         {
             _table = new HashTableNode<TValue>[0];
@@ -28,7 +28,7 @@ namespace ASD.HashTable
         }
         #endregion
 
-        private int FullGetIndexByKey(int key)
+        private int FullGetIndexByKey(int key) // Вычисляет хэш и по нему возвращает индекс ключа в массиве
         {
             var tmpIndex = key.GetHashCode() % _table.Length;
 
@@ -44,7 +44,7 @@ namespace ASD.HashTable
             }
         }
 
-        public TValue FindByKey(int key)
+        public TValue FindByKey(int key) // Поиск по ключу
         {
             var index = FullGetIndexByKey(key);
             if (_table[index] == null)
@@ -55,7 +55,7 @@ namespace ASD.HashTable
             return _table[index].Value;
         }
 
-        public void Add(int key, TValue value)
+        public void Add(int key, TValue value) // Добавление записи
         {
             if (_count >= _table.Length * 0.75)
                 Resize();
@@ -68,7 +68,7 @@ namespace ASD.HashTable
             _count++;
         }
 
-        public void Remove(int key)
+        public void Remove(int key) // Удаление по ключу
         {
             int index = FullGetIndexByKey(key);
 
@@ -81,11 +81,10 @@ namespace ASD.HashTable
             else
             {
                 Console.WriteLine("Ключ " + key + " не найден!");
-                //throw new KeyNotFoundException();
             }
         }
 
-        public void View()
+        public void View() // Вывод таблицы
         {
             for (int i = 0; i < _table.Length; i++)
             {
@@ -95,7 +94,7 @@ namespace ASD.HashTable
             }
         }
 
-        private void Resize()
+        private void Resize() // Изменение размеров таблицы
         {
             Array.Resize(ref _table, _table.Length<<1);
         }

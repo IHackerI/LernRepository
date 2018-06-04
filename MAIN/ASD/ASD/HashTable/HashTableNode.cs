@@ -13,10 +13,8 @@ namespace ASD.HashTable
 
         public HashTableNode(int key, TValue value)
         {
-
             Key = key;
             Value = value;
-
         }
     }
 }

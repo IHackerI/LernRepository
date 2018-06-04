@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ChislMethods.FindFuncs
 {
-    public static class BinFind
+    public static class HalfDif
     {
         public static double PolDel(double eps, double left, double right, DelF func)
         {

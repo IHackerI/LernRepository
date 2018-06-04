@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ASD.CustomLists
+namespace ASD.SetDeckQueueStack
 {
-    public class Deck <T>
+    public class Deck <T> // Двусвязный список
     {
         public int Length { get; private set; }
         private Node<T> _headNode;
@@ -17,7 +17,7 @@ namespace ASD.CustomLists
             Length = 0;
         }
 
-        public void AddHead(T element)
+        public void AddHead(T element) // Добавить элемент в наччало списка
         {
             Node<T> _current = new Node<T>();
             if (_headNode == null)
@@ -36,7 +36,7 @@ namespace ASD.CustomLists
             Length++;
         }
 
-        public void AddTail(T element)
+        public void AddTail(T element) // Добавить элемент в конец списка
         {
             if (_headNode == null)
                 AddHead(element);
@@ -52,7 +52,7 @@ namespace ASD.CustomLists
             }
         }
 
-        public void InsertBefore(T beforeEl, T addElement)
+        public void InsertBefore(T beforeEl, T addElement) // Добавить элемент ДО определённого элемента в списке
         {
             if (Contains(beforeEl))
             {
@@ -89,7 +89,7 @@ namespace ASD.CustomLists
 
         }
 
-        public void InsertAfter(T afterEl, T addEl)
+        public void InsertAfter(T afterEl, T addEl) // Добавить элемент ПОСЛЕ определённого элемента в списке
         {
             if (Contains(afterEl))
             {
@@ -124,19 +124,18 @@ namespace ASD.CustomLists
             }
         }
 
-        public T this[int _position]
+        public T this[int _position] 
         {
             get
             {
                 Node<T> tempNode = _headNode;
-                for (int i = 0; i < _position; ++i)
-                    // переходим к следующему узлу списка
-                    tempNode = tempNode.Next;
+                for (int i = 0; i < _position; ++i) 
+                    tempNode = tempNode.Next; // переходим к следующему узлу списка
                 return tempNode.Element;
             }
         }
 
-        public void Remove(T removeEl)
+        public void Remove(T removeEl) // Удаление элемента
         {
             Node<T> current = _headNode;
             while (current != null)
@@ -159,21 +158,38 @@ namespace ASD.CustomLists
             }
         }
 
-        public void RemoveHead()
+        public void RemoveHead() // Удаление элемента в верху списка
         {
-            _headNode = _headNode.Next;
-            _headNode.Prev = null;
             Length--;
+            if (_headNode != null)
+            {
+                Length--;
+                _headNode = _headNode.Next;
+            }
+
+            if (_headNode != null)
+                _headNode.Prev = null;
+            else
+                _tailNode = null;
+
         }
 
-        public void RemoveTail()
+        public void RemoveTail() // Удаление эелемента в конце списка
         {
-            _tailNode = _tailNode.Prev;
-            _tailNode.Next = null;
-            Length--;
+            if (_tailNode != null)
+            {
+                Length--;
+                _tailNode = _tailNode.Prev;
+            }
+
+            if (_tailNode != null)
+                _tailNode.Next = null;
+            else
+                _headNode = null;
+
         }
 
-        public void RemoveByIndex(int i)
+        public void RemoveByIndex(int i) // Удаление элемента по индексу
         {
             Node<T> current = _headNode;
             int j = -1;
@@ -206,7 +222,7 @@ namespace ASD.CustomLists
         }
 
 
-        public bool Contains(T _element)
+        public bool Contains(T _element) // Проверяет, содержит ли список данный элемент
         {
             Node<T> current = _headNode;
             while (current != null)
@@ -219,7 +235,7 @@ namespace ASD.CustomLists
             return false;
         }
 
-        public int GetIndex(T _element)
+        public int GetIndex(T _element) // Получение индекса переданного элемента
         {
             Node<T> current = _headNode;
             int i = -1;
@@ -234,7 +250,7 @@ namespace ASD.CustomLists
             return i;
         }
 
-        public void ViewHead()
+        public void ViewHead() // Вывод элемента верха списка
         {
             for (int i = 0; i < Length; i++)
             {
@@ -243,7 +259,7 @@ namespace ASD.CustomLists
             Console.WriteLine();
         }
 
-        public void ViewTail()
+        public void ViewTail() // Вывод элемента низа списка
         {
             for (int i = Length - 1; i > -1; i--)
                 Console.Write(this[i] + " ");

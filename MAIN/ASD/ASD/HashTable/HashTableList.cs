@@ -20,13 +20,13 @@ namespace ASD.HashTable
         }
 
 
-        public int CalcHash(int key)
+        public int CalcHash(int key) // Вычисление хэша
         {
             return key % Size;
         }
 
-        //добавление
-        public void Add(int key, T value)
+        
+        public void Add(int key, T value) // Добавление новой записи
         {
             Remove(key);
 
@@ -36,7 +36,7 @@ namespace ASD.HashTable
             Count++;
         }
 
-        public T FindByKey(int key)
+        public T FindByKey(int key) // Поиск по ключу
         {
             int index = CalcHash(key);
 
@@ -48,8 +48,8 @@ namespace ASD.HashTable
             return _table[index][nodeIndex].Value;
         }
 
-        //удаление
-        public void Remove(int key)
+        
+        public void Remove(int key) // Удаление по ключу
         {
             int index = CalcHash(key);
 
@@ -61,9 +61,8 @@ namespace ASD.HashTable
 
             Count--;
         }
-
-        //просмотр
-        public void View()
+        
+        public void View() // Вывод таблицы
         {
             for (int index = 0; index < Size; index++)
             {

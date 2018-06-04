@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ASD.BinaryTree
+namespace ASD.BinTree
 {
     class Node
     {
         int key;
         object value;
-        Node parent, left, right;
+        Node parent;
+        Node left;
+        Node right;
 
         public Node(int key, object value)
         {
@@ -30,6 +32,12 @@ namespace ASD.BinaryTree
             get { return value; }
         }
 
+        public Node Parent
+        {
+            set { parent = value; }
+            get { return parent; }
+        }
+
         public Node Left
         {
             set { left = value; }
@@ -41,11 +49,6 @@ namespace ASD.BinaryTree
             set { right = value; }
             get { return right; }
         }
-
-        public Node Parent
-        {
-            set { parent = value; }
-            get { return parent; }
-        }
+        
     }
 }
