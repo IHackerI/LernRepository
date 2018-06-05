@@ -12,7 +12,7 @@ namespace ChislMethods.WorkTesters
         enum TesterName
         {
             None = 0,
-            DerSystems = 10,
+            DifUr = 10,
             FincValueFinders = 20,
             Integral = 30,
             LinAl = 40,
@@ -35,7 +35,7 @@ namespace ChislMethods.WorkTesters
                 //предоставить выбор тестируемой системы
                 //и сразу запустить её
                 bool testResult = IOSystem.InterfacedViewChoice(testerNames.Skip(1).ToArray(), new EmptyD[] {
-                    DerSystemsTEST.TEST,        //|
+                    DifUrsTEST.TEST,        //|
                     FincValueFindersTest.TEST,  //|
                     IntegralTEST.TEST,          //|указание методов отправляемых на тест
                     LinAlTester.TEST,           //|

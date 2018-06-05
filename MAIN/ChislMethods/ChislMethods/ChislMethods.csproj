@@ -42,9 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DifUr\Euler.cs" />
+    <Compile Include="DifUr\RungeKutta2.cs" />
+    <Compile Include="DifUr\RungeKutta4.cs" />
     <Compile Include="LinAl\Matrix.cs" />
-    <Compile Include="WorkTesters\DerSystemsTEST.cs" />
-    <Compile Include="DifUr\EulerAndRungeKutta.cs" />
+    <Compile Include="WorkTesters\DifUrsTEST.cs" />
     <Compile Include="FindFuncs\HalfDif.cs" />
     <Compile Include="WorkTesters\FincValueFindersTest.cs" />
     <Compile Include="FindFuncs\IterationMethod.cs" />

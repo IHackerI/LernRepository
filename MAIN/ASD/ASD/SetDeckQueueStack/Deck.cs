@@ -6,7 +6,7 @@ using System.Text;
 namespace ASD.SetDeckQueueStack
 {
     /// <summary>
-    /// Двусторонний список
+    /// Двусторонняя очередь
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class Deck <T>

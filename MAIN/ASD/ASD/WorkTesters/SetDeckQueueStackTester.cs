@@ -47,7 +47,7 @@ namespace ASD.WorkTesters
                     QueueTest,   //|
                     SetTest,     //|указание методов отправляемых на тест
                     StackTest,   //|
-                    CycleDeckTest//
+                    CycleDeckTest//|
                 });
 
                 //Проверка на выполненность теста

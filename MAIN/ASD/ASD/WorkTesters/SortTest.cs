@@ -10,7 +10,6 @@ namespace ASD.WorkTesters
     /// </summary>
     public static class SortTest
     {
-
         /// <summary>
         /// Точка входа тестера
         /// </summary>
@@ -35,7 +34,8 @@ namespace ASD.WorkTesters
                     "Сортировка вставками",
                     "Сортировка Шелла",
                     "Сортировка Merge (слиянием)",
-                    "Быстрая сортировка"
+                    "Быстрая сортировка",
+                    "Быстрая сортировка (не рекурсиив)"
                     });
 
 
@@ -82,7 +82,14 @@ namespace ASD.WorkTesters
                     Console.Write("Cортированное множество: ");
                     ShowSet(setInt);
                     break;
-               
+                case 5:
+                    Console.Write("Несортированное множество: ");
+                    ShowSet(setInt);
+                    setInt = Sort<int>.NoRecursQuickSort(setInt, 0, setInt.Length - 1);
+                    Console.Write("Cортированное множество: ");
+                    ShowSet(setInt);
+                    break;
+
             }
 
             Console.WriteLine();

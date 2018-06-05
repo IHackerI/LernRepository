@@ -135,7 +135,7 @@ namespace ASD.Sort
             {
                 Thread.Sleep(10);
             }
-
+            
             Merge(a, l, r, m);
             return;
         }
@@ -177,5 +177,141 @@ namespace ASD.Sort
                 QuickSort(_items, l, j);
         }
 
+
+        public static int[] NoRecursQuickSort(int[] _items, int l, int r) // Быстрая сортировка
+        {
+            var curLR = new LRObj()
+            {
+                L = l,
+                R = r
+            };
+
+            while (true)
+            {
+                #region QS
+                int temp;
+                int x = _items[curLR.L + (curLR.R - curLR.L) / 2];
+                //запись эквивалентна (min+r)/2, 
+                //но не вызввает переполнения на больших данных
+                int i = curLR.L;
+                int j = curLR.R;
+                //код в while обычно выносят в процедуру particle
+                while (i <= j)
+                {
+                    while (_items[i] < x)
+                        i++;
+                    while (_items[j] > x)
+                        j--;
+                    if (i <= j)
+                    {
+                        temp = _items[i];
+                        _items[i] = _items[j];
+                        _items[j] = temp;
+                        i++;
+                        j--;
+                    }
+                }
+                #endregion
+
+                #region CalcLeftRight
+                LRObj left = null;
+                LRObj right = null;
+
+                if (i < curLR.R)
+                {
+                    left = new LRObj()
+                    {
+                        L = i,
+                        R = curLR.R
+                    };
+                }
+
+                if (curLR.L < j)
+                {
+                    right = new LRObj()
+                    {
+                        L = curLR.L,
+                        R = j
+                    };
+                }
+                #endregion
+
+                #region ReplaceThisToLeftRight
+                if (left != null)
+                {
+                    left.Prev = curLR.Prev;
+
+                    left.Next = right;
+                    if (left.Next == null)
+                        left.Next = curLR.Next;
+                }
+
+                if (right != null)
+                {
+                    right.Next = curLR.Next;
+
+                    right.Prev = left;
+
+                    if (right.Prev == null)
+                        right.Prev = curLR.Prev;
+                }
+
+                if (left != null || right != null)
+                {
+                    if (curLR.Prev != null)
+                        curLR.Prev.Next = (left == null) ? right : left;
+
+                    if (curLR.Next != null)
+                        curLR.Next.Prev = (right == null) ? left : right;
+                }
+                else
+                {
+                    if (curLR.Prev != null)
+                        curLR.Prev.Next = curLR.Next;
+
+                    if (curLR.Next != null)
+                        curLR.Next.Prev = curLR.Prev;
+                }
+                #endregion
+
+                #region SetupNextIteration
+                if (left != null)
+                {
+                    curLR = left;
+                    continue;
+                }
+
+                if (curLR.Prev != null)
+                {
+                    curLR = curLR.Prev;
+                    continue;
+                }
+
+                if (right != null)
+                {
+                    curLR = right;
+                    continue;
+                }
+
+                if (curLR.Next != null)
+                {
+                    curLR = curLR.Next;
+                    continue;
+                }
+                #endregion       
+
+                break;
+            }
+
+            return _items;
+        }
+
+        private class LRObj
+        {
+            public int L;
+            public int R;
+            public LRObj Prev;
+            public LRObj Next;
+        }
     }
 }

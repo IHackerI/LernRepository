@@ -8,7 +8,7 @@ namespace ChislMethods.WorkTesters
     /// <summary>
     /// Тестер решения дифуров
     /// </summary>
-    public static class DerSystemsTEST
+    public static class DifUrsTEST
     {
         private static FunDelegate fprav;
 
@@ -25,7 +25,10 @@ namespace ChislMethods.WorkTesters
             {
                 double[] x = new double[] { 1.0 };
                 double[,] rez;
-                EulerAndRungeKutta rk = new EulerAndRungeKutta(0, 1, x, 0.1);
+                
+                var rk2 = new RungeKutta2(0, 1, x, 0.1);
+                var rk4 = new RungeKutta4(0, 1, x, 0.1);
+                var euler = new Euler(0, 1, x, 0.1);
 
                 //Запрашивает Инструменты ввода/вывода
                 //предоставить выбор тестируемого модуля
@@ -44,15 +47,15 @@ namespace ChislMethods.WorkTesters
                 switch (choice)
                 {
                     case 0:
-                        rez = rk.MethodRK2(fprav);
+                        rez = rk2.Calc(fprav);
                         Write(rez, 0.0, 1.0, 0.1);
                         break;
                     case 1:
-                        rez = rk.MethodRK4(fprav);
+                        rez = rk4.Calc(fprav);
                         Write(rez, 0.0, 1.0, 0.1);
                         break;
                     case 2:
-                        rez = rk.EulerMethod(fprav);
+                        rez = euler.Calc(fprav);
                         Write(rez, 0.0, 1.0, 0.1);
                         break;
                     case 3:
