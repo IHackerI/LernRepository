@@ -36,15 +36,25 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ValueTuple, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DifUr\Euler.cs" />
+    <Compile Include="DifUr\RungeKutta2.cs" />
+    <Compile Include="DifUr\RungeKutta4.cs" />
+    <Compile Include="LinAl\Gauss.cs" />
+    <Compile Include="LinAl\GramSchmidt.cs" />
+    <Compile Include="LinAl\Iteration.cs" />
     <Compile Include="LinAl\Matrix.cs" />
-    <Compile Include="WorkTesters\DerSystemsTEST.cs" />
-    <Compile Include="DifUr\EulerAndRungeKutta.cs" />
+    <Compile Include="LinAl\Ortogonolization.cs" />
+    <Compile Include="WorkTesters\DifUrsTEST.cs" />
     <Compile Include="FindFuncs\HalfDif.cs" />
     <Compile Include="WorkTesters\FincValueFindersTest.cs" />
     <Compile Include="FindFuncs\IterationMethod.cs" />
@@ -63,6 +73,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

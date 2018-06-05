@@ -17,7 +17,7 @@ namespace ChislMethods.Spline
         }
 
         /// <summary>
-        /// построение сплайна
+        /// Построение сплайна
         /// </summary>
         public void Build(double[] x, double[] y, int n)
         {
@@ -63,8 +63,6 @@ namespace ChislMethods.Spline
         /// <summary>
         /// Интерполирование функции
         /// </summary>
-        /// <param name="x"></param>
-        /// <returns></returns>
         public double Interpolate(double x)
         {
             int n = splines.Length;

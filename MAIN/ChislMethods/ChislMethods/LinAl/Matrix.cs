@@ -2,11 +2,32 @@
 
 namespace ChislMethods.LinAl
 {
+    /// <summary>
+    /// Класс матрицы
+    /// </summary>
     public class Matrix
     {
         public double[,] Args { get; set; }
         public int Row { get; set; }
         public int Col { get; set; }
+
+        public Boolean IsSquare => this.Row == this.Col;
+
+        public Matrix(int dimension, double value)
+        {
+            this.Row = this.Col = dimension;
+            this.Args = new double[Row, Col];
+
+            for (var index = 0; index < this.Row; ++index)
+                this[index, index] = value;
+        }
+
+        public Matrix(int row, int col)
+        {
+            Row = row;
+            Col = col;
+            Args = new double[Row, Col];
+        }
 
         public Matrix(double[] x)
         {
@@ -38,6 +59,17 @@ namespace ChislMethods.LinAl
                     this.Args[i, j] = other.Args[i, j];
         }
 
+        public Vector Column(int k)
+        {
+            var vector = new Vector(this.Row);
+            for (int index = 0; index < this.Row; index++) vector[index] = this[index, k];
+            return vector;
+        }
+
+        public void Column(int k, Vector vector)
+        {
+            for (int index = 0; index < this.Row; index++) vector[index] = this[index, k];
+        }
 
         public double this[int i, int j]
         {
@@ -76,7 +108,10 @@ namespace ChislMethods.LinAl
             return s;
         }
 
-        public static Matrix Transposition(Matrix source) // Транспонирование матрицы
+        /// <summary>
+        /// Транспонирование матрицы
+        /// </summary>
+        public static Matrix Transposition(Matrix source) 
         {
             double[,] t = new double[source.Col, source.Row];
             for (int i = 0; i < source.Row; i++)
@@ -85,7 +120,10 @@ namespace ChislMethods.LinAl
             return new Matrix(t);
         }
 
-        public static Matrix operator *(Matrix m, double k) // Умножение вектора на число
+        /// <summary>
+        /// Умножение вектора на число
+        /// </summary>
+        public static Matrix operator *(Matrix m, double k)
         {
             Matrix ans = new Matrix(m);
             for (int i = 0; i < ans.Row; i++)
@@ -94,7 +132,11 @@ namespace ChislMethods.LinAl
             return ans;
         }
 
-        public static Matrix operator *(Matrix m1, Matrix m2) // Умножение матрицы на матрицу
+
+        /// <summary>
+        /// Умножение матрицы на матрицу
+        /// </summary>
+        public static Matrix operator *(Matrix m1, Matrix m2) 
         {
             if (m1.Col != m2.Row) throw new ArgumentException("Multiplication of these two matrices can't be done!");
             double[,] ans = new double[m1.Row, m2.Col];
@@ -111,7 +153,10 @@ namespace ChislMethods.LinAl
             return new Matrix(ans);
         }
 
-        public static Vector operator *(Matrix m1, Vector v) // Умножение матрицу на вектор
+        /// <summary>
+        /// Умножение матрицы на вектор
+        /// </summary>
+        public static Vector operator *(Matrix m1, Vector v)
         {
             if (m1.Col != v.GetSize())
             {
@@ -128,7 +173,10 @@ namespace ChislMethods.LinAl
         }
 
 
-        public static double Determ(Matrix m) // Нахождение определителя матрицы
+        /// <summary>
+        /// Нахождение определителя матрицы
+        /// </summary>
+        public static double Determ(Matrix m)
         {
             if (m.Row != m.Col) throw new ArgumentException("Matrix should be square!");
             double det = 0;
@@ -144,7 +192,10 @@ namespace ChislMethods.LinAl
             return det;
         }
 
-        private Matrix GetMinor(int row, int column) // Получение минора матрицы по строке и столбцу
+        /// <summary>
+        /// Получение минора матрицы по строке и столбцу
+        /// </summary>
+        private Matrix GetMinor(int row, int column)
         {
             if (Row != Col) throw new ArgumentException("Матрица должна быть квадратной!");
             double[,] minor = new double[Row - 1, Col - 1];
@@ -164,7 +215,10 @@ namespace ChislMethods.LinAl
             return new Matrix(minor);
         }
 
-        public Matrix SignedMinor() // Возвращает массив алгебраических дополнений
+        /// <summary>
+        /// Возвращает массив алгебраических дополнений
+        /// </summary>
+        public Matrix SignedMinor() 
         {
             double[,] ans = new double[Row, Col];
 
@@ -175,6 +229,9 @@ namespace ChislMethods.LinAl
             return new Matrix(ans);
         }
 
+        /// <summary>
+        /// Нахождение обратной матрицы
+        /// </summary>
         public Matrix InverseMatrix()
         {
             if (Math.Abs(Determ(this)) <= 0.000000001) throw new ArgumentException("Inverse matrix does not exist!");
@@ -185,8 +242,11 @@ namespace ChislMethods.LinAl
 
             return minorMatrix * k;
         }
-        
-        public Vector GetRow(int x) // Получение строки в виде вектора
+
+        /// <summary>
+        /// Получение строки в виде вектора
+        /// </summary>
+        public Vector GetRow(int x)
         {
             if (x >= 0 && x < Row)
             {
@@ -199,6 +259,30 @@ namespace ChislMethods.LinAl
             return nan;
         }
 
+        /// <summary>
+        /// Нахождение нормы матрицы
+        /// </summary>
+        public double Norma()
+        {
+            var result = 0.0;
+
+            this.Foreach((r, c, m) => result += m[r, c] * m[r, c]);
+
+            return Math.Sqrt(result);
+        }
+
+        public Matrix Foreach(Action<int, int, Matrix> action)
+        {
+            for (int row = 0; row < this.Row; ++row)
+                for (var column = 0; column < this.Col; ++column)
+                    action(row, column, this);
+
+            return this;
+        }
+
+        /// <summary>
+        /// Задание строки матрицы
+        /// </summary>
         public void SetRow(Vector vr, int r)
         {
             if ((Col != vr.GetSize()) || r < 0 || r >= Row) return;
@@ -206,7 +290,10 @@ namespace ChislMethods.LinAl
                 Args[r, j] = vr.GetElement(j);
         }
 
-        public void View() // Вывод матрицы
+        /// <summary>
+        /// Вывод матрицы
+        /// </summary>
+        public void View()
         {
             for (int i = 0; i < this.Row; i++)
             {
@@ -214,6 +301,32 @@ namespace ChislMethods.LinAl
                     Console.Write("{0} ", this[i, j]);
                 Console.WriteLine(" ");
             }
+        }
+
+
+        /// <summary>
+        /// Смена строк местами
+        /// </summary>
+        public void SwapRows(int index1, int index2)
+        {
+            for (var column = 0; column < this.Col; ++column)
+            {
+                var tmp = this[index1, column];
+                this[index1, column] = this[index2, column];
+                this[index2, column] = tmp;
+            }
+        }
+
+        /// <summary>
+        /// Задание колонок
+        /// </summary>
+        public Matrix SetColumn(Vector vector, int k)
+        {
+            for (int i = 0; i < vector.size; i++)
+            {
+                this[i, k] = vector[i];
+            }
+            return this;
         }
     }
 }

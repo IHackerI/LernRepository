@@ -5,10 +5,13 @@ using System.Text;
 
 namespace ChislMethods.FindFuncs
 {
+    /// <summary>
+    /// Поиск корней уравнения Методом Ньютона
+    /// </summary>
     public static class NewtonMethod
     {
         /// <summary>
-        /// Метод Ньютона
+        /// Поиск корней уравнения Методом Ньютона
         /// </summary>
         public static double Newton(double eps, double left, double right, DelF Func)
         {

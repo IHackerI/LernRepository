@@ -7,10 +7,13 @@ namespace ChislMethods.FindFuncs
 {
     public delegate double DelF(double x);
 
+    /// <summary>
+    /// Поиск корней уравнения
+    /// </summary>
     public static class HalfDif
     {
         /// <summary>
-        /// Метод половинного деления
+        /// Поиск корней уравнения Методом половинного деления
         /// </summary>
         public static double PolDel(double eps, double left, double right, DelF func)
         {
