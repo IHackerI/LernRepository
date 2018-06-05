@@ -8,51 +8,174 @@ namespace ASD.Graph
     /// <summary>
     /// Граф
     /// </summary>
-    class Graph<T>
+    public class Graph<T>
     {
-        
-        public Graph(List<Vertex<T>> Vertex, List<int> Edge)
-        {
-            foreach (var v in Vertex) AddVertex(v);
-            for (int i = 0; i < Edge.Count; i += 2) AddEdge(Edge[i], Edge[i+1]);
-        }
-
-        public List<Vertex<T>> Vertexes = new List<Vertex<T>>();
-        public Dictionary<int, HashSet<int>> ConnectVertexes { get; } = new Dictionary<int, HashSet<int>>();
+        private List<Vertex<T>> _vertexes = new List<Vertex<T>>();
 
         /// <summary>
-        /// Добавить вершину в граф
+        /// Добавление вершины в граф
         /// </summary>
-        public void AddVertex(Vertex<T> Vertex)
+        public void Add(Vertex<T> vertex)
         {
-            Vertexes.Add(Vertex);
+            if (_vertexes.Contains(vertex) || vertex == null) return;
+            _vertexes.Add(vertex);
 
-            ConnectVertexes[Vertexes.Count-1] = new HashSet<int>();
         }
 
         /// <summary>
-        /// Добавить ребро в граф
+        /// Соединение двух вершин ребром
         /// </summary>
-        public void AddEdge(int a, int b)
+        public void Connect(Vertex<T> vertex1, Vertex<T> vertex2)
         {
-            if (ConnectVertexes.ContainsKey(a) && ConnectVertexes.ContainsKey(b))
+            if (!_vertexes.Contains(vertex1) || !_vertexes.Contains(vertex2))
             {
-                ConnectVertexes[a].Add(b);
-                ConnectVertexes[b].Add(a);
+                Console.WriteLine("Какой-то из вершин нет в графе!");
+                return;
+            }
+
+            vertex1.Add(vertex2);
+            vertex2.Add(vertex1);
+
+            vertex1._edges.Add(new Edge<T>(vertex1, vertex2, 1.0));
+            vertex2._edges.Add(new Edge<T>(vertex1, vertex2, 1.0));
+        }
+
+        /// <summary>
+        /// Поиск вершины в графе
+        /// </summary>
+        public Vertex<T> FindVert(T value)
+        {
+            foreach(var vert in _vertexes)
+            {
+                if (vert.Value.Equals(value)) return vert;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Удаление ребра между вершинами
+        /// </summary>
+        public void Disconnect(Vertex<T> vertex1, Vertex<T> vertex2)
+        {
+            if (!_vertexes.Contains(vertex1) || !_vertexes.Contains(vertex2))
+            {
+                Console.WriteLine("Какой-то из вершин нет в графе!");
+                return;
+            }
+
+            vertex1.Remove(vertex2);
+            vertex2.Remove(vertex1);
+
+            #region Добавление ребра в список рёбер
+            for (int i = 0; i < vertex1._edges.Count; i++)
+            {
+                if (vertex1.Equals(vertex1._edges[i].FirstPoint) &&
+                    vertex2.Equals(vertex1._edges[i].LastPoint))
+                {
+                    vertex1._edges.Remove(vertex1._edges[i]);
+                    break;
+                }
+            }
+            for (int i = 0; i < vertex1._edges.Count; i++)
+            {
+                if (vertex1.Equals(vertex2._edges[i].FirstPoint) &&
+                    vertex2.Equals(vertex2._edges[i].LastPoint))
+                {
+                    vertex2._edges.Remove(vertex2._edges[i]);
+                    break;
+                }
+            }
+            #endregion
+        }
+
+        /// <summary>
+        /// Вывод графа в консоль
+        /// </summary>
+        public void ViewEdges()
+        {
+            foreach (var vertex in _vertexes)
+            {
+                vertex.ViewNeighbours();
+                Console.WriteLine();
             }
         }
-        
-        /// <summary>
-        /// Поиск в ширину
-        /// </summary>
-        public HashSet<Vertex<T>> BypassWidth(Graph<T> graph, Vertex<T> primaryVertex)// обход в ширину
-        {
-            var visitedVertexes = new HashSet<Vertex<T>>();
 
-            if (!graph.ConnectVertexes.ContainsKey(Vertexes.FindIndex(x => x == primaryVertex)))
+        /// <summary>
+        /// Удаление вершины из графа
+        /// </summary>
+        public void Remove(Vertex<T> vertex)
+        {
+            _vertexes.Remove(vertex);
+        }
+
+        /// <summary>
+        /// Раскраска графа
+        /// </summary>
+        public int Paint()
+        {
+            ResetColor();
+
+            int MaxColor = 0;
+            
+            foreach (var vertex in _vertexes)
+            {
+                int myColor = 1;
+                MaxColor = Math.Max(myColor, MaxColor);
+
+                while (true)
+                {
+                    var enumer = vertex.GetNeghboursEnumer();
+                    bool badIter = false;
+
+                    while (enumer.MoveNext())
+                    {
+                        if ((int)enumer.Current.Color == myColor)
+                        {
+                            badIter = true;
+                            myColor++;
+                            MaxColor = Math.Max(myColor, MaxColor);
+                            break;
+                        }
+                    }
+
+                    if (!badIter)
+                    {
+                        break;
+                    }
+                }
+
+                vertex.Color = (ConsoleColor)myColor;
+            }
+            return MaxColor;
+        }
+
+        /// <summary>
+        /// Сброс цвета
+        /// </summary>
+        public void ResetColor()
+        {
+            foreach (var v in _vertexes)
+            {
+                v.Color = ConsoleColor.Black;
+            }
+        }
+
+        /// <summary>
+        /// Обход в ширину
+        /// </summary>
+        public HashSet<Vertex<T>> BypassWidth(Vertex<T> primaryVertex)// обход в ширину
+        {
+            var visitedVertexes = new HashSet<Vertex<T>>();// Отслеживает уже посещенные вершины
+            if (primaryVertex == null)
+            {
+                Console.WriteLine("Такой вершины не существует!");
+                return visitedVertexes;
+            }
+
+            if (!_vertexes.Contains(primaryVertex))
                 return visitedVertexes;
 
-            var queue = new Queue<Vertex<T>>();//отслеживает  найденные вершины  ,  которые не посетили. Первоначально "queue" содержит начальную вершину
+            var queue = new Queue<Vertex<T>>();//отслеживает  найденные вершины  ,  которые не посетили. Первоначально "queue"   содержит начальную вершину
             queue.Enqueue(primaryVertex);
 
             while (queue.Count > 0)
@@ -62,22 +185,31 @@ namespace ASD.Graph
                     continue;
                 visitedVertexes.Add(currentVertex);
 
-                foreach (var neighbor in graph.ConnectVertexes[Vertexes.FindIndex(x => x == currentVertex)])
-                    if (!visitedVertexes.Contains(Vertexes[neighbor]))
-                        queue.Enqueue(Vertexes[neighbor]);
+                var enumer = currentVertex.GetNeghboursEnumer();
+                while (enumer.MoveNext())
+                {
+                    if (!visitedVertexes.Contains(enumer.Current))
+                        queue.Enqueue(enumer.Current);
+                }
             }
 
             return visitedVertexes;
         }
 
         /// <summary>
-        /// Поиск в глубину
+        /// Обход в глубину
         /// </summary>
-        public HashSet<Vertex<T>> BypassDepth(Graph<T> graph, Vertex<T> primaryVertex)
+        public HashSet<Vertex<T>> BypassDepth(Vertex<T> primaryVertex)
         {
-            var visitedVertexes = new HashSet<Vertex<T>>();// Отслеживает уже посещенные вершины
 
-            if (!graph.ConnectVertexes.ContainsKey(Vertexes.FindIndex(x => x == primaryVertex)))
+            var visitedVertexes = new HashSet<Vertex<T>>();// Отслеживает уже посещенные вершины
+            if (primaryVertex == null)
+            {
+                Console.WriteLine("Такой вершины не существует!");
+                return visitedVertexes;
+            }
+            
+            if (!_vertexes.Contains(primaryVertex))
                 return visitedVertexes;
 
             var stackVertexes = new Stack<Vertex<T>>();//Отслеживает найденные, но еще не посещаемые вершины. Первоначально стек содержит начальную вершину
@@ -89,15 +221,18 @@ namespace ASD.Graph
 
                 if (visitedVertexes.Contains(currentVertex))
                     continue;
-                
-                visitedVertexes.Add(currentVertex);
 
-                foreach (var neighbor in graph.ConnectVertexes[Vertexes.FindIndex(x => x == currentVertex)])
-                    if (!visitedVertexes.Contains(Vertexes[neighbor]))
+
+
+                visitedVertexes.Add(currentVertex);
+                var enumer = currentVertex.GetNeghboursEnumer();
+                while (enumer.MoveNext())
+                {
+                    if (!visitedVertexes.Contains(enumer.Current))
                     {
-                        //Vertexes[neighbor].PrevVertex = currentVertex;
-                        stackVertexes.Push(Vertexes[neighbor]);
+                        stackVertexes.Push(enumer.Current);
                     }
+                }
             }
 
             return visitedVertexes;

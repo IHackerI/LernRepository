@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ASD.Graph;
+using ASD.WorkTesters.Helper;
 
 namespace ASD.WorkTesters
 {
@@ -15,39 +16,128 @@ namespace ASD.WorkTesters
         /// </summary>
         public static void TEST()
         {
-
             #region Создание графа
-            Vertex<int> v0 = new Vertex<int>(1, "A");
-            Vertex<int> v1 = new Vertex<int>(2, "B");
-            Vertex<int> v2 = new Vertex<int>(3, "C");
-            Vertex<int> v3 = new Vertex<int>(4, "N");
-            Vertex<int> v4 = new Vertex<int>(5, "O");
-            Vertex<int> v5 = new Vertex<int>(6, "P");
-            Vertex<int> v6 = new Vertex<int>(7, "Q");
-            Vertex<int> v7 = new Vertex<int>(8, "R");
-            Vertex<int> v8 = new Vertex<int>(9, "S");
-            Vertex<int> v9 = new Vertex<int>(10, "T");
-            var vertexes = new List<Vertex<int>> { v0, v1, v2, v3, v4, v5, v6, v7, v8, v9 }; // Создаются вершины
+            int vertCount = 10;
+            var graph = new Graph<int>();
+            Vertex<int>[] verts = new Vertex<int>[vertCount];
 
-            var edges = new List<int> //создаём ребра (списки смежности)
+            for (int i = 0; i < vertCount; i++)
             {
-                0,1,  0,2, 
-                1,3,  2,4,  2,5,
-                3,6,  4,6,  4,7,
-                4,5,  7,8,  8,9
-            };
-
-
-            var graph = new Graph<int>(vertexes, edges);
+                verts[i] = new Vertex<int>(i);
+                graph.Add(verts[i]);
+            }
+            
+            graph.Connect(verts[0], verts[1]);
+            graph.Connect(verts[1], verts[2]);
+            graph.Connect(verts[0], verts[3]);
+            graph.Connect(verts[2], verts[4]);
+            graph.Connect(verts[1], verts[4]);
+            graph.Connect(verts[5], verts[6]);
+            graph.Connect(verts[5], verts[9]);
+            graph.Connect(verts[5], verts[8]);
+            graph.Connect(verts[7], verts[9]);
             #endregion
 
+            Vertex<int> newVertex1;
+            Vertex<int> newVertex2;
+            while (true)
+            {
+                //Запрашивает Инструменты ввода/вывода
+                //предоставить выбор тестируемого модуля
+                var input = IOSystem.SafeSimpleChoice("Выберите действие с деревом:", new string[]
+                    {
+                        "Добавление вершины в граф",
+                        "Удаление вершины из графа",
+                        "Соединить вершины ребром",
+                        "Удалить ребро между вершинами",
+                        "Показать все рёбра графа (вывести граф)",
+                        "Раскраска графа",
+                        "Обход в ширину",
+                        "Обход в глубину",
+                        "Закончить тестирование"
+                    });
 
-            Console.WriteLine("________Обход в ширину_______ ");
-            Console.WriteLine(string.Join(" => ", graph.BypassWidth(graph, v0)));
+                bool endTest = false;
 
+                //В зависимости от запроса запускаем модуль
+                //(отсчёт от нуля)
+                switch (input)
+                {
+                    case 0:
+                        newVertex1 = new Vertex<int>(IOSystem.GetInt("Введите значение вершины: "));
+                        graph.Add(newVertex1);
+                        Console.WriteLine("Вершина добавлена");
+                        break;
 
-            Console.WriteLine("______Обход в глубину______");
-            Console.WriteLine(string.Join(" => ", graph.BypassDepth(graph, v0)));
+                    case 1:
+                        newVertex1 = graph.FindVert(IOSystem.GetInt("Введите значение вершины: "));
+                        graph.Remove(newVertex1);
+                        Console.WriteLine("Вершина удалена");
+                        break;
+
+                    case 2:
+                        newVertex1 = graph.FindVert(IOSystem.GetInt("Введите значение вершины №1: "));
+                        newVertex2 = graph.FindVert(IOSystem.GetInt("Введите значение вершины №2: "));
+
+                        if(newVertex1 == null || newVertex2 == null)
+                        {
+                            Console.WriteLine("Вершины не соединены или отсутствуют в графе");
+                            break;
+                        }
+
+                        graph.Connect(newVertex1, newVertex2);
+                        Console.WriteLine("Вершины соединены");
+                        break;
+
+                    case 3:
+                        newVertex1 = graph.FindVert(IOSystem.GetInt("Введите значение вершины №1: "));
+                        newVertex2 = graph.FindVert(IOSystem.GetInt("Введите значение вершины №2: "));
+
+                        if (newVertex1 == null || newVertex2 == null)
+                        {
+                            Console.WriteLine("Вершины не соединены или отсутствуют в графе");
+                            break;
+                        }
+
+                        graph.Disconnect(newVertex1, newVertex2);
+                        Console.WriteLine("Вершины разъединены");
+                        break;
+
+                    case 4:
+                        Console.WriteLine("Граф: ");
+                        graph.ViewEdges();
+                        break;
+
+                    case 5:
+                        Console.WriteLine("Раскрашенный граф: ");
+                        var colorNum = graph.Paint();
+                        graph.ViewEdges();
+                        Console.WriteLine("\nКоличество цветов: " + colorNum);
+                        graph.ResetColor();
+                        break;
+
+                    case 6:
+                        Console.WriteLine("________Обход в ширину________");
+                        Console.WriteLine(string.Join(" => ", 
+                            graph.BypassWidth(graph.FindVert(IOSystem.GetInt("Введите значение вершины: ")))));
+                        break;
+
+                    case 7:
+                        Console.WriteLine("________Обход в глубину________");
+                        Console.WriteLine(string.Join(" => ", 
+                            graph.BypassDepth(graph.FindVert(IOSystem.GetInt("Введите значение вершины: ")))));
+                        break;
+
+                    case 8:
+                        endTest = true;
+                        break;
+                }
+
+                Console.WriteLine();
+
+                if (endTest)
+                    break;
+            }
         }
     }
 }
