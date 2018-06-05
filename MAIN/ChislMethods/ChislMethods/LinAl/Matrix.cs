@@ -8,6 +8,24 @@ namespace ChislMethods.LinAl
         public int Row { get; set; }
         public int Col { get; set; }
 
+        public Boolean IsSquare => this.Row == this.Col;
+
+        public Matrix(int dimension, double value)
+        {
+            this.Row = this.Col = dimension;
+            this.Args = new double[Row, Col];
+
+            for (var index = 0; index < this.Row; ++index)
+                this[index, index] = value;
+        }
+
+        public Matrix(int row, int col)
+        {
+            Row = row;
+            Col = col;
+            Args = new double[Row, Col];
+        }
+
         public Matrix(double[] x)
         {
             Row = x.Length;
@@ -38,6 +56,17 @@ namespace ChislMethods.LinAl
                     this.Args[i, j] = other.Args[i, j];
         }
 
+        public Vector Column(int k)
+        {
+            var vector = new Vector(this.Row);
+            for (int index = 0; index < this.Row; index++) vector[index] = this[index, k];
+            return vector;
+        }
+
+        public void Column(int k, Vector vector)
+        {
+            for (int index = 0; index < this.Row; index++) vector[index] = this[index, k];
+        }
 
         public double this[int i, int j]
         {
@@ -199,6 +228,24 @@ namespace ChislMethods.LinAl
             return nan;
         }
 
+        public double Norma()
+        {
+            var result = 0.0;
+
+            this.Foreach((r, c, m) => result += m[r, c] * m[r, c]);
+
+            return Math.Sqrt(result);
+        }
+
+        public Matrix Foreach(Action<int, int, Matrix> action)
+        {
+            for (int row = 0; row < this.Row; ++row)
+                for (var column = 0; column < this.Col; ++column)
+                    action(row, column, this);
+
+            return this;
+        }
+
         public void SetRow(Vector vr, int r)
         {
             if ((Col != vr.GetSize()) || r < 0 || r >= Row) return;
@@ -214,6 +261,26 @@ namespace ChislMethods.LinAl
                     Console.Write("{0} ", this[i, j]);
                 Console.WriteLine(" ");
             }
+        }
+
+        public void SwapRows(int index1, int index2)
+        {
+            for (var column = 0; column < this.Col; ++column)
+            {
+                var tmp = this[index1, column];
+                this[index1, column] = this[index2, column];
+                this[index2, column] = tmp;
+            }
+        }
+
+        public Matrix SetColumn(Vector vector, int k)
+        {
+            for (int i = 0; i < vector.size; i++)
+            {
+                this[i, k] = vector[i];
+            }
+            //this.Foreach((int c, ref double v) => v = vector[c], DimensionType.Row, k);
+            return this;
         }
     }
 }

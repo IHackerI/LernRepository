@@ -17,14 +17,14 @@ namespace ChislMethods.WorkTesters
                 for (int j = 0; j < r.Col; j++)
                     r[i, j] = random.Next(0, 9);
         }
-        
+
         public static void rav(Vector r)// заполнение вектора  случайными числами
         {
             Random random = new Random((DateTime.Now.Millisecond));
             for (int i = 0; i < r.GetSize(); i++)
                 r[i] = random.Next(1, 5);
         }
-        
+
 
         /// <summary>
         /// Точка входа тестера
@@ -37,18 +37,22 @@ namespace ChislMethods.WorkTesters
 
                 while (!ch)
                 {
-                    ch = IOSystem.InterfacedViewChoice(new string[] 
+                    ch = IOSystem.InterfacedViewChoice(new string[]
                     {
                         "Метод наименьших квадратов:",
                         "Метод Гаусса",
-                        "Метод Грама-Шмидта"
+                        "Метод Грама-Шмидта",
+                        "Метод ортогонализации",
+                        "Метод итераций"
                     },
-                    
-                    new EmptyD[] 
+
+                    new EmptyD[]
                     {
                         LSMTest,
                         GaussTest,
-                        GramSchmidtTest
+                        GramSchmidtTest,
+                        OrthoTest,
+                        IterationTest
                     }
                     );
                 }
@@ -69,75 +73,46 @@ namespace ChislMethods.WorkTesters
             Console.WriteLine("Метод наименьших квадратов:");
             Console.WriteLine();
 
-            //Исходные данные
-            double[] x = new double[] { -2, -1, 0, 1, 2 };
-            double[] y = new double[] { 15, 4, 1, 0, -5 };
-
-            while (true)
+            var x = new Vector(5)
             {
-                // Создание экземляра класса LSM
-                LeastSquareMethod myReg = new LeastSquareMethod(x, y);
+                [0] = -2,
+                [1] = -1,
+                [2] = 0,
+                [3] = 1,
+                [4] = 2
+            };
+            var y = new Vector(5)
+            {
+                [0] = 15,
+                [1] = 4,
+                [2] = 1,
+                [3] = 0,
+                [4] = -5
+            };
 
-                //Запрашивает Инструменты ввода/вывода
-                //предоставить выбор тестируемого модуля
-                var ch = IOSystem.SafeSimpleChoice("Выберите действие: ", new string[]
-                {
-                    "Вывести исходные данные",
-                    "Вычислить полином",
-                    "Закончить тест"
-                });
+            var func = new Func<double, double>[]
+            {
+                //c => Math.Cos(c),
+                //c => Math.Pow(2.71, c),
+                //c => Math.Sin(c)
+                c => 1,
+                c => c,
+                c => c * c,
+                //c => c * c * c
+            };
 
-                var endWork = false;
+            var Koeff = LeastSquareMethod.LSM(func, x, y);
 
-                //В зависимости от запроса запускаем модуль
-                //(отсчёт от нуля)
-                switch (ch)
-                {
-                    case 0:
-                        Console.Write("X= ");
-                        foreach (var val in x)
-                        {
-                            Console.Write(val.ToString().PadRight(2) + ", ");
-                        }
-                        Console.WriteLine();
-                        Console.Write("Y= ");
-                        foreach (var val in y)
-                        {
-                            Console.Write(val.ToString().PadRight(2) + ", ");
-                        }
-                        Console.WriteLine();
-                        break;
-                    case 1:
-                        myReg.Polynomial(IOSystem.GetInt("Введите степень: "));
-                        // Вывод коэффициентов а0 и а1
-                        Console.Write("y= ");
-                        for (int i = 0; i < myReg.Coeff.Length; i++)
-                        {
-                            if (i > 0 && myReg.Coeff[i]>=0)
-                                Console.Write(" + ");
-                            if (myReg.Coeff[i] < 0)
-                                Console.Write(" - ");
-                            if (Math.Abs(myReg.Coeff[i]) == 1)
-                                Console.Write("x^" + i);
-                            else
-                                Console.Write(Math.Abs(myReg.Coeff[i]) + " * x^" + i);
-                        }
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        // Среднеквадратичное отклонение
-                        Console.WriteLine("Среднеквадратичное отклонение: " + myReg.Delta);
-                        Console.WriteLine();
-                        break;
-                    case 2:
-                        endWork = true;
-                        break;
-                }
+            Console.WriteLine($"Koeff {Koeff}");
+            Console.WriteLine();
 
-                if (endWork)
-                    break;
+            for (var step = -3.0; step < 3; step += 0.25)
+            {
+                Console.WriteLine($"X ={step.ToString().PadLeft(10, ' ')}, KVStep = {(step * step).ToString().PadLeft(10, ' ')}, " +
+                    $"Approx = { LeastSquareMethod.CalcApprox(step, Koeff, func).ToString().PadLeft(10, ' ')}");
             }
         }
-        
+
         /// <summary>
         /// Метод гаусса
         /// </summary>
@@ -160,15 +135,16 @@ namespace ChislMethods.WorkTesters
             Console.WriteLine();
 
             Matrix a = new Matrix(aa);
-            Vector v = new Vector(va);
+            //var g = new Gauss(va.size);
+            //Vector v = new Vector(va);
 
             Console.WriteLine("Метод Гаусса: ");
-            v.Gauss(a).View();
+            Gauss.Calc(new Matrix(a), new Vector(va)).View();
 
             Console.WriteLine();
 
             Console.WriteLine("\nПроверка метода Гаусса:");
-            (a * v.Gauss(a)).View();
+            (a * Gauss.Calc(new Matrix(a), new Vector(va))).View();
         }
 
         /// <summary>
@@ -193,15 +169,111 @@ namespace ChislMethods.WorkTesters
             Console.WriteLine();
 
             Matrix m = new Matrix(aa);
-            Vector t = new Vector(va);
+            var g = new GramSchmidt(va.size);
+            //Vector t = new Vector(va);
 
             Console.WriteLine("Метод Грама-Шмидта: ");
-            t.GramSchmidt(m).View();
+            g.Calc(m, va).View();
 
             Console.WriteLine();
 
             Console.WriteLine("\nПроверка метода Грама-Шмидта:");
-            (m * t.GramSchmidt(m)).View();
+            (m * g.Calc(m, va)).View();
+
+            Console.WriteLine();
+        }
+
+        /// <summary>
+        /// Метод Ортогонализации
+        /// </summary>
+        private static void OrthoTest()
+        {
+            const int A1 = 4;
+            const int A2 = 4;
+
+            Matrix aa = new Matrix(new double[A1, A2]);
+            Vector va = new Vector(A1);
+
+            Console.WriteLine("Первая матрица: ");
+            ram(aa);
+            aa.View();
+            Console.WriteLine();
+
+            Console.WriteLine("Первый вектор: ");
+            rav(va);
+            va.View();
+            Console.WriteLine();
+
+            Matrix m = new Matrix(aa);
+            //Vector t = new Vector(va);
+
+            Console.WriteLine("Метод Ортогонализации: ");
+            Ortogonolization.Calc(m, va).View();
+
+            Console.WriteLine();
+
+            Console.WriteLine("\nПроверка метода Ортогонализации:");
+            (m * Ortogonolization.Calc(m, va)).View();
+
+            Console.WriteLine();
+        }
+
+        /// <summary>
+        /// Метод Итераций
+        /// </summary>
+        public static void IterationTest()
+        {
+            const int A1 = 4;
+            const int A2 = 4;
+
+            Matrix aa = new Matrix(new double[A1, A2]);
+            Vector va = new Vector(A1);
+
+            Console.WriteLine("Первая матрица: ");
+            //ram(aa);
+
+            aa[0, 0] = 0.01;
+            aa[0, 1] = 0.01;
+            aa[0, 2] = 0.01;
+            aa[0, 3] = 0.01;
+            aa[1, 0] = 0;
+            aa[1, 1] = 0.01;
+            aa[1, 2] = 0.01;
+            aa[1, 3] = 0.01;
+            aa[2, 0] = 0.01;
+            aa[2, 1] = 0;
+            aa[2, 2] = 0.01;
+            aa[2, 3] = 0.01;
+            aa[3, 0] = 0.01;
+            aa[3, 1] = 0.01;
+            aa[3, 2] = 0;
+            aa[3, 3] = 0.01;
+
+
+            aa.View();
+            Console.WriteLine();
+
+            Console.WriteLine("Первый вектор: ");
+            rav(va);
+            va.View();
+            Console.WriteLine();
+
+            Matrix m = new Matrix(aa);
+            //Vector t = new Vector(va);
+
+            Console.WriteLine("Метод Итераций: ");
+
+            var v = Iteration.Calc(m, va, 0.00001);
+
+            if (v != null)
+            {
+                v.View();
+
+                Console.WriteLine();
+
+                Console.WriteLine("\nПроверка метода Итераций:");
+                (va).View();
+            }
 
             Console.WriteLine();
         }

@@ -9,7 +9,7 @@ namespace ChislMethods.LinAl
     public class Vector
     {
         public double[] vector;
-       public int size = 0;
+        public int size = 0;
 
         public Vector(int size) //конструктор 
         {
@@ -58,6 +58,11 @@ namespace ChislMethods.LinAl
             }
         }
 
+        public override string ToString()
+            => $"{{{string.Join(",  ", this.vector)}}}";
+
+        public int Size { get { return GetSize(); } }
+
         public int GetSize() { return size; }  // получение размера
 
         public bool SetElement(double element, int ind)// установить значение по индексу
@@ -65,6 +70,32 @@ namespace ChislMethods.LinAl
             if (ind < 0 || ind >= size) return false;
             vector[ind] = element;
             return true;
+        }
+
+        public double ScalarProduct(Vector vector)
+        {
+            if (vector.Size != this.Size)
+                throw new InvalidOperationException("Size of both vectors should be equls");
+
+            var result = 0.0;
+            this.ForEach((ref double f, ref double l) => result += f * l, vector);
+            return result;
+        }
+
+        private Vector ForEach(Action2 action, Vector vector)
+        {
+            for (int index = 0; index < this.Size; ++index)
+                action(ref this.vector[index], ref vector.vector[index]);
+
+            return this;
+        }
+
+        public Vector Add(Vector vector)
+        {
+            if (vector.vector.Length != this.vector.Length)
+                throw new InvalidOperationException("Size of both vectors should be equls");
+
+            return this.ForEach((ref double s, ref double o) => s += o, vector);
         }
 
         public double GetElement(int ind)// получить значение по индексу
@@ -117,8 +148,8 @@ namespace ChislMethods.LinAl
                     rez[i] = vector[i] + a[i];
                 return rez;
             }
-            Vector nan = new Vector(0);
-            return nan;
+
+            return null;
         }
 
         public Vector Subtraction(Vector a)// Вычитание векторов
@@ -130,8 +161,8 @@ namespace ChislMethods.LinAl
                     rez[i] = vector[i] - a[i];
                 return rez;
             }
-            Vector nan = new Vector(0);
-            return nan;
+
+            return null;
         }
         
         public double Len() // Длина вектора
@@ -154,139 +185,41 @@ namespace ChislMethods.LinAl
             return rez;
         }
 
-        /// <summary>
-        /// Метод гаусса
-        /// </summary>
-        public Vector Gauss(Matrix matrix) // Метод Гаусса
+        public static Vector operator *(double a, Vector b)
+            => new Vector(b).Multiply(a);
+
+        public static Vector operator -(Vector a, Vector b)
+            => new Vector(a).Subtract(b);
+
+        public Vector Subtract(Vector vector)
         {
-            Vector v = new Vector(vector);
+            if (vector.vector.Length != this.vector.Length)
+                throw new InvalidOperationException("Size of both vectors should be equls");
 
-            Vector nan = new Vector(0);
+            return this.ForEach((ref double s, ref double o) => s -= o, vector);
+        }
 
-            Vector b = new Vector(vector);
-            double[] x = new double[size];
-            double max;
-            int jmax;
-            for (int k = 0; k < size; k++)
-            {
-                // поиск макс по модулю элемента в к столбце начиная с к элемента 
-                max = Math.Abs(matrix[k, k]);
-                jmax = k;
-                for (int j = k + 1; j < size; j++)
-                {
-                    if (Math.Abs(matrix[j, k]) > max)
-                    {
-                        max = Math.Abs(matrix[j, k]);
-                        jmax = j;
-                    }
-                }
-                if (jmax != k)
-                {
-                    //обмен строк 
-                    for (int i = 0; i < size; i++)
-                    {
-                        double temp = matrix[k, i];
-                        matrix[k, i] = matrix[jmax, i];
-                        matrix[jmax, i] = temp;
-                        double temp1 = b[k];
-                        b[k] = b[jmax];
-                        b[jmax] = temp1;
-                    }
-                }
-                //Приведение к треугольному виду 
-                double m;
-                for (int z = 1; z < size; z++)
-                {
-                    for (int j = z; j < size; j++)
-                    {
-                        m = matrix[j, z - 1] / matrix[z - 1, z - 1];
-                        for (int i = 0; i < size; i++)
-                            matrix[j, i] = matrix[j, i] - m * matrix[z - 1, i];
-                        b[j] = b[j] - m * b[z - 1];
-                    }
-                }
-                //проверка на особбенность матрицы 
-                if (max == 0) return nan;
-            }
-            //обратный ход 
-            for (int q = size - 1; q >= 0; q--)
-            {
-                for (int j = q + 1; j < size; j++)
-                    b[q] -= matrix[q, j] * b[j];
-                b[q] = b[q] / matrix[q, q];
-            }
-            return b;
-        } 
+        public Vector Multiply(double scalar)
+            => this.ForEach((ref double s) => s *= scalar);
 
-        /// <summary>
-        /// Метод Грамма-Шмидта
-        /// </summary>
-        /// <param name="m"></param>
-        /// <returns></returns>
-        public Vector GramSchmidt(Matrix m) // Метод ортогонолизации (Метод Грамма-Шмидта)
+        private Vector ForEach(Action action)
         {
-            Vector nan = new Vector(0);
-            if (m.Col != m.Row) return nan;
-            if (Matrix.Determ(m) == 0) return nan;
+            for (int index = 0; index < this.Size; ++index)
+                action(ref this.vector[index]);
 
-            Matrix u = new Matrix(new double[size, size]);
-            Matrix v = new Matrix(new double[size, size]);
-            Vector temp = new Vector(size);
-            Vector h = new Vector(size);
-            Vector x = new Vector(size);
-            for (int i = 0; i < size; i++)
-                for (int j = 0; j < size; j++)
-                {
-                    u[i, j] = 0;
-                    v[i, j] = 0;
-                }
+            return this;
+        }
 
-            for (int i = 0; i < size; i++)
-                u[0, i] = m[0, i]; // u[0]
+        public void Clear()
+            => this.ForEach((ref double i) => i = 0);
 
-            v.SetRow(u.GetRow(0).Normalization(), 0); //v[0]
+        public double Norma1()
+            => Math.Sqrt(this.SquaredLength);
 
-            Vector t = new Vector(size);
-            t[0] = vector[0] / u.GetRow(0).Len(); // h[0]
+        public double SquaredLength
+            => this.vector.Sum(c => c * c);
 
-            int count = 1; // счетчик пременных, для кот уже найдены первые значения
-            double te;
-            do
-            {
-                double temp_h;
-                temp_h = 0;
-
-                for (int i = 0; i < size; i++)
-                    temp[i] = 0;
-
-                for (int j = 0; j < count; j++)
-                {
-                    te = m.GetRow(count).Multiplication(v.GetRow(j));
-
-                    for (int i = 0; i < size; i++)
-                        temp[i] += te * v[j, i]; // получили c[i, j] * v[k]
-
-                    temp_h += te * t[j];
-                }
-
-                for (int i = 0; i < size; i++) // находим u
-                    u[count, i] = m[count, i] - temp[i];
-
-                t[count] = (vector[count] - temp_h) / u.GetRow(count).Len(); // нашли h
-
-                v.SetRow(u.GetRow(count).Normalization().Normalization(), count);
-
-                count++;
-
-            } while (count < size);
-
-
-            h = t;
-            x = Matrix.Transposition(v) * t;
-
-            return x;
-        } 
-
-        
+        private delegate void Action2(ref double v, ref double l);
+        private delegate void Action(ref double v);
     }
 }
