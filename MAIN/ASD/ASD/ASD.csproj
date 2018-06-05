@@ -65,7 +65,7 @@
     <Compile Include="SetDeckQueueStack\Set.cs" />
     <Compile Include="Sort\Sort.cs" />
     <Compile Include="SetDeckQueueStack\Stack.cs" />
-    <Compile Include="WorkTesters\SetDeckQueueStack.cs" />
+    <Compile Include="WorkTesters\SetDeckQueueStackTester.cs" />
     <Compile Include="WorkTesters\SortTest.cs" />
     <Compile Include="WorkTesters\WorkMainTester.cs" />
   </ItemGroup>
