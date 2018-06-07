@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ChislMethods.LinAl
 {
+<<<<<<< HEAD
     public class Iteration
     {
         /// <summary>
@@ -15,6 +16,17 @@ namespace ChislMethods.LinAl
         /// <param name="b"></param>
         /// <param name="e"></param>
         /// <returns></returns>
+=======
+
+    /// <summary>
+    /// Решение системы линейных уравнений (матрицы) Методом последовательных итераций
+    /// </summary>
+    public class Iteration
+    {
+        /// <summary>
+        /// Решение системы линейных уравнений (матрицы) Методом последовательных итераций
+        /// </summary>
+>>>>>>> ChM functional done. Visual not perfect
         public static Vector Calc(Matrix m, Vector b, double e)
         {
             if (m.Row != m.Col || m.Col != b.Size)

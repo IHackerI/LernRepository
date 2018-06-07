@@ -8,7 +8,11 @@ namespace ChislMethods.DifUr
     public delegate double[] FunDelegate(double t, double[] x);
 
     /// <summary>
+<<<<<<< HEAD
     /// Решение дифуров
+=======
+    /// Решение дифференциальных уравнений методом Эйлера
+>>>>>>> ChM functional done. Visual not perfect
     /// </summary>
     public class Euler
     {
@@ -25,7 +29,11 @@ namespace ChislMethods.DifUr
         }
 
         /// <summary>
+<<<<<<< HEAD
         /// Метод Эйлера
+=======
+        /// Решение дифференциальных уравнений методом Эйлера
+>>>>>>> ChM functional done. Visual not perfect
         /// </summary>
         public double[,] Calc(FunDelegate fun)
         {

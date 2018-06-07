@@ -1,0 +1,14 @@
+E:\DEV\C#\SecondCourse\NumericalMethods\NumericalMethods\bin\Debug\NumericalMethods.exe.config
+E:\DEV\C#\SecondCourse\NumericalMethods\NumericalMethods\bin\Debug\NumericalMethods.exe
+E:\DEV\C#\SecondCourse\NumericalMethods\NumericalMethods\bin\Debug\NumericalMethods.pdb
+E:\DEV\C#\SecondCourse\NumericalMethods\NumericalMethods\obj\Debug\NumericalMethods.csprojResolveAssemblyReference.cache
+E:\DEV\C#\SecondCourse\NumericalMethods\NumericalMethods\obj\Debug\NumericalMethods.exe
+E:\DEV\C#\SecondCourse\NumericalMethods\NumericalMethods\obj\Debug\NumericalMethods.pdb
+E:\DEV\C#\SecondCourse\NumericalMethods\NumericalMethods\bin\Debug\System.ValueTuple.dll
+C:\Users\DNS\Desktop\ЧМ\Метод Адамса\NumericalMethods\bin\Debug\NumericalMethods.exe.config
+C:\Users\DNS\Desktop\ЧМ\Метод Адамса\NumericalMethods\bin\Debug\NumericalMethods.exe
+C:\Users\DNS\Desktop\ЧМ\Метод Адамса\NumericalMethods\bin\Debug\NumericalMethods.pdb
+C:\Users\DNS\Desktop\ЧМ\Метод Адамса\NumericalMethods\bin\Debug\System.ValueTuple.dll
+C:\Users\DNS\Desktop\ЧМ\Метод Адамса\NumericalMethods\obj\Debug\NumericalMethods.csprojResolveAssemblyReference.cache
+C:\Users\DNS\Desktop\ЧМ\Метод Адамса\NumericalMethods\obj\Debug\NumericalMethods.exe
+C:\Users\DNS\Desktop\ЧМ\Метод Адамса\NumericalMethods\obj\Debug\NumericalMethods.pdb

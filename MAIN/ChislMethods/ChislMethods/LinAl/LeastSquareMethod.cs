@@ -4,10 +4,8 @@ using System.Linq;
 
 namespace ChislMethods.LinAl
 {
-    public delegate double Psi(double x, int number);
-
     /// <summary>
-    /// Метод наименьших квадратов
+    /// Решение системы линейных уравнений (матрицы) Методом наименьших квадратов
     /// </summary>
     public class LeastSquareMethod
     {
@@ -20,7 +18,11 @@ namespace ChislMethods.LinAl
         }
 
         /// <summary>
+<<<<<<< HEAD
         /// Least square method
+=======
+        /// Решение системы линейных уравнений (матрицы) Методом наименьших квадратов
+>>>>>>> ChM functional done. Visual not perfect
         /// </summary>
         public static Vector LSM(Func<double, double>[] func, Vector x, Vector y)
         {

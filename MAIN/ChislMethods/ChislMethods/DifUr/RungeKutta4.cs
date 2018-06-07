@@ -6,7 +6,11 @@ using System.Text;
 namespace ChislMethods.DifUr
 {
     /// <summary>
+<<<<<<< HEAD
     /// Решение дифуров
+=======
+    /// Решение дифференциальных уравнений методом Рунге-Кутта 4-го порядка
+>>>>>>> ChM functional done. Visual not perfect
     /// </summary>
     public class RungeKutta4
     {
@@ -23,7 +27,11 @@ namespace ChislMethods.DifUr
         }
 
         /// <summary>
+<<<<<<< HEAD
         /// Метод Рунге-Кутта 4-го порядка
+=======
+        /// Решение дифференциальных уравнений методом Рунге-Кутта 4-го порядка
+>>>>>>> ChM functional done. Visual not perfect
         /// </summary>
         public double[,] Calc(FunDelegate fun)
         {

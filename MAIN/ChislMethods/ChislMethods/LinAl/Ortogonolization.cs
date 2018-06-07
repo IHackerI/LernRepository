@@ -7,8 +7,19 @@ using System.Threading.Tasks;
 
 namespace ChislMethods.LinAl
 {
+<<<<<<< HEAD
     public class Ortogonolization
     {
+=======
+    /// <summary>
+    /// Решение системы линейных уравнений (матрицы) Методом ортогонализации
+    /// </summary>
+    public class Ortogonolization
+    {
+        /// <summary>
+        /// Решение системы линейных уравнений (матрицы) Методом ортогонализации
+        /// </summary>
+>>>>>>> ChM functional done. Visual not perfect
         public static Vector Calc(Matrix a, Vector b)
         {
             if (!a.IsSquare)
@@ -26,8 +37,12 @@ namespace ChislMethods.LinAl
             var rTranspose = Matrix.Transposition(ortho.R);
 
             var D = rTranspose * ortho.R;
+<<<<<<< HEAD
 
             // T-1 * D-1 * R-1 * b
+=======
+            
+>>>>>>> ChM functional done. Visual not perfect
             return  InverseTopDiagonal(ortho.T) * 
                     InverseDiagonal(D) *
                     rTranspose * 
@@ -35,11 +50,16 @@ namespace ChislMethods.LinAl
         }
 
         /// <summary>
+<<<<<<< HEAD
         /// Ортогонализирует матрицу
         /// </summary>
         /// <param name="m">Исходная матрица</param>
         /// <returns>Матрица поворота</returns>
         
+=======
+        /// Ортогонализирование матрицы
+        /// </summary>
+>>>>>>> ChM functional done. Visual not perfect
         public static (Matrix R, Matrix T) Orthogonalization(Matrix m)
         {
             var result = (R: new Matrix(m.Row, m.Col), T: new Matrix(m.Row, 1.0));
@@ -72,8 +92,11 @@ namespace ChislMethods.LinAl
         /// <summary>
         /// Обращает верхнедиагональную матрицу
         /// </summary>
+<<<<<<< HEAD
         /// <param name="m"></param>
         /// <returns></returns>
+=======
+>>>>>>> ChM functional done. Visual not perfect
         public static Matrix InverseTopDiagonal(Matrix m)
         {
             var result = new Matrix(m.Row, m.Col);
@@ -94,7 +117,14 @@ namespace ChislMethods.LinAl
 
             return result;
         }
+<<<<<<< HEAD
 
+=======
+        
+        /// <summary>
+        /// Инвертирование диагонали матрицы
+        /// </summary>
+>>>>>>> ChM functional done. Visual not perfect
         public static Matrix InverseDiagonal(Matrix m)
         {
             var result = new Matrix(m.Row, m.Col);

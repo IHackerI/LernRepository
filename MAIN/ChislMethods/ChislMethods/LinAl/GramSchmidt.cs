@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace ChislMethods.LinAl
 {
+<<<<<<< HEAD
+=======
+    /// <summary>
+    /// Решение системы линейных уравнений (матрицы) Методом Грамма-Шмидта
+    /// </summary>
+>>>>>>> ChM functional done. Visual not perfect
     public class GramSchmidt
     {
         public int Size = 0;
@@ -16,7 +22,11 @@ namespace ChislMethods.LinAl
         }
 
         /// <summary>
+<<<<<<< HEAD
         /// Метод Грамма-Шмидта
+=======
+        /// Решение системы линейных уравнений (матрицы) Методом Грамма-Шмидта
+>>>>>>> ChM functional done. Visual not perfect
         /// </summary>
         public Vector Calc(Matrix m, Vector vector)
         {

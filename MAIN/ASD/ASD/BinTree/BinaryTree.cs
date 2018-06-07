@@ -296,7 +296,7 @@ namespace ASD.BinTree // data = key
         }
 
         /// <summary>
-        /// Вывод элемента дерева
+        /// Вывод элементов дерева
         /// </summary>
         public static void Print(Node<T> baseNode)
         {

@@ -5,10 +5,14 @@ using System.Text;
 
 namespace ChislMethods.FindFuncs
 {
+
+    /// <summary>
+    /// Поиск корней уравнения методом итераций
+    /// </summary>
     public static class IterationMethod
     {
         /// <summary>
-        /// Метод итерацций
+        /// Поиск корней уравнения методом итераций
         /// </summary>
         public static double Iteration(double left, double right, double eps, DelF Func)
         {

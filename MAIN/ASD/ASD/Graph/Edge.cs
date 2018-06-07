@@ -6,31 +6,27 @@ using System.Text;
 namespace ASD.Graph
 {
     /// <summary>
-    /// Грань графа
+    /// Ребро графа
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    class Edge<T>
+    public class Edge<T>
     {
         public Vertex<T> FirstPoint;
         public Vertex<T> LastPoint;
         public double Length { private set; get; }
 
-        public Edge(Vertex<T> Begin, Vertex<T> End, double distance) // Создание ребра
+        /// <summary>
+        /// Создание ребра
+        /// </summary>
+        public Edge(Vertex<T> Begin, Vertex<T> End, double distance)
         {
             FirstPoint = Begin;
             LastPoint = End;
             Length = distance;
         }
 
-        public void View()
+        public override string ToString()
         {
-            Console.WriteLine(this);
-        }
-
-        public override bool Equals(object obj) // Сравнение рёбер
-        {
-            var tmp = obj as Edge<T>;
-            return tmp != null && FirstPoint == tmp.FirstPoint && LastPoint == tmp.LastPoint;
+            return FirstPoint + "-" + LastPoint;
         }
     }
 }

@@ -13,7 +13,7 @@ namespace ChislMethods.Integral
         public delegate double F(double x);
 
         /// <summary>
-        /// Метод симпсона
+        /// Интегрирование Методом Симпсона
         /// </summary
         public static double Simpson(double xBot, double xTop, double eps, F f)
         {
@@ -37,7 +37,7 @@ namespace ChislMethods.Integral
         }
 
         /// <summary>
-        /// Метод прямоугольников с запоминанием предыдущих значений
+        /// Интегрирование Методом прямоугольников с запоминанием предыдущих значений
         /// </summary>ы
         public static double Rectangle(double xBot, double xTop, double eps, F f)
         {
@@ -59,7 +59,7 @@ namespace ChislMethods.Integral
         }
 
         /// <summary>
-        /// Метод трапеций
+        /// Интегрирование Методом трапеций
         /// </summary>
         public static double Trapezium(double xBot, double xTop, double eps, F f)
         {

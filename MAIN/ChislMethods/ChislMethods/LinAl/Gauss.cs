@@ -6,8 +6,19 @@ using System.Threading.Tasks;
 
 namespace ChislMethods.LinAl
 {
+<<<<<<< HEAD
     public class Gauss
     {
+=======
+    /// <summary>
+    /// Решение системы линейных уравнений (матрицы) Методом Гаусса
+    /// </summary>
+    public class Gauss
+    {
+        /// <summary>
+        /// Решение системы линейных уравнений (матрицы) Методом Гаусса
+        /// </summary>
+>>>>>>> ChM functional done. Visual not perfect
         public static Vector Calc(Matrix items, Vector b)
         {
             double max;
