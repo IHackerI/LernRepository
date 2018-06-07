@@ -10,6 +10,10 @@ namespace ASD.Graph
     /// </summary>
     public class Vertex<T>
     {
+        public int Distance = int.MaxValue;
+        public bool IsChecked;
+        public Vertex<T> PrevVert;
+
         private T _value;
         private ConsoleColor _color;
         public ConsoleColor Color { get { return (ConsoleColor)(15 - (int)_color); }
@@ -18,9 +22,9 @@ namespace ASD.Graph
         public List<Edge<T>> _edges = new List<Edge<T>>();
         
 
-        public IEnumerator<Vertex<T>> GetNeghboursEnumer()
+        public IEnumerable<Vertex<T>> GetNeghboursEnumer()
         {
-            return _connectedVertexes.GetEnumerator();
+            return _connectedVertexes;
         }
         private List<Vertex<T>> _connectedVertexes = new List<Vertex<T>>();
 

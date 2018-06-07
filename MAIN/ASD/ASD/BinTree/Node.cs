@@ -131,30 +131,22 @@ namespace ASD.BinTree
             }
         }
 
-        /*
-        public Node<T> PrevNode() //Поиск следующего элемента по индексу 
+        /// <summary>
+        /// Количество элементов в определённом узле
+        /// </summary>
+        public long CountElements()
         {
-            var t = this;
-            if (t.Left != null)
+            long count = 1;
+            if (Right != null)
             {
-                t = t.Left;
-                while (t.Right != null)
-                {
-                    t = t.Right;
-                }
-                return t;
+                count += Right.CountElements();
             }
-            else if (t.Parent.Left == t)
+            if (Left != null)
             {
-                t = t.Parent.Parent;
+                count += Left.CountElements();
             }
-            else if (t.Parent.Right == t)
-            {
-                t = t.Parent;
-            }
-            return t;
+            return count;
         }
-        */
 
         /// <summary>
         /// Определяет, в какой ветви для родительского лежит данный узел

@@ -32,6 +32,7 @@ namespace ASD.WorkTesters
             graph.Connect(verts[0], verts[3]);
             graph.Connect(verts[2], verts[4]);
             graph.Connect(verts[1], verts[4]);
+            graph.Connect(verts[6], verts[4]);
             graph.Connect(verts[5], verts[6]);
             graph.Connect(verts[5], verts[9]);
             graph.Connect(verts[5], verts[8]);
@@ -54,6 +55,7 @@ namespace ASD.WorkTesters
                         "Раскраска графа",
                         "Обход в ширину",
                         "Обход в глубину",
+                        "Метод Дейкстры",
                         "Закончить тестирование"
                     });
 
@@ -128,8 +130,21 @@ namespace ASD.WorkTesters
                         Console.WriteLine(string.Join(" => ", 
                             graph.BypassDepth(graph.FindVert(IOSystem.GetInt("Введите значение вершины: ")))));
                         break;
-
                     case 8:
+                        var start = graph.FindVert(IOSystem.GetInt("Введите ключ начальной вершины: "));
+                        var end = graph.FindVert(IOSystem.GetInt("Введите ключ  конечной вершины: "));
+
+                        var path = Deikstra<int>.Calc(graph, start, end);
+                        if (path.Count < 1)
+                            Console.WriteLine("Путь не найден!");
+                        else
+                        {
+                            if (path[0] != end || path[path.Count - 1] != start)
+                                Console.WriteLine("Полный путь не найден!");
+                            Console.WriteLine(string.Join(" => ", path));
+                        }
+                        break;
+                    case 9:
                         endTest = true;
                         break;
                 }
