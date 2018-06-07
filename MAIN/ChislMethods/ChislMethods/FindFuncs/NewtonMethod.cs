@@ -13,7 +13,7 @@ namespace ChislMethods.FindFuncs
         /// <summary>
         /// Поиск корней уравнения Методом Ньютона
         /// </summary>
-        public static double Newton(double eps, double left, double right, DelF Func)
+        public static double Calculate(double eps, double left, double right, DelFunc Func)
         {
             var curr = left + (right - left) / 2;
 

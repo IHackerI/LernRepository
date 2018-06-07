@@ -10,7 +10,7 @@ namespace ChislMethods.WorkTesters
     /// </summary>
     public static class DifUrsTEST
     {
-        private static FunDelegate fprav;
+        private static FuncDelegate fprav;
 
         public static void TEST()
         {
@@ -47,15 +47,15 @@ namespace ChislMethods.WorkTesters
                 switch (choice)
                 {
                     case 0:
-                        rez = rk2.Calc(fprav);
+                        rez = rk2.Calculate(fprav);
                         Write(rez, 0.0, 1.0, 0.1);
                         break;
                     case 1:
-                        rez = rk4.Calc(fprav);
+                        rez = rk4.Calculate(fprav);
                         Write(rez, 0.0, 1.0, 0.1);
                         break;
                     case 2:
-                        rez = euler.Calc(fprav);
+                        rez = euler.Calculate(fprav);
                         Write(rez, 0.0, 1.0, 0.1);
                         break;
                     case 3:

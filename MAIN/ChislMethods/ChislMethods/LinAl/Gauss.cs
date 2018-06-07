@@ -14,27 +14,27 @@ namespace ChislMethods.LinAl
         /// <summary>
         /// Решение системы линейных уравнений (матрицы) Методом Гаусса
         /// </summary>
-        public static Vector Calc(Matrix items, Vector b)
+        public static Vector Calculate(Matrix items, Vector b)
         {
             double max;
-            int indmax;
+            int maxIndex;
             for (int i = 0; i < b.Size; i++)
             {
                 max = Math.Abs(items[i, i]);
-                indmax = i;
+                maxIndex = i;
                 for (int j = i; j < b.Size; j++)
                     if (Math.Abs(items[j, i]) > max)
                     {
                         max = Math.Abs(items[j, i]);
-                        indmax = j;
+                        maxIndex = j;
                     }
 
-                if (indmax != i)
+                if (maxIndex != i)
                 {
-                    items.SwapRows(i, indmax);
+                    items.SwapRows(i, maxIndex);
                     double temp = b[i];
-                    b[i] = b[indmax];
-                    b[indmax] = temp;
+                    b[i] = b[maxIndex];
+                    b[maxIndex] = temp;
                 }
 
                 double x;

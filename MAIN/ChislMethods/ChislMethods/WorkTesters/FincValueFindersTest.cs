@@ -33,17 +33,17 @@ namespace ChislMethods.WorkTesters
                 Console.WriteLine(); ;
 
                 Console.Write("Метод половинного деления: ");
-                Console.Write(HalfDif.PolDel(eps, a, b, x => (x * x-1)));
+                Console.Write(HalfDif.Calculate(eps, a, b, x => (x * x-1)));
 
                 Console.WriteLine();
 
                 Console.Write("Метод Ньютона: ");
-                Console.Write(NewtonMethod.Newton(eps, a, b, x => (x * x - 1)));
+                Console.Write(NewtonMethod.Calculate(eps, a, b, x => (x * x - 1)));
 
                 Console.WriteLine();
 
                 Console.Write("Метод Последовательного приближения: ");
-                Console.Write(IterationMethod.Iteration(a, b, eps, x => (x*x - 1)));
+                Console.Write(IterationMethod.Calculate(a, b, eps, x => (x*x - 1)));
 
                 Console.WriteLine();
             } catch (Exception e)

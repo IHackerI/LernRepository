@@ -10,9 +10,9 @@ namespace ChislMethods.DifUr
     /// </summary>
     public class RungeKutta4
     {
-        double a, b;//отрезок
-        double h;//шаг
-        double[] x;//вектор начальных состояний
+        double a, b; // начало и конец отрезка
+        double h; //шаг
+        double[] x; //вектор начальных состояний
 
         public RungeKutta4(double a, double b, double[] xn, double h)
         {
@@ -25,9 +25,9 @@ namespace ChislMethods.DifUr
         /// <summary>
         /// Решение дифференциальных уравнений методом Рунге-Кутта 4-го порядка
         /// </summary>
-        public double[,] Calc(FunDelegate fun)
+        public double[,] Calculate(FuncDelegate func)
         {
-            int n;//количество шагов
+            int n; //количество шагов
             double[] f1;
             double[] f2;
             double[] f3;
@@ -43,21 +43,21 @@ namespace ChislMethods.DifUr
             for (int i = 1; i <= n; i++)
             {
 
-                f1 = fun(t, x);// first prav
+                f1 = func(t, x);// first prav
                 t = t + h / 2;
                 for (int k = 0; k < x.Length; k++)
                     pr[k] = (x[k] + h * f1[k] / 2);
 
-                f2 = fun(t, pr); // second prav
+                f2 = func(t, pr); // second prav
                 for (int k = 0; k < x.Length; k++)
                     pr[k] = (x[k] + h * f2[k] / 2);
 
-                f3 = fun(t, pr); //third prav
+                f3 = func(t, pr); //third prav
                 t = t + h / 2;
                 for (int k = 0; k < x.Length; k++)
                     pr[k] = (x[k] + h * f3[k]);
 
-                f4 = fun(t, pr);
+                f4 = func(t, pr);
                 for (int k = 0; k < x.Length; k++)
                     x[k] = x[k] + (h / 6) * (f1[k] + f2[k] * 2 + f3[k] * 2 + f4[k]);
 

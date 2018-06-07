@@ -15,39 +15,71 @@ namespace ChislMethods.LinAl
         /// <summary>
         /// Решение системы линейных уравнений (матрицы) Методом последовательных итераций
         /// </summary>
-        public static Vector Calc(Matrix m, Vector b, double e)
+        public static Vector Calculate(Matrix A, Vector b, double eps)
         {
-            if (m.Row != m.Col || m.Col != b.Size)
-            {
-                Console.WriteLine("Размер матрицы и вектора должны быть одинаковы.");
-                return null;
-                //throw new InvalidOperationException(
-                //"Размер матрицы и вектора должны быть одинаковы.");
-            }
+            //A = A * (1/100);
 
-            if (m.Norma() >= 1)
-            {
-                Console.WriteLine("Условие сходимости не выполняется.");
-                return null;
-            }
 
-            var xPrev = new Vector(b);
-            var d = 0.0;
+            Matrix D = A.GetMatrixDiag();
+
+            Matrix B = D.InverseMatrix() * (D.Substract(A));
+            Vector g = D.InverseMatrix() * b;
+
+            Vector Xk = new Vector(b.size);
+            Vector Xk1 = new Vector(b.size);
+
             do
             {
-                d = 0;
+                for (int i = 0; i < Xk.size; i++)
+                {
+                    Xk[i] = Xk1[i];
+                }
 
-                var x = new Vector(b);
+                for (int i = 0; i < Xk1.size; i++)
+                {
+                    if (A[i, i] != 0)
+                    {
+                        Xk1[i] = (1 / A[i, i]) * (b[i] - (Summator(A, i, Xk)));
+                    }
+                    else
+                    {
+                        Xk1[i] = double.PositiveInfinity;
+                    }
+                }
+            } while (MaxAbsEl(Xk1 - Xk) > eps);
 
-                x.Add(m * xPrev);
+            return Xk1;
+        }
 
-                d = (x - xPrev).Norma1();
+        static double MaxAbsEl(Vector v)
+        {
+            double ans = -1;
 
-                xPrev = x;
+            for (int i = 0; i < v.size; i++)
+            {
+                if (ans < Math.Abs(v[i]))
+                {
+                    ans = Math.Abs(v[i]);
+                }
             }
-            while (Math.Sqrt(d) > e);
 
-            return xPrev;
+            return ans;
+        }
+
+        static double Summator(Matrix a, int ignoreI, Vector Xk)
+        {
+            double ans = 0;
+
+            for (int j = 0; j < a.Col; j++)
+            {
+                if (j == ignoreI)
+                    continue;
+
+                ans += a[ignoreI, j] * Xk[j];
+            }
+
+            return ans;
         }
     }
 }
+

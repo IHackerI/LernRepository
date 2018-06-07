@@ -70,7 +70,7 @@ namespace ChislMethods.LinAl
         public int GetSize() { return size; }  // получение размера
 
         /// <summary>
-        /// установить значение по индексу
+        /// Установка значения по индексу
         /// </summary>
         public bool SetElement(double element, int index)
         {
@@ -111,8 +111,10 @@ namespace ChislMethods.LinAl
             return this.ForEach((ref double s, ref double o) => s += o, vector);
         }
 
-
-        public double GetElement(int ind)// получить значение по индексу
+        /// <summary>
+        /// Получение значения по индексу
+        /// </summary>
+        public double GetElement(int ind)
         {
             if (ind < 0 || ind >= size) return default(double);
             return vector[ind];
@@ -121,7 +123,6 @@ namespace ChislMethods.LinAl
         /// <summary>
         /// Копирование вектора
         /// </summary>
-        /// <returns></returns>
         public Vector Copy()
         {
             Vector rez = new Vector(vector);
@@ -237,7 +238,7 @@ namespace ChislMethods.LinAl
         public Vector Subtract(Vector vector)
         {
             if (vector.vector.Length != this.vector.Length)
-                throw new InvalidOperationException("Size of both vectors should be equls");
+                throw new InvalidOperationException("Size of both vectors should be equals");
 
             return this.ForEach((ref double s, ref double o) => s -= o, vector);
         }

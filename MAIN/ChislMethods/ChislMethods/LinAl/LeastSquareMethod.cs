@@ -20,7 +20,7 @@ namespace ChislMethods.LinAl
         /// <summary>
         /// Решение системы линейных уравнений (матрицы) Методом наименьших квадратов
         /// </summary>
-        public static Vector LSM(Func<double, double>[] func, Vector x, Vector y)
+        public static Vector Calculate(Func<double, double>[] func, Vector x, Vector y)
         {
             var b = new Vector(func.Length);
             var ksi = new Matrix(x.Size, func.Length);
@@ -38,7 +38,7 @@ namespace ChislMethods.LinAl
                 }
             }
             
-            return Gauss.Calc((Matrix.Transposition(ksi) * ksi), b);
+            return Gauss.Calculate((Matrix.Transposition(ksi) * ksi), b);
         }
     }
 }
