@@ -12,6 +12,11 @@ namespace ASD.Graph
     {
         private List<Vertex<T>> _vertexes = new List<Vertex<T>>();
 
+        public IEnumerable<Vertex<T>> GetVertexesEnumer()
+        {
+            return _vertexes;
+        }
+
         /// <summary>
         /// Добавление вершины в граф
         /// </summary>
@@ -100,6 +105,15 @@ namespace ASD.Graph
             }
         }
 
+        public void ViewVertexes()
+        {
+            foreach (var vertex in _vertexes)
+            {
+                vertex.ViewHimSelf();
+                Console.WriteLine();
+            }
+        }
+
         /// <summary>
         /// Удаление вершины из графа
         /// </summary>
@@ -124,12 +138,11 @@ namespace ASD.Graph
 
                 while (true)
                 {
-                    var enumer = vertex.GetNeghboursEnumer();
                     bool badIter = false;
 
-                    while (enumer.MoveNext())
+                    foreach (var el in vertex.GetNeghboursEnumer())
                     {
-                        if ((int)enumer.Current.Color == myColor)
+                        if ((int)el.Color == myColor)
                         {
                             badIter = true;
                             myColor++;
@@ -137,7 +150,7 @@ namespace ASD.Graph
                             break;
                         }
                     }
-
+                    
                     if (!badIter)
                     {
                         break;
@@ -184,12 +197,11 @@ namespace ASD.Graph
                 if (visitedVertexes.Contains(currentVertex))
                     continue;
                 visitedVertexes.Add(currentVertex);
-
-                var enumer = currentVertex.GetNeghboursEnumer();
-                while (enumer.MoveNext())
+                
+                foreach (var el in currentVertex.GetNeghboursEnumer())
                 {
-                    if (!visitedVertexes.Contains(enumer.Current))
-                        queue.Enqueue(enumer.Current);
+                    if (!visitedVertexes.Contains(el))
+                        queue.Enqueue(el);
                 }
             }
 
@@ -221,16 +233,14 @@ namespace ASD.Graph
 
                 if (visitedVertexes.Contains(currentVertex))
                     continue;
-
-
-
+                
                 visitedVertexes.Add(currentVertex);
-                var enumer = currentVertex.GetNeghboursEnumer();
-                while (enumer.MoveNext())
+                
+                foreach (var el in currentVertex.GetNeghboursEnumer())
                 {
-                    if (!visitedVertexes.Contains(enumer.Current))
+                    if (!visitedVertexes.Contains(el))
                     {
-                        stackVertexes.Push(enumer.Current);
+                        stackVertexes.Push(el);
                     }
                 }
             }

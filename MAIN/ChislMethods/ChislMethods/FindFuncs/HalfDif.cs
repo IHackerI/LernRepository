@@ -5,17 +5,18 @@ using System.Text;
 
 namespace ChislMethods.FindFuncs
 {
-    public delegate double DelF(double x);
+    public delegate double DelFunc(double x);
 
     /// <summary>
     /// Поиск корней уравнения
     /// </summary>
     public static class HalfDif
     {
+
         /// <summary>
         /// Поиск корней уравнения Методом половинного деления
         /// </summary>
-        public static double PolDel(double eps, double left, double right, DelF func)
+        public static double Calculate(double eps, double left, double right, DelFunc func)
         {
             var length = right - left;
             var error = length;

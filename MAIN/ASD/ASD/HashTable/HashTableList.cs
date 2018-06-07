@@ -75,6 +75,24 @@ namespace ASD.HashTable
             Count--;
         }
 
+        public void Resize(int size)
+        {
+            var tmpTable = _table;
+
+            Size = size;
+
+            _table = new List<HashTableNode<T>>[size];
+            _table = (from x in _table select new List<HashTableNode<T>>()).ToArray();
+
+            foreach (var ar in tmpTable)
+            {
+                foreach (var el in ar)
+                {
+                    Add(el.Key, el.Value);
+                }
+            }
+        }
+
         /// <summary>
         /// Вывод таблицы
         /// </summary>

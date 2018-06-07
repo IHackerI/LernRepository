@@ -92,16 +92,19 @@ namespace ChislMethods.WorkTesters
 
             var func = new Func<double, double>[]
             {
-                //c => Math.Cos(c),
+               
+                c => Math.Cos(0*c),
+                c => Math.Cos(1*c),
+                //c => Math.Cos(2*c),
                 //c => Math.Pow(2.71, c),
                 //c => Math.Sin(c)
-                c => 1,
-                c => c,
-                c => c * c,
+                //c => 1,
+                //c => c,
+                //c => c * c,
                 //c => c * c * c
             };
 
-            var Koeff = LeastSquareMethod.LSM(func, x, y);
+            var Koeff = LeastSquareMethod.Calculate(func, x, y);
 
             Console.WriteLine($"Koeff {Koeff}");
             Console.WriteLine();
@@ -139,12 +142,12 @@ namespace ChislMethods.WorkTesters
             //Vector v = new Vector(va);
 
             Console.WriteLine("Метод Гаусса: ");
-            Gauss.Calc(new Matrix(a), new Vector(va)).View();
+            Gauss.Calculate(new Matrix(a), new Vector(va)).View();
 
             Console.WriteLine();
 
             Console.WriteLine("\nПроверка метода Гаусса:");
-            (a * Gauss.Calc(new Matrix(a), new Vector(va))).View();
+            (a * Gauss.Calculate(new Matrix(a), new Vector(va))).View();
         }
 
         /// <summary>
@@ -173,12 +176,12 @@ namespace ChislMethods.WorkTesters
             //Vector t = new Vector(va);
 
             Console.WriteLine("Метод Грама-Шмидта: ");
-            g.Calc(m, va).View();
+            g.Calculate(m, va).View();
 
             Console.WriteLine();
 
             Console.WriteLine("\nПроверка метода Грама-Шмидта:");
-            (m * g.Calc(m, va)).View();
+            (m * g.Calculate(m, va)).View();
 
             Console.WriteLine();
         }
@@ -208,12 +211,12 @@ namespace ChislMethods.WorkTesters
             //Vector t = new Vector(va);
 
             Console.WriteLine("Метод Ортогонализации: ");
-            Ortogonolization.Calc(m, va).View();
+            Ortogonolization.Calclucate(m, va).View();
 
             Console.WriteLine();
 
             Console.WriteLine("\nПроверка метода Ортогонализации:");
-            (m * Ortogonolization.Calc(m, va)).View();
+            (m * Ortogonolization.Calclucate(m, va)).View();
 
             Console.WriteLine();
         }
@@ -223,8 +226,8 @@ namespace ChislMethods.WorkTesters
         /// </summary>
         public static void IterationTest()
         {
-            const int A1 = 4;
-            const int A2 = 4;
+            const int A1 = 3;
+            const int A2 = 3;
 
             Matrix aa = new Matrix(new double[A1, A2]);
             Vector va = new Vector(A1);
@@ -232,38 +235,64 @@ namespace ChislMethods.WorkTesters
             Console.WriteLine("Первая матрица: ");
             //ram(aa);
 
-            aa[0, 0] = 0.01;
-            aa[0, 1] = 0.01;
-            aa[0, 2] = 0.01;
-            aa[0, 3] = 0.01;
-            aa[1, 0] = 0;
-            aa[1, 1] = 0.01;
-            aa[1, 2] = 0.01;
-            aa[1, 3] = 0.01;
-            aa[2, 0] = 0.01;
-            aa[2, 1] = 0;
-            aa[2, 2] = 0.01;
-            aa[2, 3] = 0.01;
-            aa[3, 0] = 0.01;
-            aa[3, 1] = 0.01;
-            aa[3, 2] = 0;
-            aa[3, 3] = 0.01;
+            /*aa[0, 0] = 4;
+            aa[0, 1] = 1;
+            aa[0, 2] = -2;
+            //aa[0, 3] = 0.01;
+            aa[1, 0] = 1;
+            aa[1, 1] = -5;
+            aa[1, 2] =1;
+            //aa[1, 3] = 0.01;
+            aa[2, 0] = 3;
+            aa[2, 1] = 1;
+            aa[2, 2] = -5;
+            //aa[2, 3] = 0.01;
+            //aa[3, 0] = 0.01;
+            //aa[3, 1] = 0.01;
+            //aa[3, 2] = 0;
+            //aa[3, 3] = 0.01;*/
 
+            aa[0, 0] = 4;
+            aa[0, 1] = 1;
+            aa[0, 2] = -2;
+            //aa[0, 3] = -2;
+            aa[1, 0] = 1;
+            aa[1, 1] = -5;
+            aa[1, 2] = 1;
+            //aa[1, 3] = 8;
+            aa[2, 0] = 3;
+            aa[2, 1] = 1;
+            aa[2, 2] = -5;
+            //aa[2, 3] = 10;
+            //aa[3, 0] = 0.01;
+            //aa[3, 1] = 0.01;
+            //aa[3, 2] = 0;
+            //aa[3, 3] = 0.01;
+            
+            //ram(aa);
 
             aa.View();
+
+
             Console.WriteLine();
 
             Console.WriteLine("Первый вектор: ");
-            rav(va);
+
+            //rav(va);
+
+            va[0] = 8;
+            va[1] = -10;
+            va[2] = 10;
+
             va.View();
             Console.WriteLine();
 
             Matrix m = new Matrix(aa);
-            //Vector t = new Vector(va);
+            Vector t = new Vector(va);
 
             Console.WriteLine("Метод Итераций: ");
 
-            var v = Iteration.Calc(m, va, 0.00001);
+            var v = Iteration.Calculate(new Matrix(m), va, 0.00001);
 
             if (v != null)
             {
@@ -272,7 +301,7 @@ namespace ChislMethods.WorkTesters
                 Console.WriteLine();
 
                 Console.WriteLine("\nПроверка метода Итераций:");
-                (va).View();
+                (m*v).View();
             }
 
             Console.WriteLine();

@@ -23,3 +23,12 @@ D:\Projects\Repository\ASDandChM\MAIN\ChislMethods\ChislMethods\obj\Debug\ChislM
 D:\Projects\Repository\ASDandChM\MAIN\ChislMethods\ChislMethods\obj\Debug\ChislMethods.pdb
 D:\Projects\Repository\ASDandChM\MAIN\ChislMethods\ChislMethods\bin\Debug\System.ValueTuple.dll
 D:\Projects\Repository\ASDandChM\MAIN\ChislMethods\ChislMethods\obj\Debug\ChislMethods.csproj.CopyComplete
+D:\Projects\Repository\LearnRepository\MAIN\ChislMethods\ChislMethods\bin\Debug\ChislMethods.exe.config
+D:\Projects\Repository\LearnRepository\MAIN\ChislMethods\ChislMethods\bin\Debug\ChislMethods.exe
+D:\Projects\Repository\LearnRepository\MAIN\ChislMethods\ChislMethods\bin\Debug\ChislMethods.pdb
+D:\Projects\Repository\LearnRepository\MAIN\ChislMethods\ChislMethods\bin\Debug\System.ValueTuple.dll
+D:\Projects\Repository\LearnRepository\MAIN\ChislMethods\ChislMethods\obj\Debug\ChislMethods.csprojAssemblyReference.cache
+D:\Projects\Repository\LearnRepository\MAIN\ChislMethods\ChislMethods\obj\Debug\ChislMethods.csproj.CoreCompileInputs.cache
+D:\Projects\Repository\LearnRepository\MAIN\ChislMethods\ChislMethods\obj\Debug\ChislMethods.csproj.CopyComplete
+D:\Projects\Repository\LearnRepository\MAIN\ChislMethods\ChislMethods\obj\Debug\ChislMethods.exe
+D:\Projects\Repository\LearnRepository\MAIN\ChislMethods\ChislMethods\obj\Debug\ChislMethods.pdb

@@ -6,17 +6,13 @@ using System.Text;
 namespace ChislMethods.DifUr
 {
     /// <summary>
-<<<<<<< HEAD
-    /// Решение дифуров
-=======
     /// Решение дифференциальных уравнений методом Рунге-Кутта 2-го порядка
->>>>>>> ChM functional done. Visual not perfect
     /// </summary>
     public class RungeKutta2
     {
-        double a, b;//отрезок
-        double h;//шаг
-        double[] x;//вектор начальных состояний
+        double a, b; // начало и конец отрезка
+        double h; //шаг
+        double[] x; //вектор начальных состояний
 
         public RungeKutta2(double a, double b, double[] xn, double h)
         {
@@ -27,15 +23,11 @@ namespace ChislMethods.DifUr
         }
 
         /// <summary>
-<<<<<<< HEAD
-        /// Метод Рунге-Кутта 2-го порядка
-=======
         /// Решение дифференциальных уравнений методом Рунге-Кутта 2-го порядка
->>>>>>> ChM functional done. Visual not perfect
         /// </summary>
-        public double[,] Calc(FunDelegate fun)
+        public double[,] Calculate(FuncDelegate func)
         {            
-            var n = (int)((b - a) / h);//количество шагов
+            var n = (int)((b - a) / h); //количество шагов
             double[,] xr = new double[n + 1, x.Length];
             double t = a;
             double[] pr = new double[x.Length];
@@ -45,12 +37,12 @@ namespace ChislMethods.DifUr
             for (int i = 1; i <= n; i++)
             {
 
-                double[] f1 = fun(t, x); //1
+                double[] f1 = func(t, x);
                 t = t + h;
                 for (int k = 0; k < x.Length; k++)
                     pr[k] = x[k] + h * f1[k];
 
-                double[] f2 = fun(t, pr);
+                double[] f2 = func(t, pr);
                 for (int k = 0; k < x.Length; k++)
                     x[k] = x[k] + (h / 2) * (f1[k] + f2[k]);
 

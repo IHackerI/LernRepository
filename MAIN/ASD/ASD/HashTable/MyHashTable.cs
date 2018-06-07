@@ -117,7 +117,15 @@ namespace ASD.HashTable
         /// </summary>
         private void Resize()
         {
-            Array.Resize(ref _table, _table.Length<<1);
+            //Array.Resize(ref _table, _table.Length<<1);
+            var newTable = new HashTableNode<TValue>[_table.Length << 1];
+            var tmp = _table;
+            _table = newTable;
+
+            foreach (var el in _table)
+            {
+                Add(el.Key, el.Value);
+            }
         }
     }
 }

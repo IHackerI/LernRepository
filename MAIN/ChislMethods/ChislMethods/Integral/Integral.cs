@@ -15,7 +15,7 @@ namespace ChislMethods.Integral
         /// <summary>
         /// Интегрирование Методом Симпсона
         /// </summary
-        public static double Simpson(double xBot, double xTop, double eps, F f)
+        public static double CalcSimpson(double xBot, double xTop, double eps, F f)
         {
             int n = 1;
             double f0 = f(xBot) + f(xTop);
@@ -39,7 +39,7 @@ namespace ChislMethods.Integral
         /// <summary>
         /// Интегрирование Методом прямоугольников с запоминанием предыдущих значений
         /// </summary>ы
-        public static double Rectangle(double xBot, double xTop, double eps, F f)
+        public static double CalcRectangle(double xBot, double xTop, double eps, F f)
         {
             int n = 1;
             double s = 0;
@@ -61,7 +61,7 @@ namespace ChislMethods.Integral
         /// <summary>
         /// Интегрирование Методом трапеций
         /// </summary>
-        public static double Trapezium(double xBot, double xTop, double eps, F f)
+        public static double CalcTrapezium(double xBot, double xTop, double eps, F f)
         {
             double x = xBot;
             int n = 1;

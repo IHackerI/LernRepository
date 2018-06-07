@@ -35,7 +35,7 @@ namespace ChislMethods.WorkTesters
                 //предоставить выбор тестируемой системы
                 //и сразу запустить её
                 bool testResult = IOSystem.InterfacedViewChoice(testerNames.Skip(1).ToArray(), new EmptyD[] {
-                    DifUrsTEST.TEST,        //|
+                    DifUrsTEST.TEST,            //|
                     FincValueFindersTest.TEST,  //|
                     IntegralTEST.TEST,          //|указание методов отправляемых на тест
                     LinAlTester.TEST,           //|

@@ -17,18 +17,18 @@ namespace ASD.WorkTesters
             #region Подготовка и вывод дерева
             BinaryTree<string> BN = new BinaryTree<string>();
 
-            BN.Insert(10, "1");
-            BN.Insert(4, "2");
-            BN.Insert(2, "3");
-            BN.Insert(3, "4");
-            BN.Insert(16, "5");
-            BN.Insert(13, "6");
-            BN.Insert(18, "7");
-            BN.Insert(17, "8");
-            BN.Insert(19, "9");
+            BN.Insert(10, "10");
+            BN.Insert(4, "4");
+            BN.Insert(2, "2");
+            BN.Insert(3, "3");
+            BN.Insert(16, "16");
+            BN.Insert(13, "13");
+            BN.Insert(18, "18");
+            BN.Insert(17, "17");
+            BN.Insert(19, "19");
 
             Console.WriteLine("Исходное дерево:");
-            BinaryTreeExtensions<string>.Print(BN);
+            BinaryTreeExtensions<string>.RecursPrint(BN);
             Console.WriteLine();
             #endregion
 
@@ -45,7 +45,13 @@ namespace ASD.WorkTesters
                         "Поиск Минимального элемента узла",
                         "Удаление узла",
                         "Рекурсивный вывод",
-                        "Нерекурсивный вывод",
+                        "Нерекурсивный вывод вверх",
+                        "Нерекурсивный вывод вниз",
+                        "Получить Root",
+                        "Малый поворот вправо",
+                        "Малый поворот влево",
+                        "Большой поворот вправо",
+                        "Большой поворот влево",
                         "Закончить тестирование"
                     });
 
@@ -84,20 +90,38 @@ namespace ASD.WorkTesters
 
                     case 6:
                         Console.WriteLine("Рекурсивный вывод: ");
-                        BinaryTreeExtensions<string>.Print(BN);
+                        BinaryTreeExtensions<string>.RecursPrint(BN);
                         break;
 
                     case 7:
-                        Console.WriteLine("Нерекурсивный вывод: ");
-                        var t = BN.MinNode();
-                        while (t != null)
-                        {
-                            Console.WriteLine(" Key: {0} Value: {1}", t.Key, t.Value);
-                            t = t.NextNode();
-                        }
+                        Console.WriteLine("Нерекурсивный вывод вверх: ");
+                        BinaryTreeExtensions<string>.UpNoRecursPrint(BN);
                         break;
-
                     case 8:
+                        Console.WriteLine("Нерекурсивный вывод вниз: ");
+                        BinaryTreeExtensions<string>.DownNoRecursPrint(BN);
+                        break;
+                    case 9:
+                        Console.WriteLine("Корень: ");
+                        Console.WriteLine(" Key: {0} Value: {1}", BN.Root.Key, BN.Root.Value);
+                        break;
+                    case 10:
+                        BN.SmallRightRotate(BN.Find(IOSystem.GetInt("Введите ключ вращаемой вершины: ")));
+                        BinaryTreeExtensions<string>.RecursPrint(BN);
+                        break;
+                    case 11:
+                        BN.SmallLeftRotate(BN.Find(IOSystem.GetInt("Введите ключ  вращаемой вершины: ")));
+                        BinaryTreeExtensions<string>.RecursPrint(BN);
+                        break;
+                    case 12:
+                        BN.BigRightRotate(BN.Find(IOSystem.GetInt("Введите ключ  вращаемой вершины: ")));
+                        BinaryTreeExtensions<string>.RecursPrint(BN);
+                        break;
+                    case 13:
+                        BN.BigLeftRotate(BN.Find(IOSystem.GetInt("Введите ключ  вращаемой вершины: ")));
+                        BinaryTreeExtensions<string>.RecursPrint(BN);
+                        break;
+                    case 14:
                         endTest = true;
                         break;
                 }

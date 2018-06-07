@@ -14,7 +14,7 @@ namespace ChislMethods.FindFuncs
         /// <summary>
         /// Поиск корней уравнения методом итераций
         /// </summary>
-        public static double Iteration(double left, double right, double eps, DelF Func)
+        public static double Calculate(double left, double right, double eps, DelFunc Func)
         {
             int max_iter= 1000;
             double x1 = left + (right - left) / 2;

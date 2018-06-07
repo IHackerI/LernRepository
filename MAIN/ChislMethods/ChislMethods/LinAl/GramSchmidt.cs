@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace ChislMethods.LinAl
 {
-<<<<<<< HEAD
-=======
     /// <summary>
     /// Решение системы линейных уравнений (матрицы) Методом Грамма-Шмидта
     /// </summary>
->>>>>>> ChM functional done. Visual not perfect
     public class GramSchmidt
     {
         public int Size = 0;
@@ -22,23 +19,20 @@ namespace ChislMethods.LinAl
         }
 
         /// <summary>
-<<<<<<< HEAD
-        /// Метод Грамма-Шмидта
-=======
         /// Решение системы линейных уравнений (матрицы) Методом Грамма-Шмидта
->>>>>>> ChM functional done. Visual not perfect
         /// </summary>
-        public Vector Calc(Matrix m, Vector vector)
+        public Vector Calculate(Matrix m, Vector vector)
         {
-            Vector nan = new Vector(0);
-            if (m.Col != m.Row) return nan;
-            if (Matrix.Determ(m) == 0) return nan;
-
+            Vector nAn = new Vector(0);
             Matrix u = new Matrix(new double[Size, Size]);
             Matrix v = new Matrix(new double[Size, Size]);
             Vector temp = new Vector(Size);
             Vector h = new Vector(Size);
             Vector x = new Vector(Size);
+
+            if (m.Col != m.Row) return nAn;
+            if (Matrix.Determ(m) == 0) return nAn;
+            
             for (int i = 0; i < Size; i++)
                 for (int j = 0; j < Size; j++)
                 {
@@ -54,7 +48,7 @@ namespace ChislMethods.LinAl
             Vector t = new Vector(Size);
             t[0] = vector[0] / u.GetRow(0).Len(); // h[0]
 
-            int count = 1; // счетчик пременных, для кот уже найдены первые значения
+            int count = 1; // счетчик пременных, для которых уже найдены первые значения
             double te;
             do
             {

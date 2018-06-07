@@ -70,7 +70,7 @@ namespace ChislMethods.LinAl
         public int GetSize() { return size; }  // получение размера
 
         /// <summary>
-        /// установить значение по индексу
+        /// Установка значения по индексу
         /// </summary>
         public bool SetElement(double element, int index)
         {
@@ -79,12 +79,6 @@ namespace ChislMethods.LinAl
             return true;
         }
 
-<<<<<<< HEAD
-        public double ScalarProduct(Vector vector)
-        {
-            if (vector.Size != this.Size)
-                throw new InvalidOperationException("Size of both vectors should be equls");
-=======
         /// <summary>
         /// Скалярное умножение вектора на вектор
         /// </summary>
@@ -92,7 +86,6 @@ namespace ChislMethods.LinAl
         {
             if (vector.Size != this.Size)
                 throw new InvalidOperationException("Size of both vectors should be equals");
->>>>>>> ChM functional done. Visual not perfect
 
             var result = 0.0;
             this.ForEach((ref double f, ref double l) => result += f * l, vector);
@@ -107,12 +100,6 @@ namespace ChislMethods.LinAl
             return this;
         }
 
-<<<<<<< HEAD
-        public Vector Add(Vector vector)
-        {
-            if (vector.vector.Length != this.vector.Length)
-                throw new InvalidOperationException("Size of both vectors should be equls");
-=======
         /// <summary>
         /// Сумма векторов
         /// </summary>
@@ -120,16 +107,14 @@ namespace ChislMethods.LinAl
         {
             if (vector.vector.Length != this.vector.Length)
                 throw new InvalidOperationException("Size of both vectors should be equals");
->>>>>>> ChM functional done. Visual not perfect
 
             return this.ForEach((ref double s, ref double o) => s += o, vector);
         }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> ChM functional done. Visual not perfect
-        public double GetElement(int ind)// получить значение по индексу
+        /// <summary>
+        /// Получение значения по индексу
+        /// </summary>
+        public double GetElement(int ind)
         {
             if (ind < 0 || ind >= size) return default(double);
             return vector[ind];
@@ -138,7 +123,6 @@ namespace ChislMethods.LinAl
         /// <summary>
         /// Копирование вектора
         /// </summary>
-        /// <returns></returns>
         public Vector Copy()
         {
             Vector rez = new Vector(vector);
@@ -248,26 +232,20 @@ namespace ChislMethods.LinAl
         public static Vector operator -(Vector a, Vector b)
             => new Vector(a).Subtract(b);
 
-<<<<<<< HEAD
-=======
         /// <summary>
         /// Вычитание векторов
         /// </summary>
->>>>>>> ChM functional done. Visual not perfect
         public Vector Subtract(Vector vector)
         {
             if (vector.vector.Length != this.vector.Length)
-                throw new InvalidOperationException("Size of both vectors should be equls");
+                throw new InvalidOperationException("Size of both vectors should be equals");
 
             return this.ForEach((ref double s, ref double o) => s -= o, vector);
         }
 
-<<<<<<< HEAD
-=======
         /// <summary>
         /// Скалярное умножение векторов
         /// </summary>
->>>>>>> ChM functional done. Visual not perfect
         public Vector Multiply(double scalar)
             => this.ForEach((ref double s) => s *= scalar);
 

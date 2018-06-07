@@ -135,7 +135,7 @@ namespace ASD.Sort
             {
                 Thread.Sleep(10);
             }
-            
+
             Merge(a, l, r, m);
             return;
         }
@@ -176,7 +176,6 @@ namespace ASD.Sort
             if (l < j)
                 QuickSort(_items, l, j);
         }
-
 
         public static int[] NoRecursQuickSort(int[] _items, int l, int r) // Быстрая сортировка
         {
