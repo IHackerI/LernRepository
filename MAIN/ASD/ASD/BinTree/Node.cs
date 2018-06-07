@@ -76,30 +76,23 @@ namespace ASD.BinTree
             return level;
         }
 
-        /// <summary>
-        /// Ищет следующий по ключу элемент
-        /// </summary>
-        /// <returns></returns>
+        
         public Node<T> NextNode()
         {
             var val = this;
-            if (val.Right == null)
+            if (val.Right == null && val.Parent != null)
             {
                 if (val == val.Parent.Left)
                     return val.Parent;
                 else
                 {
-                    while (val.Key > val.Parent.Key)
+                    while (val != val.Parent.Left)
                     {
                         val = val.Parent;
                         if (val.Parent == null)
                             return null;
                     }
-
-                    if (val.Key < val.Parent.Key)
-                        return val.Parent;
-                    else
-                        return null;
+                    return val.Parent;
                 }
             }
             else
@@ -110,6 +103,58 @@ namespace ASD.BinTree
                 return val;
             }
         }
+
+        public Node<T> PrevNode()
+        {
+            var val = this;
+            if (val.Left == null && val.Parent != null)
+            {
+                if (val == val.Parent.Right)
+                    return val.Parent;
+                else
+                {
+                    while (val != val.Parent.Right)
+                    {
+                        val = val.Parent;
+                        if (val.Parent == null)
+                            return null;
+                    }
+                    return val.Parent;
+                }
+            }
+            else
+            {
+                val = val.Left;
+                while (val.Right != null)
+                    val = val.Right;
+                return val;
+            }
+        }
+
+        /*
+        public Node<T> PrevNode() //Поиск следующего элемента по индексу 
+        {
+            var t = this;
+            if (t.Left != null)
+            {
+                t = t.Left;
+                while (t.Right != null)
+                {
+                    t = t.Right;
+                }
+                return t;
+            }
+            else if (t.Parent.Left == t)
+            {
+                t = t.Parent.Parent;
+            }
+            else if (t.Parent.Right == t)
+            {
+                t = t.Parent;
+            }
+            return t;
+        }
+        */
 
         /// <summary>
         /// Определяет, в какой ветви для родительского лежит данный узел

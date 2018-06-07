@@ -190,11 +190,11 @@ namespace ASD.WorkTesters
                 {
                     case 0:
                         Console.Write("Введите добавляемое значение: ");
-                        queue.Push(Console.ReadLine());
+                        queue.Enqueue(Console.ReadLine());
                         break;
 
                     case 1:
-                        Console.WriteLine("Считанное значение: " + queue.Pop());
+                        Console.WriteLine("Считанное значение: " + queue.Dequeue());
                         break;
 
                     case 2:

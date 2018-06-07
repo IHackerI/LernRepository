@@ -12,33 +12,33 @@ namespace ASD.BinTree // data = key
     public class BinaryTree <T>
     {
 
-        Node<T> head;
-        public Node<T> Head { get { return head; } }
+        Node<T> root;
+        public Node<T> Root { get { return root; } }
 
         /// <summary>
         /// Вставляет значение в дерево
         /// </summary>
         public void Insert(long key, T value)
         {
-            if (head == null || head.Key == key)
+            if (root == null || root.Key == key)
             {
-                if (head == null)
-                    head = new Node<T>();
+                if (root == null)
+                    root = new Node<T>();
 
-                head.Key = key;
-                head.Value = value;
+                root.Key = key;
+                root.Value = value;
                 return;
             }
 
-            if (head.Key > key)
+            if (root.Key > key)
             {
-                if (head.Left == null) head.Left = new Node<T>();
-                Insert(key, value, head.Left, head);
+                if (root.Left == null) root.Left = new Node<T>();
+                Insert(key, value, root.Left, root);
             }
             else
             {
-                if (head.Right == null) head.Right = new Node<T>();
-                Insert(key, value, head.Right, head);
+                if (root.Right == null) root.Right = new Node<T>();
+                Insert(key, value, root.Right, root);
             }
 
             //Insert(key, value, null, head);
@@ -94,13 +94,14 @@ namespace ASD.BinTree // data = key
                 Insert(remNode, newNode.Right, newNode);
             }
         }
-            
+        
+        
         /// <summary>
         /// Максимальный ключ в дереве
         /// </summary>
         public Node<T> MaxNode()
         {
-            var curr = head;
+            var curr = root;
             while (curr.Right != null)
             {
                 curr = curr.Right;
@@ -114,7 +115,7 @@ namespace ASD.BinTree // data = key
         /// <returns></returns>
         public Node<T> MinNode()
         {
-            var curr = head;
+            var curr = root;
             while (curr.Left != null)
             {
                 curr = curr.Left;
@@ -141,8 +142,8 @@ namespace ASD.BinTree // data = key
                     node.Parent.Right = null;
                 }
 
-                if (node == head)
-                    head = null;
+                if (node == root)
+                    root = null;
 
                 return;
             }
@@ -191,15 +192,31 @@ namespace ASD.BinTree // data = key
             }
             if (me == null)
             {
-                var bufLeft = node.Left;
+                var newRoot = node.Right;
+                var oldRoot = node;
+                
+                root = newRoot;
+                root.Parent = null;
+
+                oldRoot.Left.Parent = root.Left;
+                //root.Left.Left = oldRoot.Left;
+                if (root.Left == null)
+                    root.Left = oldRoot.Left;
+                else
+                    root.Left.Left = oldRoot.Left;
+
+                //Insert(oldRoot.Left, root, root);
+
+                /*var bufLeft = node.Left;
                 var bufRightLeft = node.Right.Left;
                 var bufRightRight = node.Right.Right;
                 node.Key = node.Right.Key;
                 node.Value = node.Right.Value;
                 node.Right = bufRightRight;
                 node.Left = bufRightLeft;
-                head = node;
-                Insert(bufLeft, node, node);
+                root = node;
+                node.Parent = null;
+                Insert(bufLeft, node, node);*/
             }
             else
             {
@@ -225,15 +242,15 @@ namespace ASD.BinTree // data = key
         /// </summary>
         public Node<T> Find(long key)
         {
-            if (head == null)
+            if (root == null)
                 return null;
 
-            if (head.Key == key) return head;
-            if (head.Key > key)
+            if (root.Key == key) return root;
+            if (root.Key > key)
             {
-                return Find(key, head.Left);
+                return Find(key, root.Left);
             }
-            return Find(key, head.Right);
+            return Find(key, root.Right);
         }
 
         /// <summary>
@@ -256,7 +273,7 @@ namespace ASD.BinTree // data = key
         /// </summary>
         public long CountElements()
         {
-            return CountElements(head);
+            return CountElements(root);
         }
 
         /// <summary>
@@ -264,6 +281,8 @@ namespace ASD.BinTree // data = key
         /// </summary>
         private long CountElements(Node<T> node)
         {
+            //(new System.Collections.Generic.Stack<int>()).po
+
             if (node == null)
                 return 0;
 
@@ -287,12 +306,12 @@ namespace ASD.BinTree // data = key
         /// </summary>
         public static void Print(BinaryTree<T> tree)
         {
-            if (tree == null || tree.Head == null)
+            if (tree == null || tree.Root == null)
             {
                 return;
             }
 
-            Print(tree.Head);
+            Print(tree.Root);
         }
 
         /// <summary>

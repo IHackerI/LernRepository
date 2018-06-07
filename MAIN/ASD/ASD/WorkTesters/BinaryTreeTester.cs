@@ -45,7 +45,9 @@ namespace ASD.WorkTesters
                         "Поиск Минимального элемента узла",
                         "Удаление узла",
                         "Рекурсивный вывод",
-                        "Нерекурсивный вывод",
+                        "Нерекурсивный вывод вверх",
+                        "Нерекурсивный вывод вниз",
+                        "Получить Root",
                         "Закончить тестирование"
                     });
 
@@ -88,7 +90,7 @@ namespace ASD.WorkTesters
                         break;
 
                     case 7:
-                        Console.WriteLine("Нерекурсивный вывод: ");
+                        Console.WriteLine("Нерекурсивный вывод вверх: ");
                         var t = BN.MinNode();
                         while (t != null)
                         {
@@ -96,8 +98,20 @@ namespace ASD.WorkTesters
                             t = t.NextNode();
                         }
                         break;
-
                     case 8:
+                        Console.WriteLine("Нерекурсивный вывод вниз: ");
+                        var tmp = BN.MaxNode();
+                        while (tmp != null)
+                        {
+                            Console.WriteLine(" Key: {0} Value: {1}", tmp.Key, tmp.Value);
+                            tmp = tmp.PrevNode();
+                        }
+                        break;
+                    case 9:
+                        Console.WriteLine("Корень: ");
+                        Console.WriteLine(" Key: {0} Value: {1}", BN.Root.Key, BN.Root.Value);
+                        break;
+                    case 10:
                         endTest = true;
                         break;
                 }

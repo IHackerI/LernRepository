@@ -100,6 +100,15 @@ namespace ASD.Graph
             }
         }
 
+        public void ViewVertexes()
+        {
+            foreach (var vertex in _vertexes)
+            {
+                vertex.ViewHimSelf();
+                Console.WriteLine();
+            }
+        }
+
         /// <summary>
         /// Удаление вершины из графа
         /// </summary>

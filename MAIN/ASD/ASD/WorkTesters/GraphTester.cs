@@ -112,6 +112,7 @@ namespace ASD.WorkTesters
                         Console.WriteLine("Раскрашенный граф: ");
                         var colorNum = graph.Paint();
                         graph.ViewEdges();
+                        graph.ViewVertexes();
                         Console.WriteLine("\nКоличество цветов: " + colorNum);
                         graph.ResetColor();
                         break;
