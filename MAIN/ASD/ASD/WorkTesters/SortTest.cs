@@ -36,7 +36,8 @@ namespace ASD.WorkTesters
                     "Сортировка Шелла",
                     "Сортировка Merge (слиянием)",
                     "Быстрая сортировка",
-                    "Быстрая сортировка (не рекурсиив)"
+                    "Быстрая сортировка (не рекурсиив)",
+                    "Цифровая сортировка"
                     });
 
 
@@ -87,6 +88,13 @@ namespace ASD.WorkTesters
                     Console.Write("Несортированное множество: ");
                     ShowSet(setInt);
                     setInt = Sort<int>.NoRecursQuickSort(setInt, 0, setInt.Length - 1);
+                    Console.Write("Cортированное множество: ");
+                    ShowSet(setInt);
+                    break;
+                case 6:
+                    Console.Write("Несортированное множество: ");
+                    ShowSet(setInt);
+                    Sort<int>.DigitSort(setInt);
                     Console.Write("Cортированное множество: ");
                     ShowSet(setInt);
                     break;

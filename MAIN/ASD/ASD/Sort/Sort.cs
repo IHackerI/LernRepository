@@ -1,6 +1,8 @@
 ﻿using ASD.SetDeckQueueStack;
 using System;
+using System.Collections.Generic;
 using System.Threading;
+using System.Linq;
 
 namespace ASD.Sort
 {
@@ -175,6 +177,45 @@ namespace ASD.Sort
 
             if (l < j)
                 QuickSort(_items, l, j);
+        }
+
+        public static void DigitSort(int[] _items)
+        {
+            int level = 0;
+            bool end = false;
+
+            while (!end) {
+                end = true;
+
+                List<int>[] subAr = new List<int>[10];
+                subAr = (from x in subAr select new List<int>()).ToArray();
+
+                for (int i = 0; i < _items.Length; i++)
+                {
+                    var val = _items[i] / (int)Math.Pow(10, level);
+
+                    subAr[val % 10].Add(_items[i]);
+
+                    if (val != 0)
+                    {
+                        end = false;
+                    }
+                }
+
+                int index = 0;
+
+                for (int i = 0; i < subAr.Length; i++)
+                {
+                    for (int j = 0; j < subAr[i].Count; j++)
+                    {
+                        _items[index] = subAr[i][j];
+                        index++;
+                    }
+                }
+
+                level++;
+            }
+
         }
 
         public static int[] NoRecursQuickSort(int[] _items, int l, int r) // Быстрая сортировка
