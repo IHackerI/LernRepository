@@ -22,7 +22,7 @@ namespace ASD.BinTree
         Node<T> right { get; set; }
         Node<T> parent { get; set; }
 
-        public Node(){}
+        public Node() { }
 
         public Node(int key, T value)
         {
@@ -76,7 +76,9 @@ namespace ASD.BinTree
             return level;
         }
 
-        
+        /// <summary>
+        /// Следующий узел
+        /// </summary>
         public Node<T> NextNode()
         {
             var val = this;
@@ -104,6 +106,9 @@ namespace ASD.BinTree
             }
         }
 
+        /// <summary>
+        /// Предыдущий узел
+        /// </summary>
         public Node<T> PrevNode()
         {
             var val = this;
@@ -129,23 +134,6 @@ namespace ASD.BinTree
                     val = val.Right;
                 return val;
             }
-        }
-
-        /// <summary>
-        /// Количество элементов в определённом узле
-        /// </summary>
-        public long CountElements()
-        {
-            long count = 1;
-            if (Right != null)
-            {
-                count += Right.CountElements();
-            }
-            if (Left != null)
-            {
-                count += Left.CountElements();
-            }
-            return count;
         }
 
         /// <summary>

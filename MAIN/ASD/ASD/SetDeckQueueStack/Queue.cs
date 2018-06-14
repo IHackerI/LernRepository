@@ -15,7 +15,8 @@ namespace ASD.SetDeckQueueStack
             _tailNode = _headNode = null;
             Length = 0;
         }
-        
+
+
         /// <summary>
         /// Добавление элемента в конец очереди
         /// </summary>
@@ -46,11 +47,11 @@ namespace ASD.SetDeckQueueStack
         /// <summary>
         /// Изъятие первого элемента
         /// </summary>
-        public Node<T> Dequeue()
+        public T Dequeue()
         {
             var ans = _headNode;
             if (_headNode == null)
-                return null;
+                return default(T);
             _headNode = _headNode.Next;
             if (_headNode != null)
                 _headNode.Prev = null;
@@ -58,14 +59,14 @@ namespace ASD.SetDeckQueueStack
                 _tailNode = null;
 
             Length--;
-            return ans;
+            return ans.Element;
 
         }
-        
+
         /// <summary>
         /// Получение элемента из начала очереди
         /// </summary>
-        public Node<T> Peek()
+        public Node<T> GetHeadNode()
         {
             return _headNode;
         }
@@ -75,7 +76,7 @@ namespace ASD.SetDeckQueueStack
         /// </summary>
         public void View()
         {
-            var curNode = Peek();
+            var curNode = GetHeadNode();
 
             if (curNode == null)
                 return;

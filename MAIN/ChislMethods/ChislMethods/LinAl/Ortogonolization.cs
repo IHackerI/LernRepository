@@ -19,12 +19,11 @@ namespace ChislMethods.LinAl
         {
             if (!matrixA.IsSquare)
                 throw new InvalidOperationException(
-                    "System equals should be same dimension as variable numbers");
+                    "Матрица должны быть квадратной!"); // System equals should be same dimension as variable numbers
 
             if (matrixA.Col != vectorB.Size)
                 throw new InvalidOperationException(
-                    "Number of left side should be equal a right size");
-
+                    "Размерности должны быть равны!"); // Number of left side should be equal a right size
             var result = new Vector(vectorB.Size);
 
             var ortho = Orthogonalization(matrixA);

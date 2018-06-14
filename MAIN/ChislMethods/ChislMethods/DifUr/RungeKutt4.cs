@@ -8,13 +8,14 @@ namespace ChislMethods.DifUr
     /// <summary>
     /// Решение дифференциальных уравнений методом Рунге-Кутта 4-го порядка
     /// </summary>
-    public class RungeKutta4
+    public class RungeKutt4
     {
-        double a, b; // начало и конец отрезка
-        double h; //шаг
-        double[] x; //вектор начальных состояний
+        double a;   // начало отрезка
+        double b;   // конец отрезка
+        double h;   // шаг
+        double[] x; // вектор начальных состояний
 
-        public RungeKutta4(double a, double b, double[] xn, double h)
+        public RungeKutt4(double a, double b, double[] xn, double h)
         {
             this.a = a;
             this.b = b;

@@ -11,12 +11,12 @@ namespace ASD.SetDeckQueueStack
     public class Stack<T> 
     {
         public int Length { get; private set; }
-        //private Node<T> _headNode;
-        private Node<T> _top;
+        private Node<T> _headNode;
+        private Node<T> _tailNode;
 
         public Stack()
         {
-            _top = null;
+            _tailNode = _headNode = null;
             Length = 0;
         }
 
@@ -25,21 +25,24 @@ namespace ASD.SetDeckQueueStack
         /// </summary>
         public void Push(T element)
         {
-            if (_top == null)
+            if (_headNode == null)
             {
-                _top = new Node<T>();
-                _top.Next = null;
-                _top.Element = element;
-                _top.Prev = null;
+                Node<T> _current = new Node<T>();
+                _current.Next = null;
+                _tailNode = _current;
+                _current.Element = element;
+                _current.Prev = null;
+                _headNode = _current;
                 Length++;
             }
             else
             {
-                _top.Next = new Node<T>();
-                _top.Next.Prev = _top;
-                _top = _top.Next;
-                _top.Element = element;
-                _top.Next = null;
+                Node<T> newNode = new Node<T>();
+                _tailNode.Next = newNode;
+                newNode.Prev = _tailNode;
+                _tailNode = newNode;
+                _tailNode.Element = element;
+                _tailNode.Next = null;
                 Length++;
             }
         }
@@ -47,30 +50,30 @@ namespace ASD.SetDeckQueueStack
         /// <summary>
         /// Изъятие элемента из конца стека
         /// </summary>
-        public Node<T> Pop()
+        public T Pop()
         {
-            var ans = _top;
+            var ans = _tailNode;
 
-            if (_top == null)
-                return null;
+            if (_tailNode == null)
+                return default(T);
 
-            _top = _top.Prev;
+            _tailNode = _tailNode.Prev;
 
-            if (_top != null)
-                _top.Next = null;
+            if (_tailNode != null)
+                _tailNode.Next = null;
             else
-                _top = null;
+                _headNode = null;
             
             Length--;
-            return ans;
+            return ans.Element;
         }
 
         /// <summary>
         /// Получение последнего элемента
         /// </summary>
-        public Node<T> Peek()
+        public Node<T> GetTailNode()
         {
-            return _top;
+            return _tailNode;
         }
 
         /// <summary>
@@ -78,7 +81,7 @@ namespace ASD.SetDeckQueueStack
         /// </summary>
         public void View()
         {
-            var curNode = Peek();
+            var curNode = GetTailNode();
 
             if (curNode == null)
                 return;

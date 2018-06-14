@@ -93,14 +93,14 @@ namespace ChislMethods.WorkTesters
             var func = new Func<double, double>[]
             {
                
-                c => Math.Cos(0*c),
-                c => Math.Cos(1*c),
+                //c => Math.Cos(0*c),
+                //c => Math.Cos(1*c),
                 //c => Math.Cos(2*c),
                 //c => Math.Pow(2.71, c),
                 //c => Math.Sin(c)
-                //c => 1,
-                //c => c,
-                //c => c * c,
+                c => 1,
+                c => c,
+                c => c * c,
                 //c => c * c * c
             };
 

@@ -8,7 +8,7 @@ namespace ChislMethods.FindFuncs
     public delegate double DelFunc(double x);
 
     /// <summary>
-    /// Поиск корней уравнения
+    /// Поиск корней уравнения Методом половинного деления
     /// </summary>
     public static class HalfDif
     {

@@ -1,6 +1,7 @@
 ﻿using ASD.SetDeckQueueStack;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace ASD.Sort
 {
@@ -68,10 +69,130 @@ namespace ASD.Sort
             }
         }
         
+
+
+        /// <summary>
+        /// Параллельная сортировка слиянием
+        /// </summary>
+        private static void MergeParallel(T[] Mas, int left, int right, int medium)
+        {
+            int j = left;
+            int k = medium + 1;
+            int count = right - left + 1;
+
+            if (count <= 1)
+                return;
+
+            T[] TmpMas = new T[count];
+
+            for (int i = 0; i < count; ++i)
+            {
+                if (j <= medium && k <= right)
+                {
+                    if (Mas[j].CompareTo(Mas[k]) < 0)
+                        TmpMas[i] = Mas[j++];
+                    else
+                        TmpMas[i] = Mas[k++];
+                }
+                else
+                {
+                    if (j <= medium)
+                        TmpMas[i] = Mas[j++];
+                    else
+                        TmpMas[i] = Mas[k++];
+                }
+            }
+
+            j = 0;
+            for (int i = left; i <= right; ++i)
+            {
+                Mas[i] = TmpMas[j++];
+            }
+        }
+
+        static int threadsCount = 0;
+        /// <summary>
+        /// Параллельная сортировка слиянием
+        /// </summary>
+        private static void MergeSortParallel(object o)
+        {
+            threadsCount++;
+            var a = (T[])((object[])o)[0];
+            var l = (int)((object[])o)[1];
+            var r = (int)((object[])o)[2];
+
+            int m;
+
+            if (l >= r)// Условие выхода из рекурсии
+                return;
+
+            m = (l + r) / 2;
+
+            // Рекурсивная сортировка полученных массивов
+            if (threadsCount <= 7) // число - количество потоков
+            {
+                var firstThread = new Thread(MergeSortParallel);
+                firstThread.Start(new object[] { a, l, m });
+
+                var secondThread = new Thread(MergeSortParallel);
+                secondThread.Start(new object[] { a, m + 1, r });
+
+                while (firstThread.IsAlive || secondThread.IsAlive)
+                {
+                    Thread.Sleep(5);
+                }
+            } else
+            {
+                MergeSortParallel(new object[] { a, l, m });
+                MergeSortParallel(new object[] { a, m + 1, r });
+            }
+            MergeParallel(a, l, r, m);
+            return;
+        }
+
+        public static void MergeSortParallel(T[] a, int l, int r)
+        {
+            MergeSortParallel(new object[] { a, l, r });
+        }
+
+        /// <summary>
+        /// Быстрая сортировка
+        /// </summary>
+        public static void QuickSort(T[] _items, int l, int r)
+        {
+            T temp;
+            T x = _items[l + (r - l) / 2]; //запись эквивалентна (l+r)/2, но не вызввает переполнения на больших данных
+            int i = l;
+            int j = r;
+            
+            while (i <= j) //код в while обычно выносят в процедуру particle
+            {
+                while (_items[i].CompareTo(x) < 0)
+                    i++;
+                while (_items[j].CompareTo(x) > 0)
+                    j--;
+                if (i <= j)
+                {
+                    temp = _items[i];
+                    _items[i] = _items[j];
+                    _items[j] = temp;
+                    i++;
+                    j--;
+                }
+            }
+            if (i < r)
+                QuickSort(_items, i, r);
+
+            if (l < j)
+                QuickSort(_items, l, j);
+        }
+
+
+
         /// <summary>
         /// Сортировка слиянием
         /// </summary>
-        private static void Merge(T[] Mas, int left, int right, int medium)
+        public static void Merge(T[] Mas, int left, int right, int medium)
         {
             int j = left;
             int k = medium + 1;
@@ -110,12 +231,8 @@ namespace ASD.Sort
         /// <summary>
         /// Сортировка слиянием
         /// </summary>
-        private static void MergeSort(object o)
+        public static void MergeSort(T[] a, int l, int r)
         {
-            var a = (T[])((object[])o)[0];
-            var l = (int)((object[])o)[1];
-            var r = (int)((object[])o)[2];
-
             int m;
 
             if (l >= r)// Условие выхода из рекурсии
@@ -124,193 +241,11 @@ namespace ASD.Sort
             m = (l + r) / 2;
 
             // Рекурсивная сортировка полученных массивов
-
-            var firstThread = new Thread(MergeSort);
-            firstThread.Start(new object[] { a, l, m });
-
-            var secondThread = new Thread(MergeSort);
-            secondThread.Start(new object[] { a, m + 1, r });
-
-            while (firstThread.IsAlive || secondThread.IsAlive)
-            {
-                Thread.Sleep(10);
-            }
-
+            MergeSort(a, l, m);
+            MergeSort(a, m + 1, r);
             Merge(a, l, r, m);
             return;
         }
 
-        public static void MergeSort(T[] a, int l, int r)
-        {
-            MergeSort(new object[] { a, l, r });
-        }
-
-        /// <summary>
-        /// Быстрая сортировка
-        /// </summary>
-        public static void QuickSort(T[] _items, int l, int r)
-        {
-            T temp;
-            T x = _items[l + (r - l) / 2]; //запись эквивалентна (l+r)/2, но не вызввает переполнения на больших данных
-            int i = l;
-            int j = r;
-            
-            while (i <= j) //код в while обычно выносят в процедуру particle
-            {
-                while (_items[i].CompareTo(x) < 0)
-                    i++;
-                while (_items[j].CompareTo(x) > 0)
-                    j--;
-                if (i <= j)
-                {
-                    temp = _items[i];
-                    _items[i] = _items[j];
-                    _items[j] = temp;
-                    i++;
-                    j--;
-                }
-            }
-            if (i < r)
-                QuickSort(_items, i, r);
-
-            if (l < j)
-                QuickSort(_items, l, j);
-        }
-
-        public static int[] NoRecursQuickSort(int[] _items, int l, int r) // Быстрая сортировка
-        {
-            var curLR = new LRObj()
-            {
-                L = l,
-                R = r
-            };
-
-            while (true)
-            {
-                #region QS
-                int temp;
-                int x = _items[curLR.L + (curLR.R - curLR.L) / 2];
-                //запись эквивалентна (min+r)/2, 
-                //но не вызввает переполнения на больших данных
-                int i = curLR.L;
-                int j = curLR.R;
-                //код в while обычно выносят в процедуру particle
-                while (i <= j)
-                {
-                    while (_items[i] < x)
-                        i++;
-                    while (_items[j] > x)
-                        j--;
-                    if (i <= j)
-                    {
-                        temp = _items[i];
-                        _items[i] = _items[j];
-                        _items[j] = temp;
-                        i++;
-                        j--;
-                    }
-                }
-                #endregion
-
-                #region CalcLeftRight
-                LRObj left = null;
-                LRObj right = null;
-
-                if (i < curLR.R)
-                {
-                    left = new LRObj()
-                    {
-                        L = i,
-                        R = curLR.R
-                    };
-                }
-
-                if (curLR.L < j)
-                {
-                    right = new LRObj()
-                    {
-                        L = curLR.L,
-                        R = j
-                    };
-                }
-                #endregion
-
-                #region ReplaceThisToLeftRight
-                if (left != null)
-                {
-                    left.Prev = curLR.Prev;
-
-                    left.Next = right;
-                    if (left.Next == null)
-                        left.Next = curLR.Next;
-                }
-
-                if (right != null)
-                {
-                    right.Next = curLR.Next;
-
-                    right.Prev = left;
-
-                    if (right.Prev == null)
-                        right.Prev = curLR.Prev;
-                }
-
-                if (left != null || right != null)
-                {
-                    if (curLR.Prev != null)
-                        curLR.Prev.Next = (left == null) ? right : left;
-
-                    if (curLR.Next != null)
-                        curLR.Next.Prev = (right == null) ? left : right;
-                }
-                else
-                {
-                    if (curLR.Prev != null)
-                        curLR.Prev.Next = curLR.Next;
-
-                    if (curLR.Next != null)
-                        curLR.Next.Prev = curLR.Prev;
-                }
-                #endregion
-
-                #region SetupNextIteration
-                if (left != null)
-                {
-                    curLR = left;
-                    continue;
-                }
-
-                if (curLR.Prev != null)
-                {
-                    curLR = curLR.Prev;
-                    continue;
-                }
-
-                if (right != null)
-                {
-                    curLR = right;
-                    continue;
-                }
-
-                if (curLR.Next != null)
-                {
-                    curLR = curLR.Next;
-                    continue;
-                }
-                #endregion       
-
-                break;
-            }
-
-            return _items;
-        }
-
-        private class LRObj
-        {
-            public int L;
-            public int R;
-            public LRObj Prev;
-            public LRObj Next;
-        }
     }
 }

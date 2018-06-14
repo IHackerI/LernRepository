@@ -47,8 +47,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DifUr\Euler.cs" />
-    <Compile Include="DifUr\RungeKutta2.cs" />
-    <Compile Include="DifUr\RungeKutta4.cs" />
+    <Compile Include="DifUr\RungeKutt2.cs" />
+    <Compile Include="DifUr\RungeKutt4.cs" />
     <Compile Include="LinAl\Gauss.cs" />
     <Compile Include="LinAl\GramSchmidt.cs" />
     <Compile Include="LinAl\Iteration.cs" />

@@ -26,8 +26,8 @@ namespace ChislMethods.WorkTesters
                 double[] x = new double[] { 1.0 };
                 double[,] rez;
                 
-                var rk2 = new RungeKutta2(0, 1, x, 0.1);
-                var rk4 = new RungeKutta4(0, 1, x, 0.1);
+                var rk2 = new RungeKutt2(0, 1, x, 0.1);
+                var rk4 = new RungeKutt4(0, 1, x, 0.1);
                 var euler = new Euler(0, 1, x, 0.1);
 
                 //Запрашивает Инструменты ввода/вывода

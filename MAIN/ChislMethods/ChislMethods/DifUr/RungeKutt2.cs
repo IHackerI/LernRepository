@@ -8,13 +8,14 @@ namespace ChislMethods.DifUr
     /// <summary>
     /// Решение дифференциальных уравнений методом Рунге-Кутта 2-го порядка
     /// </summary>
-    public class RungeKutta2
+    public class RungeKutt2
     {
-        double a, b; // начало и конец отрезка
-        double h; //шаг
+        double a;   // начало отрезка
+        double b;   // конец отрезка
+        double h;   // шаг
         double[] x; //вектор начальных состояний
 
-        public RungeKutta2(double a, double b, double[] xn, double h)
+        public RungeKutt2(double a, double b, double[] xn, double h)
         {
             this.a = a;
             this.b = b;

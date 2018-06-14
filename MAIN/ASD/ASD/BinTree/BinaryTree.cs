@@ -9,7 +9,7 @@ namespace ASD.BinTree // data = key
     /// Бинарное дерево
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class BinaryTree <T>
+    public class BinaryTree<T>
     {
 
         Node<T> root;
@@ -94,8 +94,8 @@ namespace ASD.BinTree // data = key
                 Insert(remNode, newNode.Right, newNode);
             }
         }
-        
-        
+
+
         /// <summary>
         /// Максимальный ключ в дереве
         /// </summary>
@@ -130,7 +130,7 @@ namespace ASD.BinTree // data = key
         {
             if (node == null) return;
             var me = node.MeForParent();
-            
+
             if (node.Left == null && node.Right == null)//Если у узла нет дочерних элементов, его можно удалять
             {
                 if (me == BinSide.Left)
@@ -194,15 +194,29 @@ namespace ASD.BinTree // data = key
             {
                 var newRoot = node.Right;
                 var oldRoot = node;
-                
+
                 root = newRoot;
                 root.Parent = null;
 
                 oldRoot.Left.Parent = root.Left;
+                //root.Left.Left = oldRoot.Left;
                 if (root.Left == null)
                     root.Left = oldRoot.Left;
                 else
                     root.Left.Left = oldRoot.Left;
+
+                //Insert(oldRoot.Left, root, root);
+
+                /*var bufLeft = node.Left;
+                var bufRightLeft = node.Right.Left;
+                var bufRightRight = node.Right.Right;
+                node.Key = node.Right.Key;
+                node.Value = node.Right.Value;
+                node.Right = bufRightRight;
+                node.Left = bufRightLeft;
+                root = node;
+                node.Parent = null;
+                Insert(bufLeft, node, node);*/
             }
             else
             {
@@ -221,130 +235,6 @@ namespace ASD.BinTree // data = key
             {
                 Remove(removeNode);
             }
-        }
-
-        public void SmallRightRotate(Node<T> baseNode)
-        {
-            if (baseNode == null) return;
-
-            var a = baseNode;
-            var b = a.Left;     if (b == null) return;
-          //var l = b.Left;
-            var c = b.Right;
-          //var r = a.Right;
-          
-            if (a.Parent == null)
-                root = b;
-            else
-                if (a.MeForParent() == BinSide.Left)
-                    a.Parent.Left = b;
-                else
-                    a.Parent.Right = b;
-
-            b.Parent = a.Parent;
-            a.Parent = b;
-
-            a.Left = c;     if (c != null)
-            c.Parent = a;
-
-            b.Right = a;
-        }
-
-        public void SmallLeftRotate(Node<T> baseNode)
-        {
-            if (baseNode == null) return;
-
-            var a = baseNode;
-            var b = a.Right;    if (b == null) return;
-          //var l = a.Left;
-            var c = b.Left;
-          //var r = b.Right;
-          
-            if (a.Parent == null)
-                root = b;
-            else
-                if (a.MeForParent() == BinSide.Left)
-                    a.Parent.Left = b;
-                else
-                    a.Parent.Right = b;
-
-            b.Parent = a.Parent;
-            a.Parent = b;
-            
-            a.Right = c; if (c != null)
-            c.Parent = a;
-
-            b.Left = a;
-        }
-
-        public void BigRightRotate(Node<T> baseNode)
-        {
-            if (baseNode == null) return;
-
-            var a = baseNode;
-            var b = a.Left;     if (b == null) return;
-            var c = b.Right;    if (c == null) return;
-          //var l = b.Left;
-            var m = c.Left;
-            var n = c.Right;
-          //var r = a.Right;
-            
-            if (a.Parent == null)
-                root = c;
-            else
-                if (a.MeForParent() == BinSide.Left)
-                    a.Parent.Left = c;
-                else
-                    a.Parent.Right = c;
-
-            c.Parent = a.Parent;
-
-            c.Left = b;
-            b.Parent = c;
-
-            c.Right = a;
-            a.Parent = c;
-
-            b.Right = m;    if (m != null)
-            m.Parent = b;
-
-            a.Left = n;     if (n != null)
-            n.Parent = a;
-        }
-
-        public void BigLeftRotate(Node<T> baseNode)
-        {
-            if (baseNode == null) return;
-
-            var a = baseNode;
-            var b = a.Right;    if (b == null) return;
-            var c = b.Left;     if (c == null) return;
-          //var l = a.Left;
-            var m = c.Left;
-            var n = c.Right;
-          //var r = b.Right;
-            
-            if (a.Parent == null)
-                root = c;
-            else
-                if (a.MeForParent() == BinSide.Left)
-                    a.Parent.Left = c;
-                else
-                    a.Parent.Right = c;
-
-            c.Parent = a.Parent;
-
-            c.Left = a;
-            a.Parent = c;
-
-            c.Right = b;
-            b.Parent = c;
-
-            a.Right = m;    if (m != null)
-            m.Parent = a;
-
-            b.Left = n;     if (n != null)
-            n.Parent = b;
         }
 
         /// <summary>
@@ -377,15 +267,35 @@ namespace ASD.BinTree // data = key
             }
             return Find(key, node.Right);
         }
-        
+
         /// <summary>
         /// Количество элементов в дереве
         /// </summary>
         public long CountElements()
         {
-            if (root == null)
+            return CountElements(root);
+        }
+
+        /// <summary>
+        /// Количество элементов в определённом узле
+        /// </summary>
+        private long CountElements(Node<T> node)
+        {
+            //(new System.Collections.Generic.Stack<int>()).po
+
+            if (node == null)
                 return 0;
-            return root.CountElements();
+
+            long count = 1;
+            if (node.Right != null)
+            {
+                count += CountElements(node.Right);
+            }
+            if (node.Left != null)
+            {
+                count += CountElements(node.Left);
+            }
+            return count;
         }
     }
 
@@ -394,87 +304,49 @@ namespace ASD.BinTree // data = key
         /// <summary>
         /// Вывод дерева
         /// </summary>
-        public static void RecursPrint(BinaryTree<T> tree)
+        public static void Print(BinaryTree<T> tree)
         {
             if (tree == null || tree.Root == null)
             {
                 return;
             }
 
-            var views = new List<List<string>>();
-
-            RecursPrint(tree.Root, 0, 0, views);
-
-            Console.WriteLine();
-
-            int maxRow = 0;
-
-            foreach (var col in views)
-            {
-                if (maxRow < col.Count)
-                    maxRow = col.Count;
-            }
-            
-            int width = (int)Math.Pow(2, views.Count-1);
-
-            for (int i = 0; i < views.Count; i++)
-            {
-                int step = Math.Max(1, width);
-                
-                foreach (var view in views[i])
-                {
-                    Console.Write(view.PadLeft(step).PadRight(step+step));
-                }
-
-                width >>= 1;
-                Console.WriteLine();
-                Console.WriteLine();
-            }
+            Print(tree.Root);
         }
 
         /// <summary>
         /// Вывод элементов дерева
         /// </summary>
-        public static void RecursPrint(Node<T> baseNode, int level, int ind, List<List<string>> views)
+        public static void Print(Node<T> baseNode)
         {
-            if (views.Count <= level)
-                views.Add(new List<string>());
-
-            while (views[level].Count < ind)
-            {
-                views[level].Add("_");
-            }
-
             if (baseNode == null)
-            {
-                views[level].Add("_");
                 return;
-            }
-            
-            views[level].Add(baseNode.Key.ToString());
-            
-            RecursPrint(baseNode.Left , level + 1, (ind<<1)  , views);
-            RecursPrint(baseNode.Right, level + 1, (ind<<1)+1, views);
-        }
 
-        public static void UpNoRecursPrint(BinaryTree<T> tree)
-        {
-            var t = tree.MinNode();
-            while (t != null)
+            if (baseNode.Parent == null)
             {
-                Console.WriteLine(" Key: {0}", t.Key);
-                t = t.NextNode();
+                Console.WriteLine("ROOT:{0}", baseNode.Key);
             }
-        }
-
-        public static void DownNoRecursPrint(BinaryTree<T> tree)
-        {
-            var t = tree.MaxNode();
-            while (t != null)
+            else
             {
-                Console.WriteLine(" Key: {0}", t.Key);
-                t = t.PrevNode();
+                if (baseNode.Parent.Left == baseNode)
+                {
+                    Console.WriteLine("Left for {1}  --> {0}", baseNode.Key, baseNode.Parent.Key);
+                }
+
+                if (baseNode.Parent.Right == baseNode)
+                {
+                    Console.WriteLine("Right for {1} --> {0}", baseNode.Key, baseNode.Parent.Key);
+                }
+            }
+            if (baseNode.Left != null)
+            {
+                Print(baseNode.Left);
+            }
+            if (baseNode.Right != null)
+            {
+                Print(baseNode.Right);
             }
         }
     }
+
 }

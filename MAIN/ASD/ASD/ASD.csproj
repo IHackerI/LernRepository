@@ -44,7 +44,6 @@
   <ItemGroup>
     <Compile Include="BinTree\BinaryTree.cs" />
     <Compile Include="BinTree\Node.cs" />
-    <Compile Include="Graph\Deikstra.cs" />
     <Compile Include="SetDeckQueueStack\CycleDeck.cs" />
     <Compile Include="WorkTesters\BinaryTreeTester.cs" />
     <Compile Include="Graph\Edge.cs" />

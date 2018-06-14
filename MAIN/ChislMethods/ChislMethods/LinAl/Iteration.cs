@@ -17,9 +17,6 @@ namespace ChislMethods.LinAl
         /// </summary>
         public static Vector Calculate(Matrix A, Vector b, double eps)
         {
-            //A = A * (1/100);
-
-
             Matrix D = A.GetMatrixDiag();
 
             Matrix B = D.InverseMatrix() * (D.Substract(A));
