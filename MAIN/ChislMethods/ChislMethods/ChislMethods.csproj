@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Addons\Sort.cs" />
     <Compile Include="DifUr\Euler.cs" />
     <Compile Include="DifUr\RungeKutt2.cs" />
     <Compile Include="DifUr\RungeKutt4.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="LinAl\Iteration.cs" />
     <Compile Include="LinAl\Matrix.cs" />
     <Compile Include="LinAl\Ortogonolization.cs" />
+    <Compile Include="WorkTesters\AddonsTester.cs" />
     <Compile Include="WorkTesters\DifUrsTEST.cs" />
     <Compile Include="FindFuncs\HalfDif.cs" />
     <Compile Include="WorkTesters\FincValueFindersTest.cs" />
