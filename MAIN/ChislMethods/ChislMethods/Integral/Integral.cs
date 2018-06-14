@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ChislMethods.Integral
 {
@@ -18,24 +20,57 @@ namespace ChislMethods.Integral
         public static double CalcSimpson(double xBot, double xTop, double eps, F f)
         {
             int n = 1;
-            double f0 = f(xBot) + f(xTop);
-            double f1, f2 = 0, h, s = 0, res = 1;
-            while (Math.Abs(Math.Abs(s) - Math.Abs(res)) > eps)
+            double f2 = 0, os = 0, ns = 1;
+            while (Math.Abs(Math.Abs(os) - Math.Abs(ns)) > eps)
             {
-                f1 = 0;
-                s = res;
+                os = ns;
                 n *= 2;
-                h = (xTop - xBot) / n;
-                for (int i = 1; i < n; i += 2)
-                {
-                    f1 += f(xBot + h * i);
-                }
-                res = h / 3 * (f0 + 4 * f1 + 2 * f2);
-                f2 += f1;
+                ns = OneStep(xBot, xTop, f, n, ref f2);
             }
-            return res;
+            return ns;
+        }
+        
+        public static double ParallelSimpson(double xBot, double xTop, double eps, F f, int thCount)
+        {
+            var step = (xTop - xBot) / thCount;
+            double ns = 0, os;
+            double[] f2 = new double[thCount];
+            
+            int n = 1;
+            do
+            {
+                os = ns;
+                ns = 0;
+                n *= 2;
+
+                Parallel.For(0, thCount, delegate (int i) 
+                {
+                    ns += OneStep(xBot + (i * step), xBot + ((i + 1) * step), f, n, ref f2[i]);
+                });
+                
+            } while (Math.Abs(Math.Abs(os) - Math.Abs(ns)) > eps);
+
+            return ns;
         }
 
+        private static double OneStep(double xBot, double xTop, F f, int n,ref double f2)
+        {
+            double f0 = f(xBot) + f(xTop);
+            
+            double f1 = 0;
+            var h = (xTop - xBot) / n;
+
+            for (int i = 1; i < n; i+=2)
+            {
+                f1 += f(xBot + h * i);
+            }
+            
+            var ans = (h / 3) * (f0 + 4 * f1 + 2 * f2);
+            
+            f2 += f1;
+            return ans;
+        }
+        
         /// <summary>
         /// Интегрирование Методом прямоугольников с запоминанием предыдущих значений
         /// </summary>ы
