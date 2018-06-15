@@ -23,6 +23,11 @@ namespace ChislMethods.LinAl
         /// </summary>
         public Vector Calculate(Matrix m, Vector vector)
         {
+            if (Size < 1)
+            {
+                return null;
+            }
+
             Vector nAn = new Vector(0);
             Matrix u = new Matrix(new double[Size, Size]);
             Matrix v = new Matrix(new double[Size, Size]);
@@ -46,7 +51,7 @@ namespace ChislMethods.LinAl
             v.SetRow(u.GetRow(0).Normalization(), 0); //v[0]
 
             Vector t = new Vector(Size);
-            #warning div0
+            //#warning div0 (Проверка в самом начале Size)
             t[0] = vector[0] / u.GetRow(0).Len(); // h[0]
 
             int count = 1; // счетчик пременных, для которых уже найдены первые значения
@@ -72,7 +77,7 @@ namespace ChislMethods.LinAl
                 for (int i = 0; i < Size; i++) // находим u
                     u[count, i] = m[count, i] - temp[i];
 
-                #warning div0
+                //#warning div0 (Проверка выше на Size)
                 t[count] = (vector[count] - temp_h) / u.GetRow(count).Len(); // нашли h
 
                 v.SetRow(u.GetRow(count).Normalization().Normalization(), count);

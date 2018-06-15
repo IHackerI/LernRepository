@@ -104,15 +104,17 @@ namespace ChislMethods.WorkTesters
                 //c => c * c * c
             };
 
-            var Koeff = LeastSquareMethod.Calculate(func, x, y);
+            var lsm = new LeastSquareMethod(func);
 
-            Console.WriteLine($"Koeff {Koeff}");
+            lsm.Calculate(x, y);
+
+            Console.WriteLine($"Koeff {lsm.Koeff}");
             Console.WriteLine();
 
             for (var step = -3.0; step < 3; step += 0.25)
             {
                 Console.WriteLine($"X ={step.ToString().PadLeft(10, ' ')}, KVStep = {(step * step).ToString().PadLeft(10, ' ')}, " +
-                    $"Approx = { LeastSquareMethod.CalcApprox(step, Koeff, func).ToString().PadLeft(10, ' ')}");
+                    $"Approx = { lsm.CalcApprox(step).ToString().PadLeft(10, ' ')}");
             }
         }
 

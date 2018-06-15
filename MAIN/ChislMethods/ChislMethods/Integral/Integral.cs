@@ -10,6 +10,8 @@ namespace ChislMethods.Integral
     {
         public delegate double F(double x);
 
+        #warning Simpson2Variables
+
         /// <summary>
         /// Интегрирование Методом Симпсона
         /// </summary
