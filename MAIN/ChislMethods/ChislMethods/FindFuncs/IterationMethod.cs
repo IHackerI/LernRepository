@@ -21,6 +21,8 @@ namespace ChislMethods.FindFuncs
             double x0;
 
             int iterations = 0;
+            
+            #warning CheckDelta
 
             do
             {

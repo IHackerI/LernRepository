@@ -46,6 +46,7 @@ namespace ChislMethods.LinAl
             v.SetRow(u.GetRow(0).Normalization(), 0); //v[0]
 
             Vector t = new Vector(Size);
+            #warning div0
             t[0] = vector[0] / u.GetRow(0).Len(); // h[0]
 
             int count = 1; // счетчик пременных, для которых уже найдены первые значения
@@ -71,6 +72,7 @@ namespace ChislMethods.LinAl
                 for (int i = 0; i < Size; i++) // находим u
                     u[count, i] = m[count, i] - temp[i];
 
+                #warning div0
                 t[count] = (vector[count] - temp_h) / u.GetRow(count).Len(); // нашли h
 
                 v.SetRow(u.GetRow(count).Normalization().Normalization(), count);

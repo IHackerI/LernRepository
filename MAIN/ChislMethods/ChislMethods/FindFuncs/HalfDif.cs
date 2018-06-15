@@ -18,12 +18,12 @@ namespace ChislMethods.FindFuncs
         /// </summary>
         public static double Calculate(double eps, double left, double right, DelFunc func)
         {
-            var length = right - left;
-            var error = length;
+            var delta = right - left;
+            var curDelta = delta;
             double Fmin = func(left);
             double Fmax = func(right);
             if (Fmin * Fmax > 0) return Double.NaN;
-            while (error > eps)
+            while (curDelta > eps)
             {
                 double x = (left + right) / 2;
                 double Fx = func(x);
@@ -37,7 +37,7 @@ namespace ChislMethods.FindFuncs
                     Fmin = Fx;
                 }
 
-                error = (right - left);
+                curDelta = (right - left);
             }
             return (left + right) / 2;
         }

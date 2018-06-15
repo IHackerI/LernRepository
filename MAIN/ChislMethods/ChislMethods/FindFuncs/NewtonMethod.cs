@@ -19,7 +19,7 @@ namespace ChislMethods.FindFuncs
 
             bool flag = false;
             double nextCurr = 0;
-            double incr = 0;
+            double oldDelta = 0;
             double delta;
             do
             {
@@ -30,8 +30,8 @@ namespace ChislMethods.FindFuncs
                 nextCurr = curr - Func(curr) / der;
                 delta = Math.Abs(nextCurr - curr);
 
-                if ((delta <= incr) || !flag)
-                    incr = delta;
+                if ((delta <= oldDelta) || !flag)
+                    oldDelta = delta;
                 else return Double.NaN;
 
                 flag = true;

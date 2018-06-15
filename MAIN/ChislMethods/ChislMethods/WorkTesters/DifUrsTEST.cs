@@ -30,6 +30,8 @@ namespace ChislMethods.WorkTesters
                 var rk4 = new RungeKutta4(0, 1, x, 0.1);
                 var euler = new Euler(0, 1, x, 0.1);
 
+                #warning прикрутить аналитику
+
                 //Запрашивает Инструменты ввода/вывода
                 //предоставить выбор тестируемого модуля
                 var choice = IOSystem.SafeSimpleChoice("Выберите метод: ", new string[]

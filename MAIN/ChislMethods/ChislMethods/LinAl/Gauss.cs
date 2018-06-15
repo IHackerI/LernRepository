@@ -41,6 +41,7 @@ namespace ChislMethods.LinAl
                 for (int z = 1; z < b.Size; z++)
                     for (int j = z; j < b.Size; j++)
                     {
+                        #warning Check0
                         x = items[j, z - 1] / items[z - 1, z - 1];
                         for (int k = 0; k < b.Size; k++)
                             items[j, k] = items[j, k] - x * items[z - 1, k];
@@ -52,6 +53,7 @@ namespace ChislMethods.LinAl
             {
                 for (int j = q + 1; j < b.Size; j++)
                     b[q] -= items[q, j] * b[j];
+                #warning Check0
                 b[q] = b[q] / items[q, q];
             }
             return b;

@@ -60,6 +60,7 @@ namespace ChislMethods.LinAl
                     result.R.Column(row, r);
                     matrix.Column(column, a);
 
+                    #warning Check0
                     result.T[row, column] = a.ScalarProduct(r) / r.ScalarProduct(r);
 
                     vec.Add(-result.T[row, column] * r);

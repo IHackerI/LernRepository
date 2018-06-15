@@ -16,7 +16,7 @@ namespace ChislMethods.WorkTesters
             try
             {
                 Console.WriteLine("Функция x*x\n");
-                Integral.Integral.F func = x => x*x;
+                Integral.Integral.F func = x => Math.Cos(x*5)+5;
                 Stopwatch sw = new Stopwatch();
                 sw.Start();
 
@@ -34,15 +34,17 @@ namespace ChislMethods.WorkTesters
                 Console.WriteLine(sw.ElapsedTicks);
 
                 Console.WriteLine("\nМетод параллельного Cимпсона");
+                GC.TryStartNoGCRegion(999999);
                 sw.Restart();
-                Console.WriteLine(Integral.Integral.ParallelSimpson(11, 20, 0.00001, func, 4));
+                Console.WriteLine(Integral.Integral.ParallelSimpson(-1000000, 1000000, 0.00001, func, 4));
                 sw.Stop();
                 Console.WriteLine("Время расчёта");
                 Console.WriteLine(sw.ElapsedTicks);
 
                 Console.WriteLine("\nМетод Cимпсона");
                 sw.Restart();
-                Console.WriteLine(Integral.Integral.CalcSimpson(11, 20, 0.00001, func));
+                GC.Collect();
+                Console.WriteLine(Integral.Integral.CalcSimpson(-1000000, 1000000, 0.00001, func));
                 sw.Stop();
                 Console.WriteLine("Время расчёта");
                 Console.WriteLine(sw.ElapsedTicks);

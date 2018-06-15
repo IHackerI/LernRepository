@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace ChislMethods.Integral
@@ -33,22 +29,12 @@ namespace ChislMethods.Integral
         public static double ParallelSimpson(double xBot, double xTop, double eps, F f, int thCount)
         {
             var step = (xTop - xBot) / thCount;
-            double ns = 0, os;
-            double[] f2 = new double[thCount];
-            
-            int n = 1;
-            do
-            {
-                os = ns;
-                ns = 0;
-                n *= 2;
+            double ns = 0;
 
-                Parallel.For(0, thCount, delegate (int i) 
-                {
-                    ns += OneStep(xBot + (i * step), xBot + ((i + 1) * step), f, n, ref f2[i]);
-                });
-                
-            } while (Math.Abs(Math.Abs(os) - Math.Abs(ns)) > eps);
+            Parallel.For(0, thCount, delegate (int i)
+            {
+                ns += CalcSimpson(xBot + (i * step), xBot + ((i + 1) * step), eps, f);
+            });
 
             return ns;
         }

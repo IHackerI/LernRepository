@@ -9,6 +9,7 @@ namespace ChislMethods.LinAl
     /// </summary>
     public class LeastSquareMethod
     {
+        #warning CheckAprox
         public static double CalcApprox(double x, Vector Koeff, Func<double, double>[] func)
         {
             var res = 0.0;

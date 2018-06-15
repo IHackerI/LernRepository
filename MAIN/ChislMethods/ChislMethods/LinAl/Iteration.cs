@@ -18,7 +18,7 @@ namespace ChislMethods.LinAl
         public static Vector Calculate(Matrix A, Vector b, double eps)
         {
             //A = A * (1/100);
-
+            #warning приведение
 
             Matrix D = A.GetMatrixDiag();
 
