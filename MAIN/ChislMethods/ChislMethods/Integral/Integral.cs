@@ -9,8 +9,30 @@ namespace ChislMethods.Integral
     public class Integral
     {
         public delegate double F(double x);
+        public delegate double F2(double x, double y);
+        
+        public static double CalcSimpson2(double xBot, double xTop, int N, F2 func)
+        {
+            double sum1, sum2, sum3;   // временные переменные
+            double sum;                // конечный результат
+            double h = (2 * xTop) / N; // шаг сетки
 
-        #warning Simpson2Variables
+            sum1 = sum2 = sum3 = 0;
+
+            sum1 = func(xBot, -xTop) + func(xBot, +xTop);
+
+            for (int i = 1; i <= N - 1; i++)
+                sum2 += func(xBot, -xTop + (i * h));
+            sum2 *= 2;
+
+            for (int i = 1; i <= N; i++)
+                sum3 += func(xBot, -xTop + ((i - 0.5) * h));
+            sum3 *= 4;
+
+            sum = sum1 + sum2 + sum3;
+            sum = (h / 6) * sum;
+            return sum;
+        }
 
         /// <summary>
         /// Интегрирование Методом Симпсона
