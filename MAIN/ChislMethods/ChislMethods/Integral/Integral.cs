@@ -83,7 +83,7 @@ namespace ChislMethods.Integral
         
         /// <summary>
         /// Интегрирование Методом прямоугольников с запоминанием предыдущих значений
-        /// </summary>ы
+        /// </summary>
         public static double CalcRectangle(double xBot, double xTop, double eps, F f)
         {
             int n = 1;
