@@ -20,50 +20,32 @@ namespace ChislMethods.WorkTesters
                 Console.WriteLine("Функция x*x\n");
                 Integral.Integral.F func = x => Math.Cos(x*5)+5;
                 Stopwatch sw = new Stopwatch();
-                sw.Start();
 
                 Console.WriteLine("Метод прямоугольников");
-                Console.WriteLine(Integral.Integral.CalcRectangle(11, 20, 0.001, func));
-                sw.Stop();
-                Console.WriteLine("Время расчёта");
-                Console.WriteLine(sw.ElapsedTicks);
-                sw.Restart();
+                Console.WriteLine("S = " + Integral.Integral.CalcRectangle(11, 20, 0.001, func));
+                
 
                 Console.WriteLine("\nМетод трапеций");
-                Console.WriteLine(Integral.Integral.CalcTrapezium(11, 20, 0.00001, func));
-                sw.Stop();
-                Console.WriteLine("Время расчёта");
-                Console.WriteLine(sw.ElapsedTicks);
-
-                Console.WriteLine("\nМетод параллельного Cимпсона");
-                GC.TryStartNoGCRegion(999999);
-                sw.Restart();
-                Console.WriteLine(Integral.Integral.ParallelSimpson(-100000, 100000, 0.00001, func, 4));
-                sw.Stop();
-                Console.WriteLine("Время расчёта");
-                Console.WriteLine(sw.ElapsedTicks);
+                Console.WriteLine("S = " + Integral.Integral.CalcTrapezium(11, 20, 0.00001, func));
 
                 Console.WriteLine("\nМетод Cимпсона");
-                sw.Restart();
-                GC.Collect();
-                Console.WriteLine(Integral.Integral.CalcSimpson(-100000, 100000, 0.00001, func));
-                sw.Stop();
-                Console.WriteLine("Время расчёта");
-                Console.WriteLine(sw.ElapsedTicks);
+                Console.WriteLine("S = " + Integral.Integral.CalcSimpson(11, 20, 0.00001, func));
 
-                Console.WriteLine("\nМетод Cимпсона (двойной интеграл)\n");
+                Console.WriteLine("\nМетод Cимпсона для функции двух переменных\n");
                 Console.WriteLine("Формула для расчёта: x * x + y * y");
 
-                var N = 50;//IOSystem.GetInt("Введите кол-во узлов сетки: ");
+                var N = 5; // Количество узлов сетки
 
+                var xBot = 11;
+                var xTop = 20;
+
+                var yBot = 11;
+                var yTop = 20;
+                
                 Console.WriteLine("Узлов сетки: " + N + "\n");
-
-                sw.Restart();
-                var ans = Integral.Integral.CalcSimpson2(11, 20, N, Parabloid);
-                sw.Stop();
-                Console.WriteLine(ans);
-                Console.WriteLine("Время расчёта");
-                Console.WriteLine(sw.ElapsedTicks);
+                
+                var ans = Integral.Integral.CalcSimpson2Var(xBot, xTop, yBot, yTop, N, Parabloid);
+                Console.WriteLine("V = " + ans);
 
             } catch (Exception e)
             {

@@ -16,7 +16,8 @@ namespace ChislMethods.WorkTesters
             FincValueFinders = 20,
             Integral = 30,
             LinAl = 40,
-            Spline = 50
+            Spline = 50,
+            Addons = 60
         }
 
         public delegate void EmptyD();
@@ -39,7 +40,8 @@ namespace ChislMethods.WorkTesters
                     FincValueFindersTest.TEST,  //|
                     IntegralTEST.TEST,          //|указание методов отправляемых на тест
                     LinAlTester.TEST,           //|
-                    SplineTest.TEST             //|
+                    SplineTest.TEST,            //|
+                    AddonsTester.TEST           //|
                 });
 
                 if (!testResult)

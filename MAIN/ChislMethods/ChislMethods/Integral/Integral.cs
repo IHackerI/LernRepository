@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChislMethods.LinAl;
+using System;
 using System.Threading.Tasks;
 
 namespace ChislMethods.Integral
@@ -10,28 +11,60 @@ namespace ChislMethods.Integral
     {
         public delegate double F(double x);
         public delegate double F2(double x, double y);
-        
-        public static double CalcSimpson2(double xBot, double xTop, int N, F2 func)
+
+        /// <summary>
+        /// Интегрирование Методом Симпсона для двойного интеграла
+        /// </summary
+        public static double CalcSimpson2Var(double xBot, double xTop, double yBot, double yTop, int N, F2 func)
         {
-            double sum1, sum2, sum3;   // временные переменные
-            double sum;                // конечный результат
-            double h = (2 * xTop) / N; // шаг сетки
+            Matrix testMat = new Matrix(2 * N, 2 * N);
 
-            sum1 = sum2 = sum3 = 0;
+            double h = (xTop - xBot) / (2 * N); //Шаг по х
+            double k = (yTop - yBot) / (2 * N); //Шаг по у
 
-            sum1 = func(xBot, -xTop) + func(xBot, +xTop);
+            double[] str = new double[2 * N];
 
-            for (int i = 1; i <= N - 1; i++)
-                sum2 += func(xBot, -xTop + (i * h));
-            sum2 *= 2;
+            str[0] = 1;
 
-            for (int i = 1; i <= N; i++)
-                sum3 += func(xBot, -xTop + ((i - 0.5) * h));
-            sum3 *= 4;
+            bool flag = false;
 
-            sum = sum1 + sum2 + sum3;
-            sum = (h / 6) * sum;
-            return sum;
+            for (int i = 1; i < str.Length - 1; i++)
+            {
+                if (flag)
+                    str[i] = 2;
+                else
+                    str[i] = 4;
+
+                flag = !flag;
+            }
+
+            str[str.Length - 1] = 1;
+
+            double sum = 0;
+
+            for (int i = 0; i < 2 * N; i++)
+            {
+                for (int j = 0; j < 2 * N; j++)
+                {
+                    var lambda = str[i];
+
+                    if (j > 0 && j < (2 * N) - 1)
+                    {
+                        if ((j & 1) == 1)
+                            lambda *= 4;
+                        else
+                            lambda *= 2;
+                    }
+
+                    testMat[i, j] = lambda;
+
+                    sum += lambda * func(xBot + h * i, yBot + k * j);
+                }
+            }
+
+            testMat.View();
+
+            return (h * k * sum) / 9;
         }
 
         /// <summary>
@@ -49,7 +82,7 @@ namespace ChislMethods.Integral
             }
             return ns;
         }
-        
+
         public static double ParallelSimpson(double xBot, double xTop, double eps, F f, int thCount)
         {
             var step = (xTop - xBot) / thCount;
@@ -63,24 +96,24 @@ namespace ChislMethods.Integral
             return ns;
         }
 
-        private static double OneStep(double xBot, double xTop, F f, int n,ref double f2)
+        private static double OneStep(double xBot, double xTop, F f, int n, ref double f2)
         {
             double f0 = f(xBot) + f(xTop);
-            
+
             double f1 = 0;
             var h = (xTop - xBot) / n;
 
-            for (int i = 1; i < n; i+=2)
+            for (int i = 1; i < n; i += 2)
             {
                 f1 += f(xBot + h * i);
             }
-            
+
             var ans = (h / 3) * (f0 + 4 * f1 + 2 * f2);
-            
+
             f2 += f1;
             return ans;
         }
-        
+
         /// <summary>
         /// Интегрирование Методом прямоугольников с запоминанием предыдущих значений
         /// </summary>
